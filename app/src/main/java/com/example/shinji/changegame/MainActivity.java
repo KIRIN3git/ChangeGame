@@ -14,15 +14,13 @@ import java.lang.reflect.Method;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static Point real;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        real = getRealSize();
-        Log.w("DEBUG_DATA", "getRealSize" + real.x + " " + real.y);
+        CommonMng.real = getRealSize();
+        Log.w("DEBUG_DATA", "getRealSize" + CommonMng.real.x + " " + CommonMng.real.y);
 
 
         Button btn = (Button) findViewById(R.id.game_start);
