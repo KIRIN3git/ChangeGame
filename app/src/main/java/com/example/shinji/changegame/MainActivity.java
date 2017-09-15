@@ -22,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
         CommonMng.real = getRealSize();
         Log.w("DEBUG_DATA", "getRealSize" + CommonMng.real.x + " " + CommonMng.real.y);
 
-
         Button btn = (Button) findViewById(R.id.game_start);
         btn.setOnClickListener(new View.OnClickListener() {
 

@@ -3,6 +3,7 @@ package com.example.shinji.changegame;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -25,5 +26,8 @@ public class GameActivity extends AppCompatActivity {
         CoinMng.CoinInit(this,layout);
 
 
+
     }
+
+
 }
