@@ -35,6 +35,11 @@ public class CommonMng{
 
         if( real == null ) return ret;
 
+		Log.w( "DEBUG_DATA", "real.x " + real.x);
+		Log.w( "DEBUG_DATA", "real.y " + real.y);
+		Log.w( "DEBUG_DATA", "psx " + psx);
+		Log.w( "DEBUG_DATA", "psy " + psy);
+
         ret[0] = real.x * (psx / 100.0f);
         ret[1] = real.y * (psy / 100.0f);
 

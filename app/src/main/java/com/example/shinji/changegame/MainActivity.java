@@ -9,6 +9,9 @@ import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import java.lang.reflect.Method;
 
@@ -19,8 +22,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        CommonMng.real = getRealSize();
-        Log.w("DEBUG_DATA", "getRealSize" + CommonMng.real.x + " " + CommonMng.real.y);
+//        CommonMng.real = getRealSize();
+
+//        Log.w("DEBUG_DATA", "getRealSize" + CommonMng.real.x + " " + CommonMng.real.y);
 
         Button btn = (Button) findViewById(R.id.game_start);
         btn.setOnClickListener(new View.OnClickListener() {
@@ -65,4 +69,22 @@ public class MainActivity extends AppCompatActivity {
 
         return real;
     }
+
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        // TODO Auto-generated method stub
+        super.onWindowFocusChanged(hasFocus);
+
+        // Viewのサイズを取得
+        int x,y;
+
+        RelativeLayout fl = (RelativeLayout) findViewById(R.id.activity_main);
+        x = fl.getWidth();
+        y = fl.getHeight();
+        Point real = new Point(x, y);
+
+        CommonMng.real = real;
+    }
+
 }
