@@ -43,7 +43,9 @@ public class GameActivity extends AppCompatActivity {
         FrameLayout layout = (FrameLayout)findViewById(R.id.over_layout);
 
         CoinMng coinMng = new CoinMng(this,layout);
-        coinMng.CoinInit();
+        coinMng.CoinInit(mContext);
+
+        //TImeMng
 
     }
 

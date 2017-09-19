@@ -41,17 +41,7 @@ public class CoinStatus {
         sY = (int)xy[1];
         sAmount = amount;
 
-        if( amount == 1 ){
-            image = CoinMng.ichienImageId;
-
-        }
-        else if( amount == 5 ) image = CoinMng.goenImageId;
-        else if( amount == 10 ) image = CoinMng.jyuenImageId;
-        else if( amount == 50 ) image = CoinMng.gojyuenImageId;
-        else if( amount == 100 ) image = CoinMng.hyakuenImageId;
-        else if( amount == 500 ) image = CoinMng.gohyakuenImageId;
-        else if( amount == 1000 ) image = CoinMng.senenImageId;
-        else return;
+        image = CoinMng.GetCoinImage( amount );
 
         Log.w( "DEBUG", "aaa x[] " + xy[0]);
         Log.w( "DEBUG", "aaa y[] " + xy[1]);
@@ -69,13 +59,13 @@ public class CoinStatus {
         imageView.setId(newId);
 
         // 画像のサイズの設定
-        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(100,100);
+        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(CoinMng.GetCoinSize(sAmount),CoinMng.GetCoinSize(sAmount));
 
         // 表示座標の設定
         lp.leftMargin = (int)xy[0];
         lp.topMargin = (int)xy[1];
 
-        imageView.layout(sX + 50,sY + 20,sX + 200,sY + 100);
+        imageView.layout(sX + 50,sY + 20,sX + 200,sY + CoinMng.GetCoinSize(sAmount));
 
         // 画像の追加
         CoinMng.mLayout.addView(imageView,lp);
@@ -132,7 +122,7 @@ public class CoinStatus {
             }
             @Override
             public void onAnimationEnd(Animation animation) {
-                imageView.layout(sX, sY, sX + 100, sY + 100);
+                imageView.layout(sX, sY, sX + CoinMng.GetCoinSize(sAmount), sY + CoinMng.GetCoinSize(sAmount));
                 imageView.setAnimation(null); //これをしないとアニメーション完了後にチラつく
                 Log.w( "DEBUG_DATAxx1", "onAnimationEnddddddddddddddddddddd1");
 
@@ -149,10 +139,14 @@ public class CoinStatus {
         final ImageView imageView = (ImageView)CoinMng.mLayout.findViewById(sViewId);
         int y = imageView.getTop();
 
-        Log.w( "DEBUG_DATAxx2", "y " + y);
 
-        if( walletFlg == true && 600 < y ) return true;
-        else if( walletFlg == false && 600 > y) return true;
+
+        final float xy[] = CommonMng.PsToPx( 0,60 );
+
+        Log.w( "DEBUG_DATAxx2aa", "xy[1] " + xy[1]);
+
+        if( walletFlg == true && xy[1] < y ) return true;
+        else if( walletFlg == false && xy[1] > y) return true;
 
     return false;
     }

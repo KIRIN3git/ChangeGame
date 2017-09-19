@@ -29,10 +29,16 @@ public class CommonMng{
 		return dp;
 	}
 
+    public static int PxToDp2(int px,float density){
+        int dp = (int)(px * density + 0.5f);
+
+        return dp;
+    }
+
 	// XY座標のパーセントをピクセルで返す
 	public static float[] PsToPx(float psx,float psy){
-		float ret[] = {0.0f,0.0f};
 
+		float ret[] = {0.0f,0.0f};
         if( real == null ) return ret;
 
 		Log.w( "DEBUG_DATA", "real.x " + real.x);
