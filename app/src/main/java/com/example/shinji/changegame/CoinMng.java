@@ -27,6 +27,30 @@ public class CoinMng implements OnTouchListener{
     // コインの枚数
     static int coinCount1 = 0;
 
+    // コインサイズ
+    // プレイヤーの半径
+    static int ICHIYEN_SIZE_DP = 50;
+    static int ICHIYEN_SIZE_PX;
+
+    static int GOYEN_SIZE_DP = 50;
+    static int GOYEN_SIZE_PX;
+
+    static int JYUYEN_SIZE_DP = 50;
+    static int JYUYEN_SIZE_PX;
+
+    static int GOJYUYEN_SIZE_DP = 50;
+    static int GOJYUYEN_SIZE_PX;
+
+    static int HYAKUYEN_SIZE_DP = 50;
+    static int HYAKUYEN_SIZE_PX;
+
+    static int GOHYAKUYEN_SIZE_DP = 50;
+    static int GOHYAKUYEN_SIZE_PX;
+
+    static int SENYEN_SIZE_DP = 60;
+    static int SENYEN_SIZE_PX;
+
+
     // 1円のID情報
     static ArrayList<Integer> coinIds1 = new ArrayList<Integer>();
 
@@ -49,10 +73,21 @@ public class CoinMng implements OnTouchListener{
         mVOL = (android.view.View.OnTouchListener)this;
     }
 
-    public void CoinInit(){
+    public void CoinInit(Context context){
 
         int i,x;
         CoinStatus coinMng;
+
+        // dp→px変換
+        float density = context.getResources().getDisplayMetrics().density;
+        ICHIYEN_SIZE_PX = CommonMng.PxToDp2(ICHIYEN_SIZE_DP,density);
+        GOYEN_SIZE_PX = CommonMng.PxToDp2(GOYEN_SIZE_DP,density);
+        JYUYEN_SIZE_PX = CommonMng.PxToDp2(JYUYEN_SIZE_DP,density);
+        GOJYUYEN_SIZE_PX = CommonMng.PxToDp2(GOJYUYEN_SIZE_DP,density);
+        HYAKUYEN_SIZE_PX = CommonMng.PxToDp2(HYAKUYEN_SIZE_DP,density);
+        GOHYAKUYEN_SIZE_PX = CommonMng.PxToDp2(GOHYAKUYEN_SIZE_DP,density);
+        SENYEN_SIZE_PX = CommonMng.PxToDp2(SENYEN_SIZE_DP,density);
+
 
         // 1円の複数枚表示
         x = 5;
@@ -230,6 +265,30 @@ mode:1 トレーの一番上
     {
         Log.w( "DEBUG_DATAxx2", "y00x " + event.getY());
         return true;
+    }
+
+    public static int GetCoinImage( int amount ){
+        if( amount == 1 ) return CoinMng.ichienImageId;
+        else if( amount == 5 ) return CoinMng.goenImageId;
+        else if( amount == 10 ) return CoinMng.jyuenImageId;
+        else if( amount == 50 ) return CoinMng.gojyuenImageId;
+        else if( amount == 100 ) return CoinMng.hyakuenImageId;
+        else if( amount == 500 ) return CoinMng.gohyakuenImageId;
+        else if( amount == 1000 ) return CoinMng.senenImageId;
+
+        return 0;
+    }
+
+    public static int GetCoinSize( int amount ){
+        if( amount == 1 ) return ICHIYEN_SIZE_PX;
+        else if( amount == 5 ) return GOYEN_SIZE_PX;
+        else if( amount == 10 ) return JYUYEN_SIZE_PX;
+        else if( amount == 50 ) return GOJYUYEN_SIZE_PX;
+        else if( amount == 100 ) return HYAKUYEN_SIZE_PX;
+        else if( amount == 500 ) return GOHYAKUYEN_SIZE_PX;
+        else if( amount == 1000 ) return SENYEN_SIZE_PX;
+
+        return 0;
     }
 
 }
