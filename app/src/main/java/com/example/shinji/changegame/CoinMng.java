@@ -73,13 +73,13 @@ public class CoinMng implements OnTouchListener{
         mVOL = (android.view.View.OnTouchListener)this;
     }
 
-    public void CoinInit(Context context){
+    public void CoinInit(){
 
         int i,x;
         CoinStatus coinMng;
 
         // dp→px変換
-        float density = context.getResources().getDisplayMetrics().density;
+        float density = mContext.getResources().getDisplayMetrics().density;
         ICHIYEN_SIZE_PX = CommonMng.PxToDp2(ICHIYEN_SIZE_DP,density);
         GOYEN_SIZE_PX = CommonMng.PxToDp2(GOYEN_SIZE_DP,density);
         JYUYEN_SIZE_PX = CommonMng.PxToDp2(JYUYEN_SIZE_DP,density);

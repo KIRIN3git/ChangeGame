@@ -39,13 +39,17 @@ public class GameActivity extends AppCompatActivity {
         FrameLayout r = (FrameLayout)findViewById(R.id.activity_game);
 
         mContext = this;
-        // 表示したいレイアウト
-        FrameLayout layout = (FrameLayout)findViewById(R.id.over_layout);
 
-        CoinMng coinMng = new CoinMng(this,layout);
-        coinMng.CoinInit(mContext);
+        // 表示したいレイアウト
+        FrameLayout over_layout = (FrameLayout)findViewById(R.id.over_layout);
+        LinearLayout back_layout = (LinearLayout)findViewById(R.id.back_layout);
+
+        CoinMng coinMng = new CoinMng(this,over_layout);
+        coinMng.CoinInit();
 
         //TImeMng
+        TimeMng timeImeMng = new TimeMng(this,back_layout);
+        timeImeMng.TImeMngInit();
 
     }
 
