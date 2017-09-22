@@ -30,7 +30,7 @@ import static java.security.AccessController.getContext;
 public class GameActivity extends AppCompatActivity {
     static int ichienImageId = R.drawable.ichien;
     static Context mContext;
-
+    static boolean sGameLoop = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,9 +48,14 @@ public class GameActivity extends AppCompatActivity {
         coinMng.CoinInit();
 
         //TImeMng
-        TimeMng timeImeMng = new TimeMng(this,back_layout);
-        timeImeMng.TImeMngInit();
+        TimeMng timeMng = new TimeMng(this,back_layout);
+        timeMng.TimeMngInit();
 
+        timeMng.StartProgressBar(100);
+        while(sGameLoop) {
+            // timeMng.StartTime();
+            //
+        }
     }
 
     // 端末のサイズを取得(Pointクラス px)

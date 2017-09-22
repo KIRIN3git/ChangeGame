@@ -1,6 +1,7 @@
 package com.example.shinji.changegame;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -9,27 +10,65 @@ import android.widget.ProgressBar;
  * Created by shinji on 2017/09/20.
  */
 
-public class TimeMng {
+public class TimeMng implements Runnable {
     static Context mContext;
     static LinearLayout mLayout;
+
+    static ProgressBar progressBar;
+    Thread thread;
+    long StartTimeMillis;
 
     public TimeMng(Context context, LinearLayout layout) {
         mContext = context;
         mLayout = layout;
     }
-    public void TImeMngInit(){
+    public void TimeMngInit(){
+//http://techbooster.org/android/application/934/
+        mLayout.findViewById(R.id.ProgressBarHorizontal);
+
+        progressBar = mLayout.findViewById(R.id.ProgressBarHorizontal);
+        progressBar.setScaleY(30f); // 高さを指定
+
+        // 起動時間
+        StartTimeMillis = System.currentTimeMillis();
+    }
+
+    public void CountTime(){
+        long CurrentTimeMillis = System.currentTimeMillis();
+        int second = (int)(CurrentTimeMillis - StartTimeMillis);
+
+        Log.w( "AAAAA", "second = " + second);
+    }
+
+
+
+
+    public void StartProgressBar(int max){
 
         mLayout.findViewById(R.id.ProgressBarHorizontal);
 
-        ProgressBar progressBar1 = mLayout.findViewById(R.id.ProgressBarHorizontal);
-        progressBar1.setMax(100); // 水平プログレスバーの最大値を設定
-        progressBar1.setProgress(20); // 水平プログレスバーの値を設定
-        progressBar1.setSecondaryProgress(60); // 水平プログレスバーのセカンダリ値を設定
-        progressBar1.setScaleY(30f); // 高さを指定
-    }
-/*
-    publicd static CountTime(){
 
+        progressBar.setMax(max); // 水平プログレスバーの最大値を設定
+
+//        progressBar.setProgress(i);
+
+
+        thread = new Thread(this);
+        thread.start();
+        /*
+        for(int i = 0; i < max; i++ ) {
+            try {
+                Thread.sleep(1000); //ミリ秒
+            } catch (InterruptedException e) {
+            }
+        }
+        */
     }
-*/
+    @Override
+    public void run() {
+        try {
+            thread.sleep(5000);
+        } catch (InterruptedException e) { }
+    }
 }
+
