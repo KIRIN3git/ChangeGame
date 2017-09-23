@@ -3,15 +3,12 @@ package com.example.shinji.changegame;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.os.Handler;
-import android.util.Log;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import java.math.BigDecimal;
 import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * Created by shinji on 2017/09/20.
@@ -40,7 +37,7 @@ public class TimeMng {
         progressBar.setScaleY(30f); // 高さを指定
 
         // 前時間表示
-        sTextView = sLayout.findViewById(R.id.textView6);
+        sTextView = sLayout.findViewById(R.id.textTime);
 
     }
 
@@ -51,11 +48,14 @@ public class TimeMng {
 
         sNowPB += tenSec;
 
+        //progressBar.setProgress(sNowPB);
+
 
         ObjectAnimator animation = ObjectAnimator.ofInt(progressBar, "progress", (int)sNowPB);
-        animation.setDuration(100); // 0.5 second
+        animation.setDuration(GameActivity.GAME_MILLI_SECOND); // 0.1 second
         animation.setInterpolator(new DecelerateInterpolator());
         animation.start();
+
 
         if( sMaxPB <= sNowPB ){
             return true;

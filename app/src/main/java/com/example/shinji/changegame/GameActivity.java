@@ -1,33 +1,19 @@
 package com.example.shinji.changegame;
 
-import android.animation.ObjectAnimator;
 import android.content.Context;
-import android.graphics.Canvas;
 import android.graphics.Point;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Display;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.DecelerateInterpolator;
-import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.view.View.OnTouchListener;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import static java.security.AccessController.getContext;
 
 /**
  * Created by shinji on 2017/09/07.
@@ -50,6 +36,8 @@ public class GameActivity extends AppCompatActivity {
 
     static boolean sOpeningFlg;
     static boolean sNewQuestionFlg;
+
+    static int GAME_MILLI_SECOND = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +75,7 @@ public class GameActivity extends AppCompatActivity {
     private void mainGame(){
 
         // 前時間表示
-        sTextView = (TextView)findViewById(R.id.textView6);
+        sTextView = (TextView)findViewById(R.id.textTime);
 
         sOpeningFlg = true;
         sNewQuestionFlg = true;
@@ -131,35 +119,27 @@ public class GameActivity extends AppCompatActivity {
                         else{
                             sTextStart.setVisibility(View.GONE);
 
-                            if( sNewQuestionFlg ){
 
-                                sTimeMng.startProgressBar(100);
+
+                            if( sNewQuestionFlg ){
+                                Log.w( "DEBUG_DATA", "aaaaaaaaaaaaaaaa");
+                                sTimeMng.startProgressBar(100); // 初期値
                                 sNewQuestionFlg = false;
+
+                                // sTimeMng.extendProgressBar(GAME_MILLI_SECOND/100);
                             }
 
-                            boolean overFlg = sTimeMng.extendProgressBar(1);
-                            if( overFlg == true ){
+
+                            boolean timeOverFlg = sTimeMng.extendProgressBar(GAME_MILLI_SECOND/100);
+                            if( timeOverFlg == true ){
                                 sNewQuestionFlg = true;
                             }
 
                         }
-
-
-
-
-
-
-                        //progressBar.setProgress((int)mLaptime);
-/*
-                        ObjectAnimator animation = ObjectAnimator.ofInt(progressBar, "progress", (int)sLaptime);
-                        animation.setDuration(100); // 0.1 second
-                        animation.setInterpolator(new DecelerateInterpolator());
-                        animation.start();
-*/
                     }
                 });
             }
-        }, 100, 100); // 0.1秒間隔
+        }, GAME_MILLI_SECOND, GAME_MILLI_SECOND); // 0.1秒間隔
 
     }
 
