@@ -1,16 +1,19 @@
 package com.example.shinji.changegame;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -20,6 +23,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.lang.reflect.Method;
+import java.math.BigDecimal;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static java.security.AccessController.getContext;
 
@@ -28,34 +34,133 @@ import static java.security.AccessController.getContext;
  */
 
 public class GameActivity extends AppCompatActivity {
-    static int ichienImageId = R.drawable.ichien;
+
     static Context mContext;
-    static boolean sGameLoop = true;
+    static Handler sHandler;
+
+    static FrameLayout sOverLayout;
+    static LinearLayout sBackLayout;
+
+    static float sLaptime = 0.0f;
+
+    Timer sTimer = null;
+    TextView sTextStart;
+    TextView sTextView;
+    static TimeMng sTimeMng;
+
+    static boolean sOpeningFlg;
+    static boolean sNewQuestionFlg;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
         FrameLayout r = (FrameLayout)findViewById(R.id.activity_game);
+        sTextStart = (TextView)findViewById(R.id.textStart);
 
         mContext = this;
 
         // 表示したいレイアウト
-        FrameLayout over_layout = (FrameLayout)findViewById(R.id.over_layout);
-        LinearLayout back_layout = (LinearLayout)findViewById(R.id.back_layout);
+        sOverLayout = (FrameLayout)findViewById(R.id.over_layout);
+        sBackLayout = (LinearLayout)findViewById(R.id.back_layout);
 
-        CoinMng coinMng = new CoinMng(this,over_layout);
+
+    }
+
+    // 再度起動時
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        CoinMng coinMng = new CoinMng(this,sOverLayout);
         coinMng.CoinInit();
 
         //TImeMng
-        TimeMng timeMng = new TimeMng(this,back_layout);
-        timeMng.TimeMngInit();
+        sHandler = new Handler();
+        sTimeMng = new TimeMng(this,sBackLayout,sHandler);
 
-        timeMng.StartProgressBar(100);
-        while(sGameLoop) {
-            // timeMng.StartTime();
-            //
-        }
+        mainGame();
+
+    }
+
+    private void mainGame(){
+
+        // 前時間表示
+        sTextView = (TextView)findViewById(R.id.textView6);
+
+        sOpeningFlg = true;
+        sNewQuestionFlg = true;
+
+
+
+        sTimer = new Timer(true);
+        sTimer.schedule(new TimerTask(){
+            @Override
+            public void run() {
+
+
+
+
+
+                // sHandlerを通じてUI Threadへ処理をキューイング
+                sHandler.post( new Runnable() {
+
+                    public void run() {
+
+                        //実行間隔分を加算処理
+                        sLaptime +=  0.1;
+
+                        //計算にゆらぎがあるので小数点第1位で丸める
+                        BigDecimal bi = new BigDecimal(sLaptime);
+                        float outputValue = bi.setScale(1, BigDecimal.ROUND_HALF_UP).floatValue();
+
+                        //現在のLapTime
+                        sTextView.setText(Float.toString(outputValue));
+
+
+                        if( sLaptime > 2.0 ){
+                            sOpeningFlg = false;
+                        }
+
+
+                        // ゲーム開始カウントダウン表示
+                        if( sOpeningFlg == true ){
+                            sTextStart.setVisibility(View.VISIBLE);
+                        }
+                        else{
+                            sTextStart.setVisibility(View.GONE);
+
+                            if( sNewQuestionFlg ){
+
+                                sTimeMng.startProgressBar(100);
+                                sNewQuestionFlg = false;
+                            }
+
+                            boolean overFlg = sTimeMng.extendProgressBar(1);
+                            if( overFlg == true ){
+                                sNewQuestionFlg = true;
+                            }
+
+                        }
+
+
+
+
+
+
+                        //progressBar.setProgress((int)mLaptime);
+/*
+                        ObjectAnimator animation = ObjectAnimator.ofInt(progressBar, "progress", (int)sLaptime);
+                        animation.setDuration(100); // 0.1 second
+                        animation.setInterpolator(new DecelerateInterpolator());
+                        animation.start();
+*/
+                    }
+                });
+            }
+        }, 100, 100); // 0.1秒間隔
+
     }
 
     // 端末のサイズを取得(Pointクラス px)

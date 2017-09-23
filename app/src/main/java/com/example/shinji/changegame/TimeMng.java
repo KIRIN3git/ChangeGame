@@ -1,74 +1,78 @@
 package com.example.shinji.changegame;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.os.Handler;
 import android.util.Log;
-import android.widget.FrameLayout;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
+
+import java.math.BigDecimal;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by shinji on 2017/09/20.
  */
 
-public class TimeMng implements Runnable {
-    static Context mContext;
-    static LinearLayout mLayout;
-
+public class TimeMng {
+    static Context sContext;
+    static LinearLayout sLayout;
     static ProgressBar progressBar;
-    Thread thread;
-    long StartTimeMillis;
+    static float sLaptime = 0.0f;
 
-    public TimeMng(Context context, LinearLayout layout) {
-        mContext = context;
-        mLayout = layout;
-    }
-    public void TimeMngInit(){
-//http://techbooster.org/android/application/934/
-        mLayout.findViewById(R.id.ProgressBarHorizontal);
+    Timer sTimer = null;
+    TextView sTextView;
+    // プログレスバーのマックス秒数×１０
+    static int sMaxPB;
+    // プログレスバーの現在の秒数×１０
+    static int sNowPB;
 
-        progressBar = mLayout.findViewById(R.id.ProgressBarHorizontal);
+
+    public TimeMng(Context context, LinearLayout layout,Handler handler) {
+        sContext = context;
+        sLayout = layout;
+
+        // プログレスバーの設定
+        progressBar = sLayout.findViewById(R.id.ProgressBarHorizontal);
         progressBar.setScaleY(30f); // 高さを指定
 
-        // 起動時間
-        StartTimeMillis = System.currentTimeMillis();
+        // 前時間表示
+        sTextView = sLayout.findViewById(R.id.textView6);
+
     }
 
-    public void CountTime(){
-        long CurrentTimeMillis = System.currentTimeMillis();
-        int second = (int)(CurrentTimeMillis - StartTimeMillis);
+    /*
+    tenSec:経過秒数×10
+     */
+    public boolean extendProgressBar(int tenSec ){
 
-        Log.w( "AAAAA", "second = " + second);
-    }
-
-
+        sNowPB += tenSec;
 
 
-    public void StartProgressBar(int max){
+        ObjectAnimator animation = ObjectAnimator.ofInt(progressBar, "progress", (int)sNowPB);
+        animation.setDuration(100); // 0.5 second
+        animation.setInterpolator(new DecelerateInterpolator());
+        animation.start();
 
-        mLayout.findViewById(R.id.ProgressBarHorizontal);
-
-
-        progressBar.setMax(max); // 水平プログレスバーの最大値を設定
-
-//        progressBar.setProgress(i);
-
-
-        thread = new Thread(this);
-        thread.start();
-        /*
-        for(int i = 0; i < max; i++ ) {
-            try {
-                Thread.sleep(1000); //ミリ秒
-            } catch (InterruptedException e) {
-            }
+        if( sMaxPB <= sNowPB ){
+            return true;
         }
-        */
+
+        return false;
     }
-    @Override
-    public void run() {
-        try {
-            thread.sleep(5000);
-        } catch (InterruptedException e) { }
+
+
+
+
+    public void startProgressBar(int max){
+        sMaxPB = max;
+        sNowPB = 0;
+        progressBar.setMax(sMaxPB); // 水平プログレスバーの最大値を設定
+        progressBar.setProgress(0);
     }
+
 }
 
