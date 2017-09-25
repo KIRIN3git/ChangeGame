@@ -4,11 +4,11 @@ import android.content.Context;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import android.view.View.OnTouchListener;
 
 
@@ -28,7 +28,6 @@ public class CoinMng implements OnTouchListener{
     static int coinCount1 = 0;
 
     // コインサイズ
-    // プレイヤーの半径
     static int ICHIYEN_SIZE_DP = 50;
     static int ICHIYEN_SIZE_PX;
 
@@ -49,6 +48,12 @@ public class CoinMng implements OnTouchListener{
 
     static int SENYEN_SIZE_DP = 60;
     static int SENYEN_SIZE_PX;
+
+    // 財布に入っているコインの数
+    static HashMap<String,Integer> walletCoinNum;
+    // トレーに入っているコインの数
+    static HashMap<String,Integer> trayCoinNum;
+
 
 
     // 1円のID情報
@@ -170,7 +175,7 @@ CoinStatusからamountでtrayStatus==falseで、配列から一番上のもの�
 mode:0 財布の一番上
 mode:1 トレーの一番上
  */
-    public CoinStatus GetDownStatus(int amount,int mode ){
+    public CoinStatus GetBottomStatus(int amount, int mode ){
         Log.w( "DEBUG_DATA", "amount " + amount);
         Log.w( "DEBUG_DATA", "coinStatuses.size()  " + coinStatuses.size() );
         for( int i = 0; i < coinStatuses.size(); i++ ){
@@ -227,7 +232,7 @@ mode:1 トレーの一番上
    //                 if( touchCs.sY  500 ) return false;
 
                     // タッチしたコインの中の一番上のコインを取得
-                    CoinStatus topCs = GetDownStatus(touchCs.sAmount, 0);
+                    CoinStatus topCs = GetBottomStatus(touchCs.sAmount, 0);
                     if( topCs == null) return false;
                     Log.w("DEBUG_DATAxx1", "topCs.moveFlg = " + topCs.moveFlg);
                     Log.w("DEBUG_DATAxx1", "topCs.sViewId = " + topCs.sViewId);
@@ -243,7 +248,7 @@ mode:1 トレーの一番上
   //                  if( touchCs.sY > 500 ) return false;
 
                     // タッチしたコインの中の一番上のコインを取得
-                    CoinStatus topCs = GetDownStatus(touchCs.sAmount, 1);
+                    CoinStatus topCs = GetBottomStatus(touchCs.sAmount, 1);
                     if( topCs == null) return false;
 
 
@@ -291,4 +296,75 @@ mode:1 トレーの一番上
         return 0;
     }
 
+    // 財布内のコイン数を取得
+    public static HashMap<String,Integer> GetWalletNum(){
+        int ichien = 0,goen = 0,jyuen = 0,gojyuen = 0,hyakuen = 0,gohyaku = 0,senen = 0;
+
+        for( int i = 0; i < coinStatuses.size(); i++ ) {
+            if (coinStatuses.get(i).walletFlg) {
+                if (coinStatuses.get(i).sAmount == 1) ichien++;
+                else if (coinStatuses.get(i).sAmount == 5) goen++;
+                else if (coinStatuses.get(i).sAmount == 10) jyuen++;
+                else if (coinStatuses.get(i).sAmount == 50) gojyuen++;
+                else if (coinStatuses.get(i).sAmount == 100) hyakuen++;
+                else if (coinStatuses.get(i).sAmount == 500) gohyaku++;
+                else if (coinStatuses.get(i).sAmount == 1000) senen++;
+            }
+        }
+
+        HashMap<String,Integer> num = new HashMap<String,Integer>();
+        num.put("1",ichien);
+        num.put("5",goen);
+        num.put("10",jyuen);
+        num.put("50",gojyuen);
+        num.put("100",hyakuen);
+        num.put("500",gohyaku);
+        num.put("1000",senen);
+
+        Log.w( "KEKKA", "ichien = [" + ichien + "]");
+        Log.w( "KEKKA", "goen = [" + goen + "]");
+        Log.w( "KEKKA", "jyuen = [" + jyuen + "]");
+        Log.w( "KEKKA", "gojyuen = [" + gojyuen + "]");
+        Log.w( "KEKKA", "hyakuen = [" + hyakuen + "]");
+        Log.w( "KEKKA", "gohyaku = [" + gohyaku + "]");
+        Log.w( "KEKKA", "senen = [" + senen + "]");
+
+        return num;
+    }
+
+    // 財布内のコイン数を取得
+    public static HashMap<String,Integer> GetTrayNum(){
+        int ichien = 0,goen = 0,jyuen = 0,gojyuen = 0,hyakuen = 0,gohyaku = 0,senen = 0;
+
+        for( int i = 0; i < coinStatuses.size(); i++ ) {
+            if (coinStatuses.get(i).walletFlg == false) {
+                if (coinStatuses.get(i).sAmount == 1) ichien++;
+                else if (coinStatuses.get(i).sAmount == 5) goen++;
+                else if (coinStatuses.get(i).sAmount == 10) jyuen++;
+                else if (coinStatuses.get(i).sAmount == 50) gojyuen++;
+                else if (coinStatuses.get(i).sAmount == 100) hyakuen++;
+                else if (coinStatuses.get(i).sAmount == 500) gohyaku++;
+                else if (coinStatuses.get(i).sAmount == 1000) senen++;
+            }
+        }
+
+        HashMap<String,Integer> num = new HashMap<String,Integer>();
+        num.put("1",ichien);
+        num.put("5",goen);
+        num.put("10",jyuen);
+        num.put("50",gojyuen);
+        num.put("100",hyakuen);
+        num.put("500",gohyaku);
+        num.put("1000",senen);
+
+        Log.w( "KEKKA", "ichien = [" + ichien + "]");
+        Log.w( "KEKKA", "goen = [" + goen + "]");
+        Log.w( "KEKKA", "jyuen = [" + jyuen + "]");
+        Log.w( "KEKKA", "gojyuen = [" + gojyuen + "]");
+        Log.w( "KEKKA", "hyakuen = [" + hyakuen + "]");
+        Log.w( "KEKKA", "gohyaku = [" + gohyaku + "]");
+        Log.w( "KEKKA", "senen = [" + senen + "]");
+
+        return num;
+    }
 }

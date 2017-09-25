@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -31,13 +32,20 @@ public class GameActivity extends AppCompatActivity {
 
     Timer sTimer = null;
     TextView sTextStart;
-    TextView sTextView;
-    static TimeMng sTimeMng;
+    TextView sTextTimer;
+    TextView sTextAmount;
+    TextView sTextPayment;
+    TextView sTextChange;
+
+
+    static QuestionMng sQuestionMng;
 
     static boolean sOpeningFlg;
     static boolean sNewQuestionFlg;
+    static boolean sNowThinkingFlg;
 
     static int GAME_MILLI_SECOND = 100;
+    static int sQuestionYen = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +61,6 @@ public class GameActivity extends AppCompatActivity {
         sOverLayout = (FrameLayout)findViewById(R.id.over_layout);
         sBackLayout = (LinearLayout)findViewById(R.id.back_layout);
 
-
     }
 
     // 再度起動時
@@ -61,35 +68,51 @@ public class GameActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+        //CoinMng
         CoinMng coinMng = new CoinMng(this,sOverLayout);
         coinMng.CoinInit();
 
-        //TImeMng
+        //QuestionMng
         sHandler = new Handler();
-        sTimeMng = new TimeMng(this,sBackLayout,sHandler);
+        sQuestionMng = new QuestionMng(this,sBackLayout,sHandler);
+
+        // 支払ボタンをクリック
+        answer();
 
         mainGame();
+
+    }
+
+    private void answer(){
+
+        Button btn = (Button)findViewById(R.id.buttonAnswer);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CoinMng.GetWalletNum();
+                CoinMng.GetTrayNum();
+            }
+        });
+
 
     }
 
     private void mainGame(){
 
         // 前時間表示
-        sTextView = (TextView)findViewById(R.id.textTime);
+        sTextTimer = (TextView)findViewById(R.id.textTime);
+        sTextAmount = (TextView)findViewById(R.id.textAll);
+        sTextPayment = (TextView)findViewById(R.id.textPayment);
+        sTextChange = (TextView)findViewById(R.id.textChange);
 
         sOpeningFlg = true;
-        sNewQuestionFlg = true;
-
-
+        sNewQuestionFlg = false;
+        sNowThinkingFlg = false;
 
         sTimer = new Timer(true);
         sTimer.schedule(new TimerTask(){
             @Override
             public void run() {
-
-
-
-
 
                 // sHandlerを通じてUI Threadへ処理をキューイング
                 sHandler.post( new Runnable() {
@@ -104,36 +127,50 @@ public class GameActivity extends AppCompatActivity {
                         float outputValue = bi.setScale(1, BigDecimal.ROUND_HALF_UP).floatValue();
 
                         //現在のLapTime
-                        sTextView.setText(Float.toString(outputValue));
+                        sTextTimer.setText(Float.toString(outputValue));
 
+                        //出題金額
+                        sTextAmount.setText(Integer.toString(sQuestionMng.sAmount));
 
-                        if( sLaptime > 2.0 ){
+                        // カウントダウン終了
+                        if( sOpeningFlg == true && sLaptime > 2.0 ){
                             sOpeningFlg = false;
+                            sNewQuestionFlg = true; // とりあえず第一問
                         }
 
 
-                        // ゲーム開始カウントダウン表示
+                        // カウントダウン表示
                         if( sOpeningFlg == true ){
                             sTextStart.setVisibility(View.VISIBLE);
                         }
+                        // ゲーム開始
                         else{
                             sTextStart.setVisibility(View.GONE);
 
 
-
+                            // 新しい問題
                             if( sNewQuestionFlg ){
+
                                 Log.w( "DEBUG_DATA", "aaaaaaaaaaaaaaaa");
-                                sTimeMng.startProgressBar(100); // 初期値
+                                sQuestionMng.startProgressBar(100); // 初期値
                                 sNewQuestionFlg = false;
+                                sNowThinkingFlg = true;
 
-                                // sTimeMng.extendProgressBar(GAME_MILLI_SECOND/100);
+                                // 出題
+                                // 値段を取得 プログレスバーが起動
+                                sQuestionYen = sQuestionMng.NewQuestion();
+
+                            }
+
+                            if(sNowThinkingFlg){
+                                boolean timeOverFlg = sQuestionMng.extendProgressBar(GAME_MILLI_SECOND/100);
+                                if( timeOverFlg == true ){
+                                    sNewQuestionFlg = true;
+                                }
                             }
 
 
-                            boolean timeOverFlg = sTimeMng.extendProgressBar(GAME_MILLI_SECOND/100);
-                            if( timeOverFlg == true ){
-                                sNewQuestionFlg = true;
-                            }
+
 
                         }
                     }
