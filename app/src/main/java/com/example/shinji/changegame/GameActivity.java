@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -85,12 +86,21 @@ public class GameActivity extends AppCompatActivity {
 
     private void answer(){
 
+
         Button btn = (Button)findViewById(R.id.buttonAnswer);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CoinMng.GetWalletNum();
-                CoinMng.GetTrayNum();
+                boolean ok;
+
+                HashMap<String,Integer> allCoinNum = CoinMng.GetAllNum();
+                HashMap<String,Integer> walletCoinNum = CoinMng.GetWalletNum();
+                HashMap<String,Integer> trayCoinNum = CoinMng.GetTrayNum();
+
+               ok = sQuestionMng.anserQuestion(allCoinNum,trayCoinNum);
+                Log.w( "AAAAA", "okkkkkkkkkkkkkkkkkkk " + ok );
+
+
             }
         });
 
@@ -138,7 +148,6 @@ public class GameActivity extends AppCompatActivity {
                             sNewQuestionFlg = true; // とりあえず第一問
                         }
 
-
                         // カウントダウン表示
                         if( sOpeningFlg == true ){
                             sTextStart.setVisibility(View.VISIBLE);
@@ -168,10 +177,6 @@ public class GameActivity extends AppCompatActivity {
                                     sNewQuestionFlg = true;
                                 }
                             }
-
-
-
-
                         }
                     }
                 });

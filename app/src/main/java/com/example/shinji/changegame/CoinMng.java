@@ -96,7 +96,7 @@ public class CoinMng implements OnTouchListener{
 
         // 1円の複数枚表示
         x = 5;
-        for( i = 0; i < 4; i++ ) {
+        for( i = 0; i < 2; i++ ) {
             coinMng = new CoinStatus(1, x, 75);
             coinStatuses.add(coinMng);
             x+=2;
@@ -109,7 +109,7 @@ public class CoinMng implements OnTouchListener{
 
         // 10円の複数枚表示
         x = 55;
-        for( i = 0; i < 4; i++ ) {
+        for( i = 0; i < 1; i++ ) {
             coinMng = new CoinStatus(10, x, 75);
             coinStatuses.add(coinMng);
             x+=2;
@@ -117,12 +117,12 @@ public class CoinMng implements OnTouchListener{
 
         // 50円の複数枚表示
         x = 79;
-        coinMng = new CoinStatus(50, x, 75);
-        coinStatuses.add(coinMng);
+        //coinMng = new CoinStatus(50, x, 75);
+        //coinStatuses.add(coinMng);
 
         // 100円の複数枚表示
         x = 5;
-        for( i = 0; i < 4; i++ ) {
+        for( i = 0; i < 3; i++ ) {
             coinMng = new CoinStatus(100, x, 87);
             coinStatuses.add(coinMng);
             x+=2;
@@ -296,6 +296,40 @@ mode:1 トレーの一番上
         return 0;
     }
 
+    // 表示されている全コイン数を取得
+    public static HashMap<String,Integer> GetAllNum(){
+        int ichien = 0,goen = 0,jyuen = 0,gojyuen = 0,hyakuen = 0,gohyaku = 0,senen = 0;
+
+        for( int i = 0; i < coinStatuses.size(); i++ ) {
+            if (coinStatuses.get(i).sAmount == 1) ichien++;
+            else if (coinStatuses.get(i).sAmount == 5) goen++;
+            else if (coinStatuses.get(i).sAmount == 10) jyuen++;
+            else if (coinStatuses.get(i).sAmount == 50) gojyuen++;
+            else if (coinStatuses.get(i).sAmount == 100) hyakuen++;
+            else if (coinStatuses.get(i).sAmount == 500) gohyaku++;
+            else if (coinStatuses.get(i).sAmount == 1000) senen++;
+        }
+
+        HashMap<String,Integer> coinNum = new HashMap<String,Integer>();
+        coinNum.put("1",ichien);
+        coinNum.put("5",goen);
+        coinNum.put("10",jyuen);
+        coinNum.put("50",gojyuen);
+        coinNum.put("100",hyakuen);
+        coinNum.put("500",gohyaku);
+        coinNum.put("1000",senen);
+
+        Log.w( "KEKKA", "ichien = [" + ichien + "]");
+        Log.w( "KEKKA", "goen = [" + goen + "]");
+        Log.w( "KEKKA", "jyuen = [" + jyuen + "]");
+        Log.w( "KEKKA", "gojyuen = [" + gojyuen + "]");
+        Log.w( "KEKKA", "hyakuen = [" + hyakuen + "]");
+        Log.w( "KEKKA", "gohyaku = [" + gohyaku + "]");
+        Log.w( "KEKKA", "senen = [" + senen + "]");
+
+        return coinNum;
+    }
+
     // 財布内のコイン数を取得
     public static HashMap<String,Integer> GetWalletNum(){
         int ichien = 0,goen = 0,jyuen = 0,gojyuen = 0,hyakuen = 0,gohyaku = 0,senen = 0;
@@ -312,14 +346,14 @@ mode:1 トレーの一番上
             }
         }
 
-        HashMap<String,Integer> num = new HashMap<String,Integer>();
-        num.put("1",ichien);
-        num.put("5",goen);
-        num.put("10",jyuen);
-        num.put("50",gojyuen);
-        num.put("100",hyakuen);
-        num.put("500",gohyaku);
-        num.put("1000",senen);
+        HashMap<String,Integer> coinNum = new HashMap<String,Integer>();
+        coinNum.put("1",ichien);
+        coinNum.put("5",goen);
+        coinNum.put("10",jyuen);
+        coinNum.put("50",gojyuen);
+        coinNum.put("100",hyakuen);
+        coinNum.put("500",gohyaku);
+        coinNum.put("1000",senen);
 
         Log.w( "KEKKA", "ichien = [" + ichien + "]");
         Log.w( "KEKKA", "goen = [" + goen + "]");
@@ -329,10 +363,10 @@ mode:1 トレーの一番上
         Log.w( "KEKKA", "gohyaku = [" + gohyaku + "]");
         Log.w( "KEKKA", "senen = [" + senen + "]");
 
-        return num;
+        return coinNum;
     }
 
-    // 財布内のコイン数を取得
+    // トレー内のコイン数を取得
     public static HashMap<String,Integer> GetTrayNum(){
         int ichien = 0,goen = 0,jyuen = 0,gojyuen = 0,hyakuen = 0,gohyaku = 0,senen = 0;
 
@@ -348,14 +382,14 @@ mode:1 トレーの一番上
             }
         }
 
-        HashMap<String,Integer> num = new HashMap<String,Integer>();
-        num.put("1",ichien);
-        num.put("5",goen);
-        num.put("10",jyuen);
-        num.put("50",gojyuen);
-        num.put("100",hyakuen);
-        num.put("500",gohyaku);
-        num.put("1000",senen);
+        HashMap<String,Integer> coinNum = new HashMap<String,Integer>();
+        coinNum.put("1",ichien);
+        coinNum.put("5",goen);
+        coinNum.put("10",jyuen);
+        coinNum.put("50",gojyuen);
+        coinNum.put("100",hyakuen);
+        coinNum.put("500",gohyaku);
+        coinNum.put("1000",senen);
 
         Log.w( "KEKKA", "ichien = [" + ichien + "]");
         Log.w( "KEKKA", "goen = [" + goen + "]");
@@ -365,6 +399,6 @@ mode:1 トレーの一番上
         Log.w( "KEKKA", "gohyaku = [" + gohyaku + "]");
         Log.w( "KEKKA", "senen = [" + senen + "]");
 
-        return num;
+        return coinNum;
     }
 }

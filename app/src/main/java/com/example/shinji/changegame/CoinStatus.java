@@ -69,8 +69,6 @@ public class CoinStatus {
 
         // 画像の追加
         CoinMng.mLayout.addView(imageView,lp);
-
-
     }
 
     /*
