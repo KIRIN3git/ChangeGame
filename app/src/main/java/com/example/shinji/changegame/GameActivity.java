@@ -179,6 +179,7 @@ public class GameActivity extends AppCompatActivity {
                         if( sOpeningFlg == true ){
                             sTextStart.setVisibility(View.VISIBLE);
                         }
+                        // 解答結果待ち
                         else if( sNowAnserFlg == true ){
                             if( sOkFlg ){
                                 sImageOk.setVisibility(View.VISIBLE);
