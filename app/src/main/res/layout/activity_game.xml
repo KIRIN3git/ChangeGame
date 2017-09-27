@@ -199,6 +199,22 @@
             android:textColor="@android:color/white"
             android:textSize="40sp" />
 
+        <ImageView
+            android:id="@+id/imageOk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ok"
+            android:visibility="gone" />
+        <ImageView
+            android:id="@+id/imageNg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ng"
+            android:visibility="gone" />
+
+
     </FrameLayout>
 
 

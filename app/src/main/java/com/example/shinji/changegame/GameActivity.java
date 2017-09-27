@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -29,7 +30,8 @@ public class GameActivity extends AppCompatActivity {
     static FrameLayout sOverLayout;
     static LinearLayout sBackLayout;
 
-    static float sLaptime = 0.0f;
+    static float sLapTime = 0.0f;
+    static float sMemTime = 0.0f;
 
     Timer sTimer = null;
     TextView sTextStart;
@@ -38,12 +40,18 @@ public class GameActivity extends AppCompatActivity {
     TextView sTextPayment;
     TextView sTextChange;
 
+    ImageView sImageOk;
+    ImageView sImageNg;
+
+
 
     static QuestionMng sQuestionMng;
 
     static boolean sOpeningFlg;
     static boolean sNewQuestionFlg;
     static boolean sNowThinkingFlg;
+    static boolean sNowAnserFlg;
+    static boolean sOkFlg;
 
     static int GAME_MILLI_SECOND = 100;
     static int sQuestionYen = 0;
@@ -55,6 +63,11 @@ public class GameActivity extends AppCompatActivity {
 
         FrameLayout r = (FrameLayout)findViewById(R.id.activity_game);
         sTextStart = (TextView)findViewById(R.id.textStart);
+
+        sImageOk = (ImageView)findViewById(R.id.imageOk);
+        sImageNg = (ImageView)findViewById(R.id.imageNg);
+
+
 
         mContext = this;
 
@@ -86,21 +99,22 @@ public class GameActivity extends AppCompatActivity {
 
     private void answer(){
 
-
         Button btn = (Button)findViewById(R.id.buttonAnswer);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean ok;
+
+                if( sNowAnserFlg == true ) return;
 
                 HashMap<String,Integer> allCoinNum = CoinMng.GetAllNum();
                 HashMap<String,Integer> walletCoinNum = CoinMng.GetWalletNum();
                 HashMap<String,Integer> trayCoinNum = CoinMng.GetTrayNum();
 
-               ok = sQuestionMng.anserQuestion(allCoinNum,trayCoinNum);
-                Log.w( "AAAAA", "okkkkkkkkkkkkkkkkkkk " + ok );
+                sOkFlg = sQuestionMng.anserQuestion(allCoinNum,trayCoinNum);
+                sNowAnserFlg = true;
+                sMemTime = sLapTime;
 
-
+                Log.w( "AAAAA", "okkkkkkkkkkkkkkkkkkk " + sOkFlg );
             }
         });
 
@@ -118,6 +132,9 @@ public class GameActivity extends AppCompatActivity {
         sOpeningFlg = true;
         sNewQuestionFlg = false;
         sNowThinkingFlg = false;
+        sNowAnserFlg = false;
+        sOkFlg = false;
+
 
         sTimer = new Timer(true);
         sTimer.schedule(new TimerTask(){
@@ -129,11 +146,16 @@ public class GameActivity extends AppCompatActivity {
 
                     public void run() {
 
+                        sTextStart.setVisibility(View.GONE);
+                        sImageOk.setVisibility(View.GONE);
+                        sImageNg.setVisibility(View.GONE);
+
+
                         //実行間隔分を加算処理
-                        sLaptime +=  0.1;
+                        sLapTime +=  0.1;
 
                         //計算にゆらぎがあるので小数点第1位で丸める
-                        BigDecimal bi = new BigDecimal(sLaptime);
+                        BigDecimal bi = new BigDecimal(sLapTime);
                         float outputValue = bi.setScale(1, BigDecimal.ROUND_HALF_UP).floatValue();
 
                         //現在のLapTime
@@ -143,18 +165,32 @@ public class GameActivity extends AppCompatActivity {
                         sTextAmount.setText(Integer.toString(sQuestionMng.sAmount));
 
                         // カウントダウン終了
-                        if( sOpeningFlg == true && sLaptime > 2.0 ){
+                        if( sOpeningFlg == true && sLapTime > 2.0 ){
                             sOpeningFlg = false;
                             sNewQuestionFlg = true; // とりあえず第一問
+                        }
+                        // 正解表示時間終了
+                        if( sNowAnserFlg == true && ( sLapTime - sMemTime ) > 1.0 ){
+                            sNowAnserFlg = false;
+                            sNewQuestionFlg = true;
                         }
 
                         // カウントダウン表示
                         if( sOpeningFlg == true ){
                             sTextStart.setVisibility(View.VISIBLE);
                         }
+                        else if( sNowAnserFlg == true ){
+                            if( sOkFlg ){
+                                sImageOk.setVisibility(View.VISIBLE);
+                            }
+                            else{
+                                sImageNg.setVisibility(View.VISIBLE);
+                            }
+                        }
+
                         // ゲーム開始
                         else{
-                            sTextStart.setVisibility(View.GONE);
+
 
 
                             // 新しい問題
