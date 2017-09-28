@@ -36,12 +36,16 @@
 
                     <TextView
                         android:id="@+id/textAll"
+                        android:textSize="40sp"
+                        android:textColor="#ff0000"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="金額" />
 
                     <TextView
                         android:id="@+id/textView4"
+                        android:textSize="40sp"
+                        android:textColor="#ff0000"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="円" />
@@ -54,12 +58,16 @@
 
                     <TextView
                         android:id="@+id/textPayment"
+                        android:textSize="40sp"
+                        android:textColor="#ff0000"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="支払" />
 
                     <TextView
                         android:id="@+id/textView72"
+                        android:textSize="40sp"
+                        android:textColor="#ff0000"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="円" />
@@ -72,15 +80,18 @@
 
                     <TextView
                         android:id="@+id/textChange"
+                        android:textSize="40sp"
+                        android:textColor="#ff0000"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="釣り" />
 
                     <TextView
                         android:id="@+id/textView7"
+                        android:textSize="40sp"
+                        android:textColor="#ff0000"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
                         android:layout_weight="1"
                         android:text="円" />
                 </LinearLayout>
@@ -189,33 +200,35 @@
         android:layout_gravity="center"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textStart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="スタート"
-            android:visibility="gone"
-            android:textColor="@android:color/white"
-            android:textSize="40sp" />
 
-        <ImageView
-            android:id="@+id/imageOk"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:src="@drawable/ok"
-            android:visibility="gone" />
-        <ImageView
-            android:id="@+id/imageNg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:src="@drawable/ng"
-            android:visibility="gone" />
+
 
 
     </FrameLayout>
 
 
+    <TextView
+        android:id="@+id/textStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="スタート"
+        android:visibility="gone"
+        android:textColor="@android:color/white"
+        android:textSize="40sp" />
+
+    <ImageView
+        android:id="@+id/imageOk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@drawable/ok"
+        android:visibility="gone" />
+    <ImageView
+        android:id="@+id/imageNg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@drawable/ng"
+        android:visibility="gone" />
 </FrameLayout>
