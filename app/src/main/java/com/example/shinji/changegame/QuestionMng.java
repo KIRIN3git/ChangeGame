@@ -103,7 +103,7 @@ public class QuestionMng {
             return false;
         }
 
-        // 正解ハッシュマップ
+        // 正解コイン数
         HashMap<String,Integer> anserCoinNum = new HashMap<String,Integer>();
 
         int a = 0,b = 0,c = 0,d = 0; // a:一の位,b:十の位,c:百の位,d:千の位
@@ -117,9 +117,6 @@ public class QuestionMng {
         int aa,bb,cc,dd;
         if(a >= 5) aa = a - 5;
         else aa = a;
-
-
-
 
         Log.w( "AAAAABBBBB", "a [" + a + "]");
         Log.w( "AAAAABBBBB", "b [" + b + "]");
@@ -254,6 +251,12 @@ Log.w( "AAAAA", "ccccccccccc " + c);
                 anserCoinNum.get("100") == trayCoinNum.get("100") &&
                 anserCoinNum.get("500") == trayCoinNum.get("500") &&
                 anserCoinNum.get("1000") == trayCoinNum.get("1000")){
+
+            //お釣りをセット
+            int changeAmount = ( ( trayCoinNum.get("1000") * 1000 ) + ( trayCoinNum.get("500") * 500 ) + ( trayCoinNum.get("100") * 100 )
+                    + ( trayCoinNum.get("50") * 50 ) + ( trayCoinNum.get("10") * 10 ) + ( trayCoinNum.get("5") * 5 ) + ( trayCoinNum.get("1") * 1 ) ) - sAmount;
+                    CoinMng.AddCoin(changeAmount);
+
             return true;
         }
 

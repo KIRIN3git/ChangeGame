@@ -33,6 +33,8 @@ public class GameActivity extends AppCompatActivity {
     static float sLapTime = 0.0f;
     static float sMemTime = 0.0f;
 
+    CoinMng sCoinMng;
+
     Timer sTimer = null;
     TextView sTextStart;
     TextView sTextTimer;
@@ -83,8 +85,8 @@ public class GameActivity extends AppCompatActivity {
         super.onResume();
 
         //CoinMng
-        CoinMng coinMng = new CoinMng(this,sOverLayout);
-        coinMng.CoinInit();
+        sCoinMng = new CoinMng(this,sOverLayout);
+        sCoinMng.CoinInit();
 
         //QuestionMng
         sHandler = new Handler();
@@ -111,8 +113,15 @@ public class GameActivity extends AppCompatActivity {
                 HashMap<String,Integer> trayCoinNum = CoinMng.GetTrayNum();
 
                 sOkFlg = sQuestionMng.anserQuestion(allCoinNum,trayCoinNum);
+                if( sOkFlg ){
+                    sCoinMng.DeleteCoin();
+
+                }
+
                 sNowAnserFlg = true;
                 sMemTime = sLapTime;
+
+
 
                 Log.w( "AAAAA", "okkkkkkkkkkkkkkkkkkk " + sOkFlg );
             }
@@ -191,9 +200,6 @@ public class GameActivity extends AppCompatActivity {
 
                         // ゲーム開始
                         else{
-
-
-
                             // 新しい問題
                             if( sNewQuestionFlg ){
 

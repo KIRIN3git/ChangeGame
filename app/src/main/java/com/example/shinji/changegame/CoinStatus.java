@@ -24,7 +24,6 @@ public class CoinStatus {
     boolean walletFlg = true;
     boolean moveFlg = false;
 
-
     /* コインイメージの作成
     amount:金額
     ratioX:x座標画面表示割合（最大100）
@@ -72,17 +71,30 @@ public class CoinStatus {
     }
 
     /*
-    mode:0 財布→トレー
-    mode:1 トレー→財布
+    mode:0 財布 → トレー
+    mode:1 トレー → 財布
+    mode:2 トレー → 外
+        コインの削除処理も行う
+    mode:3 外 → 財布
+
+    i:CoinMngから削除するID
+    y:移動量(%)を指定
      */
-    void MoveCoin( final int mode ){
+    void MoveCoin( final int mode,final int i,int y ){
         final ImageView imageView = (ImageView)CoinMng.mLayout.findViewById(sViewId);
-        final float xy[] = CommonMng.PsToPx( 0,40 );
+        final float xy[];
         final int moveY,x;
+
+        if( y == 0) {
+            xy = CommonMng.PsToPx(0, 40);
+        }
+        else{
+            xy = CommonMng.PsToPx(0, y);
+        }
 
         moveFlg = true;
 
-        if( mode == 0){
+        if( mode == 0 || mode == 2 ){
             walletFlg = false;
         }
         else{
@@ -91,9 +103,17 @@ public class CoinStatus {
         if( mode == 0){
             moveY = -(int)xy[1];
         }
-        else{
+        else if( mode == 1){
             moveY = (int)xy[1];
         }
+        else if( mode == 2 ){
+            moveY = - ( (int)xy[1] * 2 ) ;
+        }
+        else if( mode == 3 ){
+            moveY = ( (int)xy[1] ) ;
+        }
+        else return;
+
         sY += moveY;
 
         int yyy = sY + moveY;
@@ -101,7 +121,6 @@ public class CoinStatus {
         Log.w( "DEBUG_DATAx", "moveY " + moveY );
         Log.w( "DEBUG_DATAx", "sX " + sX );
         Log.w( "DEBUG_DATAx", "sY + moveY " + yyy );
-
 
         // layoutによる移動はTouchイベントが終わらないと描画されないといけないので
         // アニメーションに変更
@@ -125,19 +144,18 @@ public class CoinStatus {
                 Log.w( "DEBUG_DATAxx1", "onAnimationEnddddddddddddddddddddd1");
 
                 moveFlg = false;
-
+                if(mode == 2){
+                    CoinMng.coinStatuses.remove(i);
+                }
                 Log.w( "DEBUG_DATAxx1", "onAnimationEnddddddddddddddddddddd2");
             }
         });
         imageView.startAnimation(translate);
     }
 
-
     boolean CheckMoveOk(){
         final ImageView imageView = (ImageView)CoinMng.mLayout.findViewById(sViewId);
         int y = imageView.getTop();
-
-
 
         final float xy[] = CommonMng.PsToPx( 0,60 );
 
