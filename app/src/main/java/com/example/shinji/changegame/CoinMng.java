@@ -518,7 +518,7 @@ public class CoinMng implements OnTouchListener{
         num = amount / 1;
         x = COIN_X_PS1;
 
-        coinStatus = new CoinStatus(1, x, 0);
+
         for(int i = 0; i < num; i++ ){
 //            coinStatus = new CoinStatus(1, x, 0);
 //            coinStatuses.add(coinStatus);

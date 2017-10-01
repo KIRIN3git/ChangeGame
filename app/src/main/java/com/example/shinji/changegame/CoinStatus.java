@@ -145,7 +145,7 @@ public class CoinStatus {
 
                 moveFlg = false;
                 if(mode == 2){
-                    CoinMng.coinStatuses.remove(i);
+                    //☆CoinMng.coinStatuses.remove(i);
                 }
                 Log.w( "DEBUG_DATAxx1", "onAnimationEnddddddddddddddddddddd2");
             }

@@ -190,9 +190,6 @@ public class GameActivity extends AppCompatActivity {
                         // 正解表示時間終了
                         if( sNowAnserFlg == true ) {
 
-                            Log.w( "DEBUG_DATA", "gggggggggggggggggggggggggggggggggggg1x " + (sLapTime));
-                            Log.w( "DEBUG_DATA", "gggggggggggggggggggggggggggggggggggg1y " + (sMemTime));
-
                             // 1秒立ったら
                             if (((int)( (sLapTime * 10 ) - (sMemTime * 10 ) ) ) == 10 ) {
                                 sNowAmountFlg = true;
@@ -218,7 +215,9 @@ public class GameActivity extends AppCompatActivity {
                             }
                             if( sNowAmountFlg ){
                                 Log.w( "DEBUG_DATA", "gggggggggggggggggggggggggggggggggggg2" + sAmount);
-                                CoinMng.AddCoin(sAmount);
+
+                                CoinStatus coinStatus = new CoinStatus(1, 10, 0);
+//                                CoinMng.AddCoin(sAmount);
                                 sNowAmountFlg = false;
                             }
 
