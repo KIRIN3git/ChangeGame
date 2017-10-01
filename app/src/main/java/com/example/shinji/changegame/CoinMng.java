@@ -99,7 +99,7 @@ public class CoinMng implements OnTouchListener{
     public void CoinInit(){
 
         int i,x;
-        CoinStatus coinMng;
+        CoinStatus coinStatus;
 
         // dp→px変換
         float density = mContext.getResources().getDisplayMetrics().density;
@@ -115,47 +115,47 @@ public class CoinMng implements OnTouchListener{
         // 1円の複数枚表示
         x = COIN_X_PS1;
         for( i = 0; i < 1; i++ ) {
-            coinMng = new CoinStatus(1, x, COIN_Y_PS1);
-            coinStatuses.add(coinMng);
+            coinStatus = new CoinStatus(1, x, COIN_Y_PS1);
+            coinStatuses.add(coinStatus);
             x+=COIN_X_SHIFT;
         }
 
         // 5円の複数枚表示
         x = COIN_X_PS2;
-        coinMng = new CoinStatus(5, x, COIN_Y_PS1);
-        coinStatuses.add(coinMng);
+        coinStatus = new CoinStatus(5, x, COIN_Y_PS1);
+        coinStatuses.add(coinStatus);
 
         // 10円の複数枚表示
         x = COIN_X_PS3;
         for( i = 0; i < 4; i++ ) {
-            coinMng = new CoinStatus(10, x, COIN_Y_PS1);
-            coinStatuses.add(coinMng);
+            coinStatus = new CoinStatus(10, x, COIN_Y_PS1);
+            coinStatuses.add(coinStatus);
             x+=COIN_X_SHIFT;
         }
 
         // 50円の複数枚表示
         x = COIN_X_PS4;
-        coinMng = new CoinStatus(50, x, COIN_Y_PS1);
-        coinStatuses.add(coinMng);
+        coinStatus = new CoinStatus(50, x, COIN_Y_PS1);
+        coinStatuses.add(coinStatus);
 
         // 100円の複数枚表示
         x = COIN_X_PS1;
         for( i = 0; i < 4; i++ ) {
-            coinMng = new CoinStatus(100, x, COIN_Y_PS2);
-            coinStatuses.add(coinMng);
+            coinStatus = new CoinStatus(100, x, COIN_Y_PS2);
+            coinStatuses.add(coinStatus);
             x+=COIN_X_SHIFT;
         }
 
         // 500円の複数枚表示
         x = COIN_X_PS2;
-        coinMng = new CoinStatus(500, x, COIN_Y_PS2);
-        coinStatuses.add(coinMng);
+        coinStatus = new CoinStatus(500, x, COIN_Y_PS2);
+        coinStatuses.add(coinStatus);
 
         // 1000円の複数枚表示
         x = COIN_X_PS3;
         for( i = 0; i < 2; i++ ) {
-            coinMng = new CoinStatus(1000, x, COIN_Y_PS2);
-            coinStatuses.add(coinMng);
+            coinStatus = new CoinStatus(1000, x, COIN_Y_PS2);
+            coinStatuses.add(coinStatus);
             x+=COIN_X_SHIFT;
         }
 
@@ -442,18 +442,19 @@ public class CoinMng implements OnTouchListener{
     // 指定した金額分コイン追加
     // amount:追加したい金額
     public static void AddCoin(int amount){
+
         int num;
         int x;
-        CoinStatus coinMng;
+        CoinStatus coinStatus;
 
         num = amount / 1000;
         x = COIN_X_PS3;
         Log.w( "XXXXX", "amount " + amount);
         for(int i = 0; i < num; i++ ){
-            coinMng = new CoinStatus(1000, x, 0);
-            coinStatuses.add(coinMng);
+//            coinMng = new CoinStatus(1000, x, 0);
+//            coinStatuses.add(coinMng);
             x+=COIN_X_SHIFT;
-            coinMng.MoveCoin(3,-1,COIN_Y_PS2);
+//            coinMng.MoveCoin(3,-1,COIN_Y_PS2);
             Log.w( "XXXXX", "aaa1000");
         }
         amount -= num * 1000;
@@ -461,10 +462,10 @@ public class CoinMng implements OnTouchListener{
         num = amount / 500;
         x = COIN_X_PS2;
         for(int i = 0; i < num; i++ ){
-            coinMng = new CoinStatus(500, x, 0);
-            coinStatuses.add(coinMng);
+//            coinMng = new CoinStatus(500, x, 0);
+//            coinStatuses.add(coinMng);
             x+=COIN_X_SHIFT;
-            coinMng.MoveCoin(3,-1,COIN_Y_PS2);
+//            coinMng.MoveCoin(3,-1,COIN_Y_PS2);
             Log.w( "XXXXX", "aaa500");
         }
         amount -= num * 500;
@@ -473,10 +474,10 @@ public class CoinMng implements OnTouchListener{
         num = amount / 100;
         x = COIN_X_PS1;
         for(int i = 0; i < num; i++ ){
-            coinMng = new CoinStatus(100, x, 0);
-            coinStatuses.add(coinMng);
+//            coinMng = new CoinStatus(100, x, 0);
+//            coinStatuses.add(coinMng);
             x+=COIN_X_SHIFT;
-            coinMng.MoveCoin(3,-1,COIN_Y_PS2);
+//            coinMng.MoveCoin(3,-1,COIN_Y_PS2);
             Log.w( "XXXXX", "aaa100");
         }
         amount -= num * 100;
@@ -484,10 +485,10 @@ public class CoinMng implements OnTouchListener{
         num = amount / 50;
         x = COIN_X_PS4;
         for(int i = 0; i < num; i++ ){
-            coinMng = new CoinStatus(50, x, 0);
-            coinStatuses.add(coinMng);
+//            coinMng = new CoinStatus(50, x, 0);
+//            coinStatuses.add(coinMng);
             x+=COIN_X_SHIFT;
-            //coinMng.MoveCoin(3,-1,COIN_Y_PS1);
+//            coinMng.MoveCoin(3,-1,COIN_Y_PS1);
             Log.w( "XXXXX", "aaa50");
         }
         amount -= num * 50;
@@ -495,10 +496,10 @@ public class CoinMng implements OnTouchListener{
         num = amount / 10;
         x = COIN_X_PS3;
         for(int i = 0; i < num; i++ ){
-            coinMng = new CoinStatus(10, x, 0);
-            coinStatuses.add(coinMng);
+//            coinMng = new CoinStatus(10, x, 0);
+//            coinStatuses.add(coinMng);
             x+=COIN_X_SHIFT;
-            coinMng.MoveCoin(3,-1,COIN_Y_PS1);
+//            coinMng.MoveCoin(3,-1,COIN_Y_PS1);
             Log.w( "XXXXX", "aaa10");
         }
         amount -= num * 10;
@@ -506,21 +507,23 @@ public class CoinMng implements OnTouchListener{
         num = amount / 5;
         x = COIN_X_PS2;
         for(int i = 0; i < num; i++ ){
-            coinMng = new CoinStatus(5, x, 0);
-            coinStatuses.add(coinMng);
+//            coinMng = new CoinStatus(5, x, 0);
+//            coinStatuses.add(coinMng);
             x+=COIN_X_SHIFT;
-            coinMng.MoveCoin(3,-1,COIN_Y_PS1);
+//            coinMng.MoveCoin(3,-1,COIN_Y_PS1);
             Log.w( "XXXXX", "aaa5");
         }
         amount -= num * 5;
 
         num = amount / 1;
         x = COIN_X_PS1;
+
+        coinStatus = new CoinStatus(1, x, 0);
         for(int i = 0; i < num; i++ ){
-            coinMng = new CoinStatus(1, x, 0);
-            coinStatuses.add(coinMng);
+//            coinStatus = new CoinStatus(1, x, 0);
+//            coinStatuses.add(coinStatus);
             x+=COIN_X_SHIFT;
-            coinMng.MoveCoin(3,-1,COIN_Y_PS1);
+//            coinStatus.MoveCoin(3,-1,COIN_Y_PS1);
             Log.w( "XXXXX", "aaa1");
         }
         amount -= num * 1;

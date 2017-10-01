@@ -22,6 +22,8 @@ import java.util.TimerTask;
  * Created by shinji on 2017/09/07.
  */
 
+//https://akira-watson.com/android/property-animation.html
+
 public class GameActivity extends AppCompatActivity {
 
     static Context mContext;
@@ -30,7 +32,8 @@ public class GameActivity extends AppCompatActivity {
     static FrameLayout sOverLayout;
     static LinearLayout sBackLayout;
 
-    static float sLapTime = 0.0f;
+    static float sLapTimeReal = 0.0f;
+    static float sLapTime= 0.0f;
     static float sMemTime = 0.0f;
 
     CoinMng sCoinMng;
@@ -49,14 +52,22 @@ public class GameActivity extends AppCompatActivity {
 
     static QuestionMng sQuestionMng;
 
+    // スタート表示中
     static boolean sOpeningFlg;
+    // 新しい問題を出題
     static boolean sNewQuestionFlg;
+    // 考え中中フラグ
     static boolean sNowThinkingFlg;
+    // 解答処理中フラグ
     static boolean sNowAnserFlg;
-    static boolean sOkFlg;
+    // 正解フラグ
+    static boolean sQuestionOkFlg;
+    // お釣り返却中フラグ
+    static boolean sNowAmountFlg;
 
     static int GAME_MILLI_SECOND = 100;
     static int sQuestionYen = 0;
+    static int sAmount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +79,6 @@ public class GameActivity extends AppCompatActivity {
 
         sImageOk = (ImageView)findViewById(R.id.imageOk);
         sImageNg = (ImageView)findViewById(R.id.imageNg);
-
 
 
         mContext = this;
@@ -112,10 +122,9 @@ public class GameActivity extends AppCompatActivity {
                 HashMap<String,Integer> walletCoinNum = CoinMng.GetWalletNum();
                 HashMap<String,Integer> trayCoinNum = CoinMng.GetTrayNum();
 
-                sOkFlg = sQuestionMng.anserQuestion(allCoinNum,trayCoinNum);
-                if( sOkFlg ){
+                sQuestionOkFlg = sQuestionMng.anserQuestion(allCoinNum,trayCoinNum);
+                if(sQuestionOkFlg){
                     sCoinMng.DeleteCoin();
-
                 }
 
                 sNowAnserFlg = true;
@@ -123,7 +132,7 @@ public class GameActivity extends AppCompatActivity {
 
 
 
-                Log.w( "AAAAA", "okkkkkkkkkkkkkkkkkkk " + sOkFlg );
+                Log.w( "AAAAA", "okkkkkkkkkkkkkkkkkkk " + sQuestionOkFlg);
             }
         });
 
@@ -142,7 +151,8 @@ public class GameActivity extends AppCompatActivity {
         sNewQuestionFlg = false;
         sNowThinkingFlg = false;
         sNowAnserFlg = false;
-        sOkFlg = false;
+        sQuestionOkFlg = false;
+        sNowAmountFlg = false;
 
 
         sTimer = new Timer(true);
@@ -159,16 +169,15 @@ public class GameActivity extends AppCompatActivity {
                         sImageOk.setVisibility(View.GONE);
                         sImageNg.setVisibility(View.GONE);
 
-
                         //実行間隔分を加算処理
-                        sLapTime +=  0.1;
+                        sLapTimeReal +=  0.1;
 
                         //計算にゆらぎがあるので小数点第1位で丸める
-                        BigDecimal bi = new BigDecimal(sLapTime);
-                        float outputValue = bi.setScale(1, BigDecimal.ROUND_HALF_UP).floatValue();
+                        BigDecimal bi = new BigDecimal(sLapTimeReal);
+                        sLapTime = bi.setScale(1, BigDecimal.ROUND_HALF_UP).floatValue();
 
                         //現在のLapTime
-                        sTextTimer.setText(Float.toString(outputValue));
+                        sTextTimer.setText(Float.toString(sLapTime));
 
                         //出題金額
                         sTextAmount.setText(Integer.toString(sQuestionMng.sAmount));
@@ -179,9 +188,20 @@ public class GameActivity extends AppCompatActivity {
                             sNewQuestionFlg = true; // とりあえず第一問
                         }
                         // 正解表示時間終了
-                        if( sNowAnserFlg == true && ( sLapTime - sMemTime ) > 1.0 ){
-                            sNowAnserFlg = false;
-                            sNewQuestionFlg = true;
+                        if( sNowAnserFlg == true ) {
+
+                            Log.w( "DEBUG_DATA", "gggggggggggggggggggggggggggggggggggg1x " + (sLapTime));
+                            Log.w( "DEBUG_DATA", "gggggggggggggggggggggggggggggggggggg1y " + (sMemTime));
+
+                            // 1秒立ったら
+                            if (((int)( (sLapTime * 10 ) - (sMemTime * 10 ) ) ) == 10 ) {
+                                sNowAmountFlg = true;
+                            }
+                            if ((sLapTime - sMemTime) > 2.0) {
+                                sNowAnserFlg = false;
+                                sNewQuestionFlg = true;
+
+                            }
                         }
 
                         // カウントダウン表示
@@ -190,12 +210,18 @@ public class GameActivity extends AppCompatActivity {
                         }
                         // 解答結果待ち
                         else if( sNowAnserFlg == true ){
-                            if( sOkFlg ){
+                            if(sQuestionOkFlg){
                                 sImageOk.setVisibility(View.VISIBLE);
                             }
                             else{
                                 sImageNg.setVisibility(View.VISIBLE);
                             }
+                            if( sNowAmountFlg ){
+                                Log.w( "DEBUG_DATA", "gggggggggggggggggggggggggggggggggggg2" + sAmount);
+                                CoinMng.AddCoin(sAmount);
+                                sNowAmountFlg = false;
+                            }
+
                         }
 
                         // ゲーム開始

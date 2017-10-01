@@ -253,9 +253,10 @@ Log.w( "AAAAA", "ccccccccccc " + c);
                 anserCoinNum.get("1000") == trayCoinNum.get("1000")){
 
             //お釣りをセット
-            int changeAmount = ( ( trayCoinNum.get("1000") * 1000 ) + ( trayCoinNum.get("500") * 500 ) + ( trayCoinNum.get("100") * 100 )
+            GameActivity.sAmount = ( ( trayCoinNum.get("1000") * 1000 ) + ( trayCoinNum.get("500") * 500 ) + ( trayCoinNum.get("100") * 100 )
                     + ( trayCoinNum.get("50") * 50 ) + ( trayCoinNum.get("10") * 10 ) + ( trayCoinNum.get("5") * 5 ) + ( trayCoinNum.get("1") * 1 ) ) - sAmount;
-                    CoinMng.AddCoin(changeAmount);
+
+            // CoinMng.AddCoin(changeAmount);
 
             return true;
         }
