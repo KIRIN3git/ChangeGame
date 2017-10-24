@@ -216,7 +216,7 @@ public class GameActivity extends AppCompatActivity {
                             if( sNowAmountFlg ){
                                 Log.w( "DEBUG_DATA", "gggggggggggggggggggggggggggggggggggg2" + sAmount);
 
-                                CoinStatus coinStatus = new CoinStatus(1, 10, 0);
+                                CoinStatus coinStatus = new CoinStatus(1, 10, 0,true);
 //                                CoinMng.AddCoin(sAmount);
                                 sNowAmountFlg = false;
                             }

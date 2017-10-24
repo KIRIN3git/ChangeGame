@@ -21,6 +21,9 @@ public class CoinMng implements OnTouchListener{
     static FrameLayout mLayout;
     static View.OnTouchListener mVOL;
 
+    // 財布とトレーのy座標差（％）
+    static final int wTotY = 40;
+
     // コイン種類
     static String coinType[] = {"1yen","5yen","10yen","50yen","100yen","500yen","1000yen"};
     // コインの枚数
@@ -64,7 +67,7 @@ public class CoinMng implements OnTouchListener{
     static int COIN_X_PS4 = 79;
 
 
-    int coinsType[][] ={
+    static int coinsType[][] ={
             {1,ICHIYEN_SIZE_DP,ICHIYEN_SIZE_PX,COIN_X_PS1,COIN_Y_PS1},
             {5,GOYEN_SIZE_DP,GOYEN_SIZE_PX,COIN_X_PS2,COIN_Y_PS1},
             {10,JYUYEN_SIZE_DP,JYUYEN_SIZE_PX,COIN_X_PS3,COIN_Y_PS1},
@@ -109,9 +112,6 @@ public class CoinMng implements OnTouchListener{
 
     public void CoinInit(){
 
-        int i,x;
-        CoinStatus coinStatus;
-
         // dp→px変換
         float density = mContext.getResources().getDisplayMetrics().density;
         ICHIYEN_SIZE_PX = CommonMng.PxToDp2(ICHIYEN_SIZE_DP,density);
@@ -123,52 +123,17 @@ public class CoinMng implements OnTouchListener{
         SENYEN_SIZE_PX = CommonMng.PxToDp2(SENYEN_SIZE_DP,density);
         GOSENYEN_SIZE_PX = CommonMng.PxToDp2(GOSENYEN_SIZE_DP,density);
 
-        // 1円の複数枚表示
-        x = COIN_X_PS1;
-        for( i = 0; i < 1; i++ ) {
-            coinStatus = new CoinStatus(1, x, COIN_Y_PS1);
-            coinStatuses.add(coinStatus);
-            x+=COIN_X_SHIFT;
-        }
+        // コインの初期作成
+        CreateCoin(1,4,true);
+        CreateCoin(5,1,true);
+        CreateCoin(10,4,true);
+        CreateCoin(50,1,true);
+        CreateCoin(100,4,true);
+        CreateCoin(500,2,true);
+        CreateCoin(1000,1,true);
 
-        // 5円の複数枚表示
-        x = COIN_X_PS2;
-        coinStatus = new CoinStatus(5, x, COIN_Y_PS1);
-        coinStatuses.add(coinStatus);
+        //CreateCoin(10,4,false);
 
-        // 10円の複数枚表示
-        x = COIN_X_PS3;
-        for( i = 0; i < 4; i++ ) {
-            coinStatus = new CoinStatus(10, x, COIN_Y_PS1);
-            coinStatuses.add(coinStatus);
-            x+=COIN_X_SHIFT;
-        }
-
-        // 50円の複数枚表示
-        x = COIN_X_PS4;
-        coinStatus = new CoinStatus(50, x, COIN_Y_PS1);
-        coinStatuses.add(coinStatus);
-
-        // 100円の複数枚表示
-        x = COIN_X_PS1;
-        for( i = 0; i < 4; i++ ) {
-            coinStatus = new CoinStatus(100, x, COIN_Y_PS2);
-            coinStatuses.add(coinStatus);
-            x+=COIN_X_SHIFT;
-        }
-
-        // 500円の複数枚表示
-        x = COIN_X_PS2;
-        coinStatus = new CoinStatus(500, x, COIN_Y_PS2);
-        coinStatuses.add(coinStatus);
-
-        // 1000円の複数枚表示
-        x = COIN_X_PS3;
-        for( i = 0; i < 2; i++ ) {
-            coinStatus = new CoinStatus(1000, x, COIN_Y_PS2);
-            coinStatuses.add(coinStatus);
-            x+=COIN_X_SHIFT;
-        }
 
         /*
         // 5000円の複数枚表示
@@ -184,26 +149,43 @@ public class CoinMng implements OnTouchListener{
         1:財布
         2:トレー
     */
-    public void CleaningCoins( Integer amount,Integer option ){
+    public static void CleaningCoins( Integer amount,boolean walletFlg ){
         // 枚数
         Integer count = 0;
         for( int i = 0; i < coinStatuses.size(); i++ ) {
             if( coinStatuses.get(i).sAmount == amount ){
-                if( ( option == 1 && coinStatuses.get(i).walletFlg == false )
-                    || ( option == 2 && coinStatuses.get(i).walletFlg == true ) ){
+                if( coinStatuses.get(i).walletFlg == walletFlg ){
                     count++;
-                    coinStatuses.get(i).removeCoin();
+                    coinStatuses.get(i).removeCoin(); // 画像削除
+                    coinStatuses.remove(i); // 配列から削除
                 }
             }
         }
-
-        CreateCoin( amount,count );
+        CreateCoin( amount,count,walletFlg );
     }
 
-    public void CreateCoin( Integer amount,Integer num ){
+    public static void CreateCoin( Integer amount,Integer num,boolean walletFlg ){
 
-        int x,y,typeNum = 0;
+        int x,y,typeNum;
         CoinStatus coinStatus;
+
+        typeNum = GetTypeNum( amount );
+
+        x =  coinsType[typeNum][3];
+        y =  coinsType[typeNum][4];
+        if( !walletFlg ){
+            y -= wTotY;
+        }
+        Log.w( "EEEEEEEEEE", "aaaa y = " + y );
+        for( int i = 0; i < num; i++ ) {
+            coinStatus = new CoinStatus(amount,x,y,walletFlg);
+            coinStatuses.add(coinStatus);
+            x+=COIN_X_SHIFT;
+        }
+    }
+
+    public static Integer GetTypeNum( Integer amount ){
+        int typeNum = 0;
 
         for( int i = 0; i < coinsType.length; i++ ){
             if( coinsType[i][0] == amount ){
@@ -211,13 +193,7 @@ public class CoinMng implements OnTouchListener{
                 break;
             }
         }
-        x =  coinsType[typeNum][3];
-        y =  coinsType[typeNum][4];
-        for( int i = 0; i < num; i++ ) {
-            coinStatus = new CoinStatus(1,x,y);
-            coinStatuses.add(coinStatus);
-            x+=COIN_X_SHIFT;
-        }
+        return typeNum;
     }
 
 
@@ -246,7 +222,6 @@ public class CoinMng implements OnTouchListener{
         }
         return null;
     }
-
 
     /*
         CoinStatusからamountでtrayStatus==falseで、配列から一番上のものを取得

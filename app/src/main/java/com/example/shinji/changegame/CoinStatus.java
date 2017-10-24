@@ -3,17 +3,12 @@ package com.example.shinji.changegame;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
-import android.content.Context;
-import android.graphics.Canvas;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-
-import java.util.ArrayList;
 
 /**
  * Created by etisu on 2017/09/17.
@@ -33,7 +28,7 @@ public class CoinStatus implements Animator.AnimatorListener {
     ratioX:x座標画面表示割合（最大100）
     ratioY:y座標画面表示割合（最大100）
      */
-    public CoinStatus(int amount, int ratioX, int ratioY ) {
+    public CoinStatus(int amount, int ratioX, int ratioY,boolean wf ) {
         int image = 0;
         int newId = View.generateViewId();
 
@@ -43,6 +38,7 @@ public class CoinStatus implements Animator.AnimatorListener {
         sX = (int)xy[0];
         sY = (int)xy[1];
         sAmount = amount;
+        walletFlg = wf;
 
         image = CoinMng.GetCoinImage( amount );
 
@@ -95,7 +91,7 @@ y:移動量(%)を指定
         final int moveY,x;
 
         if( y == 0) {
-            xy = CommonMng.PsToPx(0, 40);
+            xy = CommonMng.PsToPx(0, CoinMng.wTotY);
         }
         else{
             xy = CommonMng.PsToPx(0, y);
@@ -181,7 +177,7 @@ y:移動量(%)を指定
         if( moveFlg ) return;
 
         if( y == 0) {
-            xy = CommonMng.PsToPx(0, 40);
+            xy = CommonMng.PsToPx(0, CoinMng.wTotY);
         }
         else{
             xy = CommonMng.PsToPx(0, y);
@@ -195,6 +191,7 @@ y:移動量(%)を指定
         else{
             walletFlg = true;
         }
+
         if( mode == 0){
             moveY = -(int)xy[1];
         }
@@ -208,7 +205,6 @@ y:移動量(%)を指定
             moveY = ( (int)xy[1] ) ;
         }
         else return;
-
 
         final ImageView imageView = (ImageView)CoinMng.mLayout.findViewById(sViewId);
 
@@ -251,6 +247,7 @@ y:移動量(%)を指定
     public void onAnimationEnd(Animator animation) {
         Log.d("debug","onAnimationEnd()");
         moveFlg = false;
+        CoinMng.CleaningCoins(sAmount,false);
     }
 
     // 繰り返しでコールバックされる
@@ -273,7 +270,4 @@ y:移動量(%)を指定
 
     return false;
     }
-
-
-
 }
