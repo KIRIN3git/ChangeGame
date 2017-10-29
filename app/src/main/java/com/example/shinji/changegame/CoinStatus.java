@@ -20,15 +20,21 @@ public class CoinStatus implements Animator.AnimatorListener {
     int sImageId;
     int sX,sY;
     int sAmount;
-    boolean walletFlg = true;
+//    boolean walletFlg = true;
+    static final int WALLET_POSITION = 0;
+    static final int TRAY_POSITION = 1;
+    static final int OUTSIDE_POSITION = 2;
+
+    int position = 0; // 0:財布,1:トレー,2:外
     boolean moveFlg = false;
+    int moveMode = 0;
 
     /* コインイメージの作成
     amount:金額
     ratioX:x座標画面表示割合（最大100）
     ratioY:y座標画面表示割合（最大100）
      */
-    public CoinStatus(int amount, int ratioX, int ratioY,boolean wf ) {
+    public CoinStatus(int amount, int ratioX, int ratioY,int _position ) {
         int image = 0;
         int newId = View.generateViewId();
 
@@ -38,7 +44,8 @@ public class CoinStatus implements Animator.AnimatorListener {
         sX = (int)xy[0];
         sY = (int)xy[1];
         sAmount = amount;
-        walletFlg = wf;
+        position = _position;
+        moveFlg = false;
 
         image = CoinMng.GetCoinImage( amount );
 
@@ -75,7 +82,8 @@ public class CoinStatus implements Animator.AnimatorListener {
         final ImageView imageView = (ImageView)CoinMng.mLayout.findViewById(sViewId);
         imageView.setImageDrawable(null);
     }
-    /*
+
+/*
 mode:0 財布 → トレー
 mode:1 トレー → 財布
 mode:2 トレー → 外
@@ -85,7 +93,7 @@ mode:3 外 → 財布
 i:CoinMngから削除するID
 y:移動量(%)を指定
  */
-    void MoveCoin2( final int mode,final int i,int y ){
+    void MoveCoinOld( final int mode,final int i,int y ){
         final ImageView imageView = (ImageView)CoinMng.mLayout.findViewById(sViewId);
         final float xy[];
         final int moveY,x;
@@ -99,12 +107,19 @@ y:移動量(%)を指定
 
         moveFlg = true;
 
-        if( mode == 0 || mode == 2 ){
-            walletFlg = false;
+        if( mode == 0 ){
+            position = 1;
+        }
+        else if( mode == 1 || mode == 3 ){
+            position = 0;
+        }
+        else if( mode == 2 ){
+            position = 2;
         }
         else{
-            walletFlg = true;
+            return;
         }
+
         if( mode == 0){
             moveY = -(int)xy[1];
         }
@@ -173,7 +188,10 @@ y:移動量(%)を指定
 
         final float xy[];
         final int moveY,x;
+        moveMode = mode;
 
+        //CoinMng.CheckCoinsNum(10);
+        //Log.w( "DEBUG_DATA", "count check1111111111");
         if( moveFlg ) return;
 
         if( y == 0) {
@@ -185,11 +203,17 @@ y:移動量(%)を指定
 
         moveFlg = true;
 
-        if( mode == 0 || mode == 2 ){
-            walletFlg = false;
+        if( mode == 0 ){
+            position = 1;
+        }
+        else if( mode == 1 || mode == 3 ){
+            position = 0;
+        }
+        else if( mode == 2 ){
+            position = 2;
         }
         else{
-            walletFlg = true;
+            return;
         }
 
         if( mode == 0){
@@ -247,7 +271,13 @@ y:移動量(%)を指定
     public void onAnimationEnd(Animator animation) {
         Log.d("debug","onAnimationEnd()");
         moveFlg = false;
-        CoinMng.CleaningCoins(sAmount,false);
+        //CoinMng.CheckCoinsNum(10);
+        if( moveMode == 0) CoinMng.CleaningCoins(sAmount,TRAY_POSITION);
+        else if ( moveMode == 1) CoinMng.CleaningCoins(sAmount,WALLET_POSITION);
+        else if ( moveMode == 2){
+            CoinMng.DeleteCoins(sAmount,OUTSIDE_POSITION);
+
+        }
     }
 
     // 繰り返しでコールバックされる
@@ -256,7 +286,7 @@ y:移動量(%)を指定
         Log.d("debug","onAnimationRepeat()");
     }
 
-
+/*
     boolean CheckMoveOk(){
         final ImageView imageView = (ImageView)CoinMng.mLayout.findViewById(sViewId);
         int y = imageView.getTop();
@@ -270,4 +300,5 @@ y:移動量(%)を指定
 
     return false;
     }
+*/
 }

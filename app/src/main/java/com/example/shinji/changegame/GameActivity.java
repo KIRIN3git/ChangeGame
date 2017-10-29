@@ -67,7 +67,7 @@ public class GameActivity extends AppCompatActivity {
 
     static int GAME_MILLI_SECOND = 100;
     static int sQuestionYen = 0;
-    static int sAmount = 0;
+    static int sCharge = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,7 +124,12 @@ public class GameActivity extends AppCompatActivity {
 
                 sQuestionOkFlg = sQuestionMng.anserQuestion(allCoinNum,trayCoinNum);
                 if(sQuestionOkFlg){
-                    sCoinMng.DeleteCoin();
+//                    sCoinMng.OutSideCoin();
+                    // コイン全削除
+                    sCoinMng.DeleteCoins(0,CoinStatus.TRAY_POSITION);
+                    // トレイにお釣り表示
+                    sCoinMng.CreateCoinChange(QuestionMng.sCharge,CoinStatus.TRAY_POSITION);
+
                 }
 
                 sNowAnserFlg = true;
@@ -180,20 +185,21 @@ public class GameActivity extends AppCompatActivity {
                         sTextTimer.setText(Float.toString(sLapTime));
 
                         //出題金額
-                        sTextAmount.setText(Integer.toString(sQuestionMng.sAmount));
+                        sTextAmount.setText(Integer.toString(sQuestionMng.sPrice));
 
                         // カウントダウン終了
                         if( sOpeningFlg == true && sLapTime > 2.0 ){
                             sOpeningFlg = false;
                             sNewQuestionFlg = true; // とりあえず第一問
                         }
+
                         // 正解表示時間終了
                         if( sNowAnserFlg == true ) {
 
                             // 1秒立ったら
-                            if (((int)( (sLapTime * 10 ) - (sMemTime * 10 ) ) ) == 10 ) {
-                                sNowAmountFlg = true;
-                            }
+//                            if (((int)( (sLapTime * 10 ) - (sMemTime * 10 ) ) ) == 10 ) {
+//                                sNowAmountFlg = true;
+//                            }
                             if ((sLapTime - sMemTime) > 2.0) {
                                 sNowAnserFlg = false;
                                 sNewQuestionFlg = true;
@@ -214,13 +220,12 @@ public class GameActivity extends AppCompatActivity {
                                 sImageNg.setVisibility(View.VISIBLE);
                             }
                             if( sNowAmountFlg ){
-                                Log.w( "DEBUG_DATA", "gggggggggggggggggggggggggggggggggggg2" + sAmount);
 
-                                CoinStatus coinStatus = new CoinStatus(1, 10, 0,true);
+//
+//                                CoinStatus coinStatus = new CoinStatus(1, 10, 0,true);
 //                                CoinMng.AddCoin(sAmount);
                                 sNowAmountFlg = false;
                             }
-
                         }
 
                         // ゲーム開始

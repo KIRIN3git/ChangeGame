@@ -35,8 +35,12 @@ public class QuestionMng {
     static int sThinkingTime = 100;
 
     // 出題金額
-    static int sAmount = 0;
+    static int sPrice = 0;
+    // お釣り
+    static int sCharge = 0;
 
+    // 正解コイン数
+    static HashMap<String,Integer> anserCoinNum;
 
 
     public QuestionMng(Context context, LinearLayout layout,Handler handler) {
@@ -83,11 +87,11 @@ public class QuestionMng {
 
     public int NewQuestion(){
 
-        sAmount = (int)(Math.random()*1700 + 300);
+        sPrice = (int)(Math.random()*1700 + 300);
         startProgressBar(sThinkingTime);
 
-        Log.w( "AAAAA", "aaa sAmount = " + sAmount);
-        return sAmount;
+        Log.w( "AAAAA", "aaa sPrice = " + sPrice);
+        return sPrice;
     }
 
     /*
@@ -97,20 +101,20 @@ public class QuestionMng {
      */
     public boolean anserQuestion(HashMap<String,Integer> allCoinNum,HashMap<String,Integer> trayCoinNum){
 
-        //sAmount = 934;
+        //sPrice = 934;
 
-        if( sAmount == 0 ){
+        if( sPrice == 0 ){
             return false;
         }
 
         // 正解コイン数
-        HashMap<String,Integer> anserCoinNum = new HashMap<String,Integer>();
+        anserCoinNum = new HashMap<String,Integer>();
 
         int a = 0,b = 0,c = 0,d = 0; // a:一の位,b:十の位,c:百の位,d:千の位
-        if( 1000 <= sAmount ) d = sAmount / 1000;
-        if( 100 <= sAmount ) c = ( sAmount - (d * 1000) ) / 100;
-        if( 10 <= sAmount ) b = ( sAmount -(d * 1000) - (c * 100) ) / 10;
-        a = sAmount % 10;
+        if( 1000 <= sPrice ) d = sPrice / 1000;
+        if( 100 <= sPrice ) c = ( sPrice - (d * 1000) ) / 100;
+        if( 10 <= sPrice ) b = ( sPrice -(d * 1000) - (c * 100) ) / 10;
+        a = sPrice % 10;
 
         // 〇一の位の計算
         // 5を引いた金額
@@ -195,7 +199,6 @@ public class QuestionMng {
         if( fewJyuFlg ) c++;
         if(c >= 5) cc = c - 5;
         else cc = c;
-Log.w( "AAAAA", "ccccccccccc " + c);
         // 百の位が足りない
         if( allHyaku < c ) fewHyakuFlg = true;
 
@@ -253,8 +256,8 @@ Log.w( "AAAAA", "ccccccccccc " + c);
                 anserCoinNum.get("1000") == trayCoinNum.get("1000")){
 
             //お釣りをセット
-            GameActivity.sAmount = ( ( trayCoinNum.get("1000") * 1000 ) + ( trayCoinNum.get("500") * 500 ) + ( trayCoinNum.get("100") * 100 )
-                    + ( trayCoinNum.get("50") * 50 ) + ( trayCoinNum.get("10") * 10 ) + ( trayCoinNum.get("5") * 5 ) + ( trayCoinNum.get("1") * 1 ) ) - sAmount;
+            sCharge = ( ( trayCoinNum.get("1000") * 1000 ) + ( trayCoinNum.get("500") * 500 ) + ( trayCoinNum.get("100") * 100 )
+                    + ( trayCoinNum.get("50") * 50 ) + ( trayCoinNum.get("10") * 10 ) + ( trayCoinNum.get("5") * 5 ) + ( trayCoinNum.get("1") * 1 ) ) - sPrice;
 
             // CoinMng.AddCoin(changeAmount);
 

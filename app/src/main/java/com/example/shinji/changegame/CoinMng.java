@@ -124,13 +124,13 @@ public class CoinMng implements OnTouchListener{
         GOSENYEN_SIZE_PX = CommonMng.PxToDp2(GOSENYEN_SIZE_DP,density);
 
         // コインの初期作成
-        CreateCoin(1,4,true);
-        CreateCoin(5,1,true);
-        CreateCoin(10,4,true);
-        CreateCoin(50,1,true);
-        CreateCoin(100,4,true);
-        CreateCoin(500,2,true);
-        CreateCoin(1000,1,true);
+        CreateCoin(1,4,CoinStatus.WALLET_POSITION);
+        CreateCoin(5,1,CoinStatus.WALLET_POSITION);
+        CreateCoin(10,4,CoinStatus.WALLET_POSITION);
+        CreateCoin(50,1,CoinStatus.WALLET_POSITION);
+        CreateCoin(100,4,CoinStatus.WALLET_POSITION);
+        CreateCoin(500,2,CoinStatus.WALLET_POSITION);
+        CreateCoin(1000,1,CoinStatus.WALLET_POSITION);
 
         //CreateCoin(10,4,false);
 
@@ -143,28 +143,80 @@ public class CoinMng implements OnTouchListener{
         */
     }
 
+    public static void CheckCoinsNum(Integer amount){
+        Integer countWallet = 0;
+        Integer countTray = 0;
+
+        Log.w( "DEBUG_DATA", "count coinStatuses.size() " + coinStatuses.size());
+        for( int i = 0; i < coinStatuses.size(); i++ ) {
+            Log.w( "DEBUG_DATA", "count coinStatuses.get(i).sAmount " + coinStatuses.get(i).sAmount + "i " + i);
+            if( coinStatuses.get(i).sAmount == 10 ){
+                if( coinStatuses.get(i).position == 0 ){
+//                    Log.w( "DEBUG_DATA", "count DELLLLLLLLLL0 countWallet " + countWallet);
+                    countWallet++;
+                }
+                else if( coinStatuses.get(i).position == 1 ){
+//                    Log.w( "DEBUG_DATA", "count NOTTTTTTTTTT0 countTray " + countTray);
+                    countTray++;
+                }
+            }
+        }
+
+        Log.w( "DEBUG_DATA", "countWallet " + countWallet );
+        Log.w( "DEBUG_DATA", "countTray " + countTray );
+    }
     /*
      指定した金額の整形を行う
      option
         1:財布
         2:トレー
     */
-    public static void CleaningCoins( Integer amount,boolean walletFlg ){
-        // 枚数
+    public static void CleaningCoins( Integer amount,Integer position ){
+        Log.w( "DEBUG_DATA", "CleaningCoins position" + position);
+
         Integer count = 0;
-        for( int i = 0; i < coinStatuses.size(); i++ ) {
-            if( coinStatuses.get(i).sAmount == amount ){
-                if( coinStatuses.get(i).walletFlg == walletFlg ){
+        count = DeleteCoins(amount,position);
+
+        // 削除分作成
+        CreateCoin( amount,count,position );
+    }
+
+    // amount:0 全削除
+    public static int DeleteCoins( Integer amount,Integer position ){
+        Integer count = 0;
+        for( int i = coinStatuses.size() - 1; i >= 0; i-- ) {
+            if( coinStatuses.get(i).sAmount == amount || amount == 0 ){
+                if( coinStatuses.get(i).position == position ) {
                     count++;
                     coinStatuses.get(i).removeCoin(); // 画像削除
                     coinStatuses.remove(i); // 配列から削除
                 }
             }
         }
-        CreateCoin( amount,count,walletFlg );
+        return  count;
     }
 
-    public static void CreateCoin( Integer amount,Integer num,boolean walletFlg ){
+
+
+    public static HashMap<String,Integer> ChangeChargeToHashmap( Integer charge ){
+        HashMap<String,Integer> coinNum = new HashMap<String,Integer>();
+
+
+        return coinNum;
+    }
+
+    public static void CreateCoinChange( Integer charge,Integer position ){
+
+        if( charge == 0 ) return;
+
+        int num = 0;
+        for(int i = coinsType.length - 1; i >= 0 ; i--){
+            Log.w( "DEBUG_DATA", "coinsType[i][0]" + coinsType[i][0]);
+            num = charge / coinsType[i][0];
+            CreateCoin( coinsType[i][0],num,position );
+        }
+    }
+    public static void CreateCoin( Integer amount,Integer num,Integer position ){
 
         int x,y,typeNum;
         CoinStatus coinStatus;
@@ -173,12 +225,12 @@ public class CoinMng implements OnTouchListener{
 
         x =  coinsType[typeNum][3];
         y =  coinsType[typeNum][4];
-        if( !walletFlg ){
+        if( position == 1 ){
             y -= wTotY;
         }
         Log.w( "EEEEEEEEEE", "aaaa y = " + y );
         for( int i = 0; i < num; i++ ) {
-            coinStatus = new CoinStatus(amount,x,y,walletFlg);
+            coinStatus = new CoinStatus(amount,x,y,position);
             coinStatuses.add(coinStatus);
             x+=COIN_X_SHIFT;
         }
@@ -216,8 +268,8 @@ public class CoinMng implements OnTouchListener{
             Log.w( "DEBUG_DATA", "i " + i);
             Log.w( "DEBUG_DATA", "coinStatuses.get(i).sAmount " + coinStatuses.get(i).sAmount);
             if( coinStatuses.get(i).sAmount== amount ){
-                if( mode == 0 && coinStatuses.get(i).walletFlg == true && coinStatuses.get(i).moveFlg == false ) return coinStatuses.get(i);
-                else if( mode == 1 && coinStatuses.get(i).walletFlg == false && coinStatuses.get(i).moveFlg == false ) return coinStatuses.get(i);
+                if( mode == 0 && coinStatuses.get(i).position == CoinStatus.WALLET_POSITION && coinStatuses.get(i).moveFlg == false ) return coinStatuses.get(i);
+                else if( mode == 1 && coinStatuses.get(i).position == CoinStatus.TRAY_POSITION && coinStatuses.get(i).moveFlg == false ) return coinStatuses.get(i);
             }
         }
         return null;
@@ -235,13 +287,21 @@ public class CoinMng implements OnTouchListener{
             Log.w( "DEBUG_DATA", "i " + i);
             Log.w( "DEBUG_DATA", "coinStatuses.get(i).sAmount " + coinStatuses.get(i).sAmount);
             if( coinStatuses.get(i).sAmount== amount ){
-                if( mode == 0 && coinStatuses.get(i).walletFlg == true && coinStatuses.get(i).moveFlg == false ) return coinStatuses.get(i);
-                else if( mode == 1 && coinStatuses.get(i).walletFlg == false && coinStatuses.get(i).moveFlg == false ) return coinStatuses.get(i);
+                if( mode == 0 && coinStatuses.get(i).position == CoinStatus.WALLET_POSITION && coinStatuses.get(i).moveFlg == false ) return coinStatuses.get(i);
+                else if( mode == 1 && coinStatuses.get(i).position == CoinStatus.TRAY_POSITION && coinStatuses.get(i).moveFlg == false ) return coinStatuses.get(i);
             }
         }
         return null;
     }
 
+    public CoinStatus GetCoinStatus( int viewId ){
+
+        for( int i = 0; i < coinStatuses.size(); i++ ) {
+            if( coinStatuses.get(i).sViewId == viewId ) return coinStatuses.get(i);
+        }
+
+        return null;
+    }
 
     public boolean onTouch(View v, MotionEvent event) {
         String currAction = "";
@@ -256,8 +316,12 @@ public class CoinMng implements OnTouchListener{
             case MotionEvent.ACTION_UP:
                 Log.w("DEBUG_DATA1", "UP");
                 // タッチしたコインを取得
-                CoinStatus touchCs = GetStatus(v.getId());
-Log.w( "AAAAA", "aaa1");
+
+                //CoinStatus touchCs = GetStatus(v.getId());
+                CoinStatus touchCs = GetCoinStatus(v.getId());
+                if( touchCs == null ) return false;
+                        Log.w( "AAAAA", "aaa1");
+
                 if( touchCs.moveFlg ) return false;
                 Log.w( "AAAAA", "aaa2");
 /////                if( touchCs.CheckMoveOk() == false ) return false;
@@ -281,7 +345,7 @@ Log.w( "AAAAA", "aaa1");
                 Log.w("DEBUG_DATAxx1", "touchCs.moveFlg = " + touchCs.moveFlg);
 
                 // 財布のコインをタッチしてたら
-                if (touchCs.walletFlg == true) {
+                if (touchCs.position == CoinStatus.WALLET_POSITION ) {
 
    //                 if( touchCs.sY  500 ) return false;
 
@@ -298,6 +362,8 @@ Log.w( "AAAAA", "aaa1");
                 }
                 // トレーのコインをタッチしてたら
                 else {
+                    Log.w("DEBUG_DATA", "trayyyyyyyyyyyy ");
+
 
   //                  if( touchCs.sY > 500 ) return false;
 
@@ -389,7 +455,7 @@ Log.w( "AAAAA", "aaa1");
         int ichien = 0,goen = 0,jyuen = 0,gojyuen = 0,hyakuen = 0,gohyaku = 0,senen = 0;
 
         for( int i = 0; i < coinStatuses.size(); i++ ) {
-            if (coinStatuses.get(i).walletFlg) {
+            if (coinStatuses.get(i).position == CoinStatus.WALLET_POSITION ) {
                 if (coinStatuses.get(i).sAmount == 1) ichien++;
                 else if (coinStatuses.get(i).sAmount == 5) goen++;
                 else if (coinStatuses.get(i).sAmount == 10) jyuen++;
@@ -425,7 +491,7 @@ Log.w( "AAAAA", "aaa1");
         int ichien = 0,goen = 0,jyuen = 0,gojyuen = 0,hyakuen = 0,gohyaku = 0,senen = 0;
 
         for( int i = 0; i < coinStatuses.size(); i++ ) {
-            if (coinStatuses.get(i).walletFlg == false) {
+            if (coinStatuses.get(i).position == CoinStatus.TRAY_POSITION) {
                 if (coinStatuses.get(i).sAmount == 1) ichien++;
                 else if (coinStatuses.get(i).sAmount == 5) goen++;
                 else if (coinStatuses.get(i).sAmount == 10) jyuen++;
@@ -457,14 +523,11 @@ Log.w( "AAAAA", "aaa1");
     }
 
     // トレイに乗っているコインを全部削除
-    public static void DeleteCoin(){
-
+    public static void OutSideCoin(){
         for( int i = 0; i < coinStatuses.size(); i++ ) {
-            if (!coinStatuses.get(i).walletFlg) {
+            if (coinStatuses.get(i).position == CoinStatus.TRAY_POSITION) {
                 // 画面外に移動
                 coinStatuses.get(i).MoveCoin(2,i,0);
-                //coinStatuses.remove(i);
-
             }
         }
     }
