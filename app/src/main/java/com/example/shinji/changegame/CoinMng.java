@@ -75,6 +75,7 @@ public class CoinMng implements OnTouchListener{
             {100,HYAKUYEN_SIZE_DP,HYAKUYEN_SIZE_PX,COIN_X_PS1,COIN_Y_PS2},
             {500,GOHYAKUYEN_SIZE_DP,GOHYAKUYEN_SIZE_PX,COIN_X_PS2,COIN_Y_PS2},
             {1000,SENYEN_SIZE_DP,SENYEN_SIZE_PX,COIN_X_PS3,COIN_Y_PS2},
+            {5000,SENYEN_SIZE_DP,SENYEN_SIZE_PX,COIN_X_PS4,COIN_Y_PS2},
     };
 
     // 財布の中でのX座標位置のコインズレ（パーセント）
@@ -130,7 +131,8 @@ public class CoinMng implements OnTouchListener{
         CreateCoin(50,1,CoinStatus.WALLET_POSITION);
         CreateCoin(100,4,CoinStatus.WALLET_POSITION);
         CreateCoin(500,2,CoinStatus.WALLET_POSITION);
-        CreateCoin(1000,1,CoinStatus.WALLET_POSITION);
+        CreateCoin(1000,3,CoinStatus.WALLET_POSITION);
+        CreateCoin(5000,1,CoinStatus.WALLET_POSITION);
 
         //CreateCoin(10,4,false);
 
@@ -213,6 +215,7 @@ public class CoinMng implements OnTouchListener{
         for(int i = coinsType.length - 1; i >= 0 ; i--){
             Log.w( "DEBUG_DATA", "coinsType[i][0]" + coinsType[i][0]);
             num = charge / coinsType[i][0];
+			charge -= coinsType[i][0] * num;
             CreateCoin( coinsType[i][0],num,position );
         }
     }
@@ -399,7 +402,8 @@ public class CoinMng implements OnTouchListener{
         else if( amount == 50 ) return CoinMng.gojyuenImageId;
         else if( amount == 100 ) return CoinMng.hyakuenImageId;
         else if( amount == 500 ) return CoinMng.gohyakuenImageId;
-        else if( amount == 1000 ) return CoinMng.senenImageId;
+		else if( amount == 1000 ) return CoinMng.senenImageId;
+		else if( amount == 5000 ) return CoinMng.gosenenImageId;
 
         return 0;
     }
@@ -412,13 +416,14 @@ public class CoinMng implements OnTouchListener{
         else if( amount == 100 ) return HYAKUYEN_SIZE_PX;
         else if( amount == 500 ) return GOHYAKUYEN_SIZE_PX;
         else if( amount == 1000 ) return SENYEN_SIZE_PX;
+		else if( amount == 5000 ) return GOSENYEN_SIZE_PX;
 
         return 0;
     }
 
     // 表示されている全コイン数を取得
     public static HashMap<String,Integer> GetAllNum(){
-        int ichien = 0,goen = 0,jyuen = 0,gojyuen = 0,hyakuen = 0,gohyaku = 0,senen = 0;
+        int ichien = 0,goen = 0,jyuen = 0,gojyuen = 0,hyakuen = 0,gohyaku = 0,senen = 0,gosenen = 0;
 
         for( int i = 0; i < coinStatuses.size(); i++ ) {
             if (coinStatuses.get(i).sAmount == 1) ichien++;
@@ -428,6 +433,7 @@ public class CoinMng implements OnTouchListener{
             else if (coinStatuses.get(i).sAmount == 100) hyakuen++;
             else if (coinStatuses.get(i).sAmount == 500) gohyaku++;
             else if (coinStatuses.get(i).sAmount == 1000) senen++;
+			else if (coinStatuses.get(i).sAmount == 5000) gosenen++;
         }
 
         HashMap<String,Integer> coinNum = new HashMap<String,Integer>();
@@ -438,6 +444,7 @@ public class CoinMng implements OnTouchListener{
         coinNum.put("100",hyakuen);
         coinNum.put("500",gohyaku);
         coinNum.put("1000",senen);
+		coinNum.put("5000",senen);
 
         Log.w( "KEKKA", "ichien = [" + ichien + "]");
         Log.w( "KEKKA", "goen = [" + goen + "]");
@@ -446,13 +453,14 @@ public class CoinMng implements OnTouchListener{
         Log.w( "KEKKA", "hyakuen = [" + hyakuen + "]");
         Log.w( "KEKKA", "gohyaku = [" + gohyaku + "]");
         Log.w( "KEKKA", "senen = [" + senen + "]");
+		Log.w( "KEKKA", "gosenen = [" + gosenen + "]");
 
         return coinNum;
     }
 
     // 財布内のコイン数を取得
     public static HashMap<String,Integer> GetWalletNum(){
-        int ichien = 0,goen = 0,jyuen = 0,gojyuen = 0,hyakuen = 0,gohyaku = 0,senen = 0;
+        int ichien = 0,goen = 0,jyuen = 0,gojyuen = 0,hyakuen = 0,gohyaku = 0,senen = 0,gosenen = 0;
 
         for( int i = 0; i < coinStatuses.size(); i++ ) {
             if (coinStatuses.get(i).position == CoinStatus.WALLET_POSITION ) {
@@ -463,6 +471,7 @@ public class CoinMng implements OnTouchListener{
                 else if (coinStatuses.get(i).sAmount == 100) hyakuen++;
                 else if (coinStatuses.get(i).sAmount == 500) gohyaku++;
                 else if (coinStatuses.get(i).sAmount == 1000) senen++;
+				else if (coinStatuses.get(i).sAmount == 5000) senen++;
             }
         }
 
@@ -473,7 +482,8 @@ public class CoinMng implements OnTouchListener{
         coinNum.put("50",gojyuen);
         coinNum.put("100",hyakuen);
         coinNum.put("500",gohyaku);
-        coinNum.put("1000",senen);
+		coinNum.put("1000",senen);
+		coinNum.put("5000",senen);
 
         Log.w( "KEKKA", "ichien = [" + ichien + "]");
         Log.w( "KEKKA", "goen = [" + goen + "]");
@@ -482,13 +492,14 @@ public class CoinMng implements OnTouchListener{
         Log.w( "KEKKA", "hyakuen = [" + hyakuen + "]");
         Log.w( "KEKKA", "gohyaku = [" + gohyaku + "]");
         Log.w( "KEKKA", "senen = [" + senen + "]");
+		Log.w( "KEKKA", "gosenen = [" + gosenen + "]");
 
         return coinNum;
     }
 
     // トレー内のコイン数を取得
     public static HashMap<String,Integer> GetTrayNum(){
-        int ichien = 0,goen = 0,jyuen = 0,gojyuen = 0,hyakuen = 0,gohyaku = 0,senen = 0;
+        int ichien = 0,goen = 0,jyuen = 0,gojyuen = 0,hyakuen = 0,gohyaku = 0,senen = 0,gosenen = 0;
 
         for( int i = 0; i < coinStatuses.size(); i++ ) {
             if (coinStatuses.get(i).position == CoinStatus.TRAY_POSITION) {
@@ -499,6 +510,7 @@ public class CoinMng implements OnTouchListener{
                 else if (coinStatuses.get(i).sAmount == 100) hyakuen++;
                 else if (coinStatuses.get(i).sAmount == 500) gohyaku++;
                 else if (coinStatuses.get(i).sAmount == 1000) senen++;
+				else if (coinStatuses.get(i).sAmount == 5000) gosenen++;
             }
         }
 
@@ -510,27 +522,41 @@ public class CoinMng implements OnTouchListener{
         coinNum.put("100",hyakuen);
         coinNum.put("500",gohyaku);
         coinNum.put("1000",senen);
+		coinNum.put("5000",gosenen);
 
-        Log.w( "KEKKA", "ichien = [" + ichien + "]");
+
+		Log.w( "KEKKA", "ichien = [" + ichien + "]");
         Log.w( "KEKKA", "goen = [" + goen + "]");
         Log.w( "KEKKA", "jyuen = [" + jyuen + "]");
         Log.w( "KEKKA", "gojyuen = [" + gojyuen + "]");
         Log.w( "KEKKA", "hyakuen = [" + hyakuen + "]");
         Log.w( "KEKKA", "gohyaku = [" + gohyaku + "]");
         Log.w( "KEKKA", "senen = [" + senen + "]");
+		Log.w( "KEKKA", "gosenen = [" + gosenen + "]");
 
         return coinNum;
     }
 
     // トレイに乗っているコインを全部削除
-    public static void OutSideCoin(){
-        for( int i = 0; i < coinStatuses.size(); i++ ) {
-            if (coinStatuses.get(i).position == CoinStatus.TRAY_POSITION) {
-                // 画面外に移動
-                coinStatuses.get(i).MoveCoin(2,i,0);
-            }
-        }
-    }
+	public static void OutSideCoin(){
+		for( int i = 0; i < coinStatuses.size(); i++ ) {
+			if (coinStatuses.get(i).position == CoinStatus.TRAY_POSITION) {
+				// 画面外に移動
+				coinStatuses.get(i).MoveCoin(2,i,0);
+			}
+		}
+	}
+
+	// トレイに乗っているコインを全部財布に移動
+	public static void MoveAllCoin( int position, int moveMode ){
+		for( int i = 0; i < coinStatuses.size(); i++ ) {
+			if (coinStatuses.get(i).position == position) {
+				// 画面外に移動
+				coinStatuses.get(i).MoveCoin(moveMode,i,0);
+			}
+		}
+	}
+
 
     // 指定した金額分コイン追加
     // amount:追加したい金額
@@ -539,6 +565,18 @@ public class CoinMng implements OnTouchListener{
         int num;
         int x;
         CoinStatus coinStatus;
+
+		num = amount / 5000;
+		x = COIN_X_PS3;
+		Log.w( "XXXXX", "amount " + amount);
+		for(int i = 0; i < num; i++ ){
+//            coinMng = new CoinStatus(1000, x, 0);
+//            coinStatuses.add(coinMng);
+			x+=COIN_X_SHIFT;
+//            coinMng.MoveCoin(3,-1,COIN_Y_PS2);
+			Log.w( "XXXXX", "aaa5000");
+		}
+		amount -= num * 5000;
 
         num = amount / 1000;
         x = COIN_X_PS3;

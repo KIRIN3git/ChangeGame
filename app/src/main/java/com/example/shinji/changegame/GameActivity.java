@@ -122,7 +122,7 @@ public class GameActivity extends AppCompatActivity {
                 HashMap<String,Integer> walletCoinNum = CoinMng.GetWalletNum();
                 HashMap<String,Integer> trayCoinNum = CoinMng.GetTrayNum();
 
-                sQuestionOkFlg = sQuestionMng.anserQuestion(allCoinNum,trayCoinNum);
+                sQuestionOkFlg = sQuestionMng.answerQuestion(allCoinNum,trayCoinNum);
                 if(sQuestionOkFlg){
 //                    sCoinMng.OutSideCoin();
                     // コイン全削除
@@ -130,7 +130,14 @@ public class GameActivity extends AppCompatActivity {
                     // トレイにお釣り表示
                     sCoinMng.CreateCoinChange(QuestionMng.sCharge,CoinStatus.TRAY_POSITION);
 
-                }
+					try {
+						Thread.sleep(1000); //ミリ秒
+					} catch (InterruptedException e) {
+					}
+
+					CoinMng.MoveAllCoin(CoinStatus.TRAY_POSITION,1);
+
+				}
 
                 sNowAnserFlg = true;
                 sMemTime = sLapTime;
@@ -221,7 +228,6 @@ public class GameActivity extends AppCompatActivity {
                             }
                             if( sNowAmountFlg ){
 
-//
 //                                CoinStatus coinStatus = new CoinStatus(1, 10, 0,true);
 //                                CoinMng.AddCoin(sAmount);
                                 sNowAmountFlg = false;

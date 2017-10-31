@@ -40,7 +40,7 @@ public class QuestionMng {
     static int sCharge = 0;
 
     // 正解コイン数
-    static HashMap<String,Integer> anserCoinNum;
+    static HashMap<String,Integer> answerCoinNum;
 
 
     public QuestionMng(Context context, LinearLayout layout,Handler handler) {
@@ -99,16 +99,16 @@ public class QuestionMng {
     true:正解
     false:不正解
      */
-    public boolean anserQuestion(HashMap<String,Integer> allCoinNum,HashMap<String,Integer> trayCoinNum){
+    public boolean answerQuestion(HashMap<String,Integer> allCoinNum,HashMap<String,Integer> trayCoinNum){
 
-        //sPrice = 934;
+        //sPrice = 900;
 
         if( sPrice == 0 ){
             return false;
         }
 
         // 正解コイン数
-        anserCoinNum = new HashMap<String,Integer>();
+        answerCoinNum = new HashMap<String,Integer>();
 
         int a = 0,b = 0,c = 0,d = 0; // a:一の位,b:十の位,c:百の位,d:千の位
         if( 1000 <= sPrice ) d = sPrice / 1000;
@@ -116,9 +116,14 @@ public class QuestionMng {
         if( 10 <= sPrice ) b = ( sPrice -(d * 1000) - (c * 100) ) / 10;
         a = sPrice % 10;
 
+
+
         // 〇一の位の計算
         // 5を引いた金額
         int aa,bb,cc,dd;
+
+		Log.w( "AAAAA aa", "answer c " + c );
+
         if(a >= 5) aa = a - 5;
         else aa = a;
 
@@ -137,7 +142,7 @@ public class QuestionMng {
         int allIchi = allCoinNum.get("1") + ( allCoinNum.get("5") * 5 );
         int allJyu = allCoinNum.get("10") + ( allCoinNum.get("50") * 5 );
         int allHyaku = allCoinNum.get("100") + ( allCoinNum.get("500") * 5 );
-        int allSen = allCoinNum.get("1000");
+        int allSen = allCoinNum.get("1000") + ( allCoinNum.get("5000") * 5 );
         boolean fewIchiFlg = false,fewJyuFlg = false,fewHyakuFlg = false,fewSenFlg = false;
 
 
@@ -151,25 +156,28 @@ public class QuestionMng {
 
         // 一の位が足りていたら
         if( fewIchiFlg == false ){
-            if( allCoinNum.get("1") >= aa ) anserCoinNum.put("1",aa);
-            // 3円で7円持ちだったら5円払わなくてはならない
-            else if( aa > 0 )  anserCoinNum.put("5",1);
-            if( a >= 5 ) anserCoinNum.put("5",1);
+            if( allCoinNum.get("1") >= aa ){
+                answerCoinNum.put("1",aa); // 1円支払い
+				if( a >= 5 ) answerCoinNum.put("5",1); //5円支払い
+            }
+            // 一円玉が足りないので5円支払い
+            else answerCoinNum.put("5",1); // 5円支払い
         }
         // 一の位が足りていなかったら
         else {
             // 5を引いた一の位が払えるなら払っておく
             if (allCoinNum.get("1") >= aa) {
-                anserCoinNum.put("1", aa);
+                answerCoinNum.put("1", aa);
             }
             // 5円以下で5円玉があるならなら5円玉は払っておく
             else if ( a < 5 && allCoinNum.get("5") >= 1 ){
-                anserCoinNum.put("5", 1);
+                answerCoinNum.put("5", 1);
             }
         }
 
         // 一の位の負債を十の位に追加
         if( fewIchiFlg ) b++;
+
         if(b >= 5) bb = b - 5;
         else bb = b;
 
@@ -178,92 +186,116 @@ public class QuestionMng {
 
         // 十の位が足りていたら
         if( fewJyuFlg == false ){
-            if( allCoinNum.get("10") >= bb ) anserCoinNum.put("10",bb);
-            // 30円で70円持ちだったら50円払わなくてはならない
-            else if( bb > 0 )  anserCoinNum.put("50",1);
-            if( b >= 5 ) anserCoinNum.put("50",1);
+			if( allCoinNum.get("10") >= bb ){
+				answerCoinNum.put("10",bb); // 10円支払い
+				if( b >= 5 ) answerCoinNum.put("50",1); //50円支払い
+			}
+			// 十円玉が足りないので50円支払い
+			else answerCoinNum.put("50",1); // 50円支払い
         }
         // 十の位が足りていなかったら
         else {
             // 5を引いた十の位が払えるなら払っておく
             if (allCoinNum.get("10") >= bb) {
-                anserCoinNum.put("10", bb);
+                answerCoinNum.put("10", bb);
             }
             // 50円以下で50円玉があるならなら50円玉は払っておく
             else if ( b < 5  && allCoinNum.get("50") >= 1){
-                anserCoinNum.put("50", 1);
+                answerCoinNum.put("50", 1);
             }
         }
 
         // 十の位の負債を百の位に追加
         if( fewJyuFlg ) c++;
+
         if(c >= 5) cc = c - 5;
         else cc = c;
         // 百の位が足りない
         if( allHyaku < c ) fewHyakuFlg = true;
 
         // 百の位が足りていたら
-        if( fewHyakuFlg == false ){
-            Log.w( "AAAAA", "BBBBBBBBBBBBBBB1");
-            if( allCoinNum.get("100") >= cc ) anserCoinNum.put("100",cc);
-            // 300円で700円持ちだったら500円払わなくてはならない
-            else if( cc > 0 )  anserCoinNum.put("500",1);
-
-            if( c >= 5 ) anserCoinNum.put("500",1);
-        }
+		if( fewJyuFlg == false ){
+			if( allCoinNum.get("100") >= cc ){
+				answerCoinNum.put("100",cc); // 100円支払い
+				Log.w( "AAAAA aa", "answer c2 " + c );
+				if(c >= 5 ){
+					Log.w( "AAAAA answer", "aaa1");
+					answerCoinNum.put("500",1); //500円支払い
+				}
+			}
+			// 百円玉が足りないので500円支払い
+			else answerCoinNum.put("500",1); // 50円支払い
+		}
         // 百の位が足りていなかったら
         else {
             // 5を引いた百の位が払えるなら払っておく
             if (allCoinNum.get("100") >= cc) {
-                anserCoinNum.put("100", cc);
+                answerCoinNum.put("100", cc);
             }
             // 500円以下で500円玉があるなら500円玉は払っておく
             else if ( c < 5  && allCoinNum.get("500") >= 1 ){
                 Log.w( "AAAAA", "BBBBBBBBBBBBBBB2");
-                anserCoinNum.put("500", 1);
+                answerCoinNum.put("500", 1);
             }
         }
 
         // 百の位の負債を千の位に追加
         if( fewHyakuFlg ) d++;
+
         if(d >= 5) dd = d - 5;
         else dd = d;
 
-        if( d > 0 ) anserCoinNum.put("1000", d);
+		if( allCoinNum.get("1000") >= dd ){
+			answerCoinNum.put("1000",dd); // 1000円支払い
+			if( d >= 5 ) answerCoinNum.put("5000",1); //5000円支払い
+		}
+		// 千円札が足りないので5000円支払い
+		else answerCoinNum.put("5000",1); // 5000円支払い
 
-        if( anserCoinNum.get("1") == null ) anserCoinNum.put( "1",0 );
-        if( anserCoinNum.get("5") == null ) anserCoinNum.put( "5",0 );
-        if( anserCoinNum.get("10") == null ) anserCoinNum.put( "10",0 );
-        if( anserCoinNum.get("50") == null ) anserCoinNum.put( "50",0 );
-        if( anserCoinNum.get("100") == null ) anserCoinNum.put( "100",0 );
-        if( anserCoinNum.get("500") == null ) anserCoinNum.put( "500",0 );
-        if( anserCoinNum.get("1000") == null ) anserCoinNum.put( "1000",0 );
+        if( answerCoinNum.get("1") == null ) answerCoinNum.put( "1",0 );
+        if( answerCoinNum.get("5") == null ) answerCoinNum.put( "5",0 );
+        if( answerCoinNum.get("10") == null ) answerCoinNum.put( "10",0 );
+        if( answerCoinNum.get("50") == null ) answerCoinNum.put( "50",0 );
+        if( answerCoinNum.get("100") == null ) answerCoinNum.put( "100",0 );
+        if( answerCoinNum.get("500") == null ) answerCoinNum.put( "500",0 );
+        if( answerCoinNum.get("1000") == null ) answerCoinNum.put( "1000",0 );
+		if( answerCoinNum.get("5000") == null ) answerCoinNum.put( "5000",0 );
 
-        Log.w( "AAAAA", "1[" + anserCoinNum.get("1") + "]");
-        Log.w( "AAAAA", "5[" + anserCoinNum.get("5") + "]");
-        Log.w( "AAAAA", "10[" + anserCoinNum.get("10") + "]");
-        Log.w( "AAAAA", "50[" + anserCoinNum.get("50") + "]");
-        Log.w( "AAAAA", "100[" + anserCoinNum.get("100") + "]");
-        Log.w( "AAAAA", "500[" + anserCoinNum.get("500") + "]");
-        Log.w( "AAAAA", "1000[" + anserCoinNum.get("1000") + "]");
+        Log.w( "answerCoinNum", "1[" + answerCoinNum.get("1") + "]");
+        Log.w( "answerCoinNum", "5[" + answerCoinNum.get("5") + "]");
+        Log.w( "answerCoinNum", "10[" + answerCoinNum.get("10") + "]");
+        Log.w( "answerCoinNum", "50[" + answerCoinNum.get("50") + "]");
+        Log.w( "answerCoinNum", "100[" + answerCoinNum.get("100") + "]");
+        Log.w( "answerCoinNum", "500[" + answerCoinNum.get("500") + "]");
+        Log.w( "answerCoinNum", "1000[" + answerCoinNum.get("1000") + "]");
+		Log.w( "answerCoinNum", "5000[" + answerCoinNum.get("5000") + "]");
 
-        if( anserCoinNum.get("1") == trayCoinNum.get("1") &&
-                anserCoinNum.get("5") == trayCoinNum.get("5") &&
-                anserCoinNum.get("10") == trayCoinNum.get("10") &&
-                anserCoinNum.get("50") == trayCoinNum.get("50") &&
-                anserCoinNum.get("100") == trayCoinNum.get("100") &&
-                anserCoinNum.get("500") == trayCoinNum.get("500") &&
-                anserCoinNum.get("1000") == trayCoinNum.get("1000")){
+		Log.w( "trayCoinNum", "1[" + trayCoinNum.get("1") + "]");
+		Log.w( "trayCoinNum", "5[" + trayCoinNum.get("5") + "]");
+		Log.w( "trayCoinNum", "10[" + trayCoinNum.get("10") + "]");
+		Log.w( "trayCoinNum", "50[" + trayCoinNum.get("50") + "]");
+		Log.w( "trayCoinNum", "100[" + trayCoinNum.get("100") + "]");
+		Log.w( "trayCoinNum", "500[" + trayCoinNum.get("500") + "]");
+		Log.w( "trayCoinNum", "1000[" + trayCoinNum.get("1000") + "]");
+		Log.w( "trayCoinNum", "5000[" + trayCoinNum.get("5000") + "]");
+
+        if( answerCoinNum.get("1") == trayCoinNum.get("1") &&
+                answerCoinNum.get("5") == trayCoinNum.get("5") &&
+                answerCoinNum.get("10") == trayCoinNum.get("10") &&
+                answerCoinNum.get("50") == trayCoinNum.get("50") &&
+                answerCoinNum.get("100") == trayCoinNum.get("100") &&
+                answerCoinNum.get("500") == trayCoinNum.get("500") &&
+                answerCoinNum.get("1000") == trayCoinNum.get("1000") &&
+				answerCoinNum.get("5000") == trayCoinNum.get("5000")){
 
             //お釣りをセット
-            sCharge = ( ( trayCoinNum.get("1000") * 1000 ) + ( trayCoinNum.get("500") * 500 ) + ( trayCoinNum.get("100") * 100 )
+            sCharge = ( ( trayCoinNum.get("5000") * 5000 ) + ( trayCoinNum.get("1000") * 1000 ) + ( trayCoinNum.get("500") * 500 ) + ( trayCoinNum.get("100") * 100 )
                     + ( trayCoinNum.get("50") * 50 ) + ( trayCoinNum.get("10") * 10 ) + ( trayCoinNum.get("5") * 5 ) + ( trayCoinNum.get("1") * 1 ) ) - sPrice;
 
             // CoinMng.AddCoin(changeAmount);
 
             return true;
         }
-
 
         return false;
     }
