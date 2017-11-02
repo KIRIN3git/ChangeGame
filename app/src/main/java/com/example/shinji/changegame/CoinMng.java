@@ -524,7 +524,6 @@ public class CoinMng implements OnTouchListener{
         coinNum.put("1000",senen);
 		coinNum.put("5000",gosenen);
 
-
 		Log.w( "KEKKA", "ichien = [" + ichien + "]");
         Log.w( "KEKKA", "goen = [" + goen + "]");
         Log.w( "KEKKA", "jyuen = [" + jyuen + "]");
