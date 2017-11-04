@@ -32,12 +32,17 @@ public class QuestionMng {
     static int sNowPB;
     static int sPointNum = 0;
 
-    static int sThinkingTime = 100;
+    // シンキングタイム（1/10秒）
+    static int sThinkingTime = 200;
+
+    static int sSeikaiNum = 0;
 
     // 出題金額
-    static int sPrice = 0;
-    // お釣り
-    static int sCharge = 0;
+    static int sOdai = 0;
+    // 支払い金額
+    static int sShirarai = 0;
+    // お釣り金額
+    static int sOtsuri = 0;
 
     // 正解コイン数
     static HashMap<String,Integer> answerCoinNum;
@@ -87,11 +92,11 @@ public class QuestionMng {
 
     public int NewQuestion(){
 
-        sPrice = (int)(Math.random()*1700 + 300);
+        sOdai = (int)(Math.random()*1700 + 300);
         startProgressBar(sThinkingTime);
 
-        Log.w( "AAAAA", "aaa sPrice = " + sPrice);
-        return sPrice;
+        Log.w( "AAAAA", "aaa sOdai = " + sOdai);
+        return sOdai;
     }
 
     /*
@@ -101,9 +106,9 @@ public class QuestionMng {
      */
     public boolean answerQuestion(HashMap<String,Integer> allCoinNum,HashMap<String,Integer> trayCoinNum){
 
-        //sPrice = 900;
+        //sOdai = 900;
 
-        if( sPrice == 0 ){
+        if( sOdai == 0 ){
             return false;
         }
 
@@ -111,10 +116,10 @@ public class QuestionMng {
         answerCoinNum = new HashMap<String,Integer>();
 
         int a = 0,b = 0,c = 0,d = 0; // a:一の位,b:十の位,c:百の位,d:千の位
-        if( 1000 <= sPrice ) d = sPrice / 1000;
-        if( 100 <= sPrice ) c = ( sPrice - (d * 1000) ) / 100;
-        if( 10 <= sPrice ) b = ( sPrice -(d * 1000) - (c * 100) ) / 10;
-        a = sPrice % 10;
+        if( 1000 <= sOdai) d = sOdai / 1000;
+        if( 100 <= sOdai) c = ( sOdai - (d * 1000) ) / 100;
+        if( 10 <= sOdai) b = ( sOdai -(d * 1000) - (c * 100) ) / 10;
+        a = sOdai % 10;
 
 
 
@@ -214,7 +219,7 @@ public class QuestionMng {
         if( allHyaku < c ) fewHyakuFlg = true;
 
         // 百の位が足りていたら
-		if( fewJyuFlg == false ){
+		if( fewHyakuFlg == false ){
 			if( allCoinNum.get("100") >= cc ){
 				answerCoinNum.put("100",cc); // 100円支払い
 				Log.w( "AAAAA aa", "answer c2 " + c );
@@ -279,6 +284,13 @@ public class QuestionMng {
 		Log.w( "trayCoinNum", "1000[" + trayCoinNum.get("1000") + "]");
 		Log.w( "trayCoinNum", "5000[" + trayCoinNum.get("5000") + "]");
 
+        //支払い金額をセット
+        sShirarai = ( ( trayCoinNum.get("5000") * 5000 ) + ( trayCoinNum.get("1000") * 1000 ) + ( trayCoinNum.get("500") * 500 ) + ( trayCoinNum.get("100") * 100 )
+                + ( trayCoinNum.get("50") * 50 ) + ( trayCoinNum.get("10") * 10 ) + ( trayCoinNum.get("5") * 5 ) + ( trayCoinNum.get("1") * 1 ) );
+
+        //お釣りをセット
+        sOtsuri = sShirarai - sOdai;
+
         if( answerCoinNum.get("1") == trayCoinNum.get("1") &&
                 answerCoinNum.get("5") == trayCoinNum.get("5") &&
                 answerCoinNum.get("10") == trayCoinNum.get("10") &&
@@ -287,10 +299,6 @@ public class QuestionMng {
                 answerCoinNum.get("500") == trayCoinNum.get("500") &&
                 answerCoinNum.get("1000") == trayCoinNum.get("1000") &&
 				answerCoinNum.get("5000") == trayCoinNum.get("5000")){
-
-            //お釣りをセット
-            sCharge = ( ( trayCoinNum.get("5000") * 5000 ) + ( trayCoinNum.get("1000") * 1000 ) + ( trayCoinNum.get("500") * 500 ) + ( trayCoinNum.get("100") * 100 )
-                    + ( trayCoinNum.get("50") * 50 ) + ( trayCoinNum.get("10") * 10 ) + ( trayCoinNum.get("5") * 5 ) + ( trayCoinNum.get("1") * 1 ) ) - sPrice;
 
             // CoinMng.AddCoin(changeAmount);
 

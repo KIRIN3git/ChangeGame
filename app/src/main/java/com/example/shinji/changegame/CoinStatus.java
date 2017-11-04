@@ -10,6 +10,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+
 /**
  * Created by etisu on 2017/09/17.
  */
@@ -21,11 +22,9 @@ public class CoinStatus implements Animator.AnimatorListener {
     int sX,sY;
     int sAmount;
 //    boolean walletFlg = true;
-    static final int WALLET_POSITION = 0;
-    static final int TRAY_POSITION = 1;
-    static final int OUTSIDE_POSITION = 2;
 
-    int position = 0; // 0:財布,1:トレー,2:外
+
+    int position = CoinMng.WALLET_POSITION; // 0:財布,1:トレー,2:外
     boolean moveFlg = false;
     int moveMode = 0;
 
@@ -204,13 +203,13 @@ y:移動量(%)を指定
         moveFlg = true;
 
         if( mode == 0 ){
-            position = 1;
+            position = CoinMng.TRAY_POSITION;
         }
         else if( mode == 1 || mode == 3 ){
-            position = 0;
+            position = CoinMng.WALLET_POSITION;
         }
         else if( mode == 2 ){
-            position = 2;
+            position = CoinMng.OUTSIDE_POSITION;
         }
         else{
             return;
@@ -272,10 +271,10 @@ y:移動量(%)を指定
         Log.d("debug","onAnimationEnd()");
         moveFlg = false;
         //CoinMng.CheckCoinsNum(10);
-        if( moveMode == 0) CoinMng.CleaningCoins(sAmount,TRAY_POSITION);
-        else if ( moveMode == 1) CoinMng.CleaningCoins(sAmount,WALLET_POSITION);
+        if( moveMode == 0) CoinMng.CleaningCoins(sAmount,CoinMng.TRAY_POSITION);
+        else if ( moveMode == 1) CoinMng.CleaningCoins(sAmount,CoinMng.WALLET_POSITION);
         else if ( moveMode == 2){
-            CoinMng.DeleteCoins(sAmount,OUTSIDE_POSITION);
+            CoinMng.DeleteCoins(sAmount,CoinMng.OUTSIDE_POSITION);
 
         }
     }

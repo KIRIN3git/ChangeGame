@@ -8,6 +8,8 @@
     tools:context="com.example.shinji.changegame.MainActivity">
 
 
+
+
     <LinearLayout
         android:id="@+id/back_layout"
         android:layout_width="match_parent"
@@ -110,10 +112,12 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
                     <TextView
+                        android:textSize="40sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="時間" />
                     <TextView
+                        android:textSize="40sp"
                         android:id="@+id/textTime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -125,11 +129,13 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
                     <TextView
+                        android:textSize="40sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="正解数" />
                     <TextView
-                        android:id="@+id/textPoint"
+                        android:textSize="40sp"
+                        android:id="@+id/SeikaiNum"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0" />
@@ -138,6 +144,7 @@
             </LinearLayout>
 
         </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -193,29 +200,6 @@
 
     </LinearLayout>
 
-    <FrameLayout
-        android:id="@+id/over_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:orientation="vertical">
-
-
-
-
-
-    </FrameLayout>
-
-
-    <TextView
-        android:id="@+id/textStart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="スタート"
-        android:visibility="gone"
-        android:textColor="@android:color/white"
-        android:textSize="40sp" />
 
     <ImageView
         android:id="@+id/imageOk"
@@ -231,4 +215,23 @@
         android:layout_gravity="center"
         android:src="@drawable/ng"
         android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/textStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="スタート"
+        android:visibility="gone"
+        android:textColor="@android:color/white"
+        android:textSize="40sp" />
+
+    <FrameLayout
+        android:id="@+id/over_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+    </FrameLayout>
+
 </FrameLayout>
