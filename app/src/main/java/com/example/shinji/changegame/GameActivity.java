@@ -12,7 +12,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import com.example.shinji.changegame.QuestionMng;
+
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Timer;
@@ -29,7 +29,7 @@ public class GameActivity extends AppCompatActivity {
     static Context mContext;
     static Handler sHandler;
 
-    static FrameLayout sOverLayout;
+    static FrameLayout sCoinLayout;
     static LinearLayout sBackLayout;
 
     // 全体時間
@@ -87,7 +87,7 @@ public class GameActivity extends AppCompatActivity {
         mContext = this;
 
         // 表示したいレイアウト
-        sOverLayout = (FrameLayout)findViewById(R.id.over_layout);
+        sCoinLayout = (FrameLayout)findViewById(R.id.coin_layout);
         sBackLayout = (LinearLayout)findViewById(R.id.back_layout);
 
     }
@@ -98,7 +98,7 @@ public class GameActivity extends AppCompatActivity {
         super.onResume();
 
         //CoinMng
-        sCoinMng = new CoinMng(this,sOverLayout);
+        sCoinMng = new CoinMng(this, sCoinLayout);
         sCoinMng.CoinInit();
 
         //QuestionMng

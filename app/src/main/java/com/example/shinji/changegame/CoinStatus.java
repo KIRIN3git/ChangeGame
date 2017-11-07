@@ -74,6 +74,7 @@ public class CoinStatus implements Animator.AnimatorListener {
 
         // 画像の追加
         CoinMng.mLayout.addView(imageView,lp);
+
     }
 
     // 画像を削除

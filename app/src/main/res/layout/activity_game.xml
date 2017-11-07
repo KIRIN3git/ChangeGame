@@ -226,8 +226,18 @@
         android:textColor="@android:color/white"
         android:textSize="40sp" />
 
+    <!-- コイン -->
     <FrameLayout
-        android:id="@+id/over_layout"
+        android:id="@+id/coin_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+    </FrameLayout>
+
+    <!-- カウント -->
+    <FrameLayout
+        android:id="@+id/count_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"

@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.view.View.OnTouchListener;
+import android.widget.ImageView;
+import android.widget.TextView;
+
 import com.example.shinji.changegame.CoinStatus;
 
 /**
@@ -142,13 +145,45 @@ public class CoinMng implements OnTouchListener{
         //CreateCoin(10,4,false);
 
 
+
         /*
         // 5000円の複数枚表示
         x = COIN_X_PS4;
         coinMng = new CoinStatus(5000, x, COIN_Y_PS2);
         coinStatuses.add(coinMng);
         */
+
+        CreateText(1,WALLET_POSITION);
+
     }
+
+    // お金の表示枚数を
+    public static void CreateText( Integer amount,Integer position ){
+
+		int ratioX,ratioY,x,y,typeNum;
+
+		typeNum = GetTypeNum( amount );
+
+		ratioX =  coinsType[typeNum][3];
+		ratioY =  coinsType[typeNum][4];
+
+		if( position == TRAY_POSITION ){
+			ratioY -= wTotY;
+		}
+
+		float xy[] = CommonMng.PsToPx(ratioX,ratioY);
+
+		x = (int)xy[0];
+		y = (int)xy[1];
+
+		TextView textView = new TextView(CoinMng.mContext);
+		textView.setText("6");
+		Log.w( "GGGGGGGGGGGGGGGGGG", "x " + x );
+		Log.w( "GGGGGGGGGGGGGGGGGG", "y " + y );
+		textView.layout(x+30,y + 30,x+200,y + 200);
+		mLayout.addView(textView);
+	}
+
 
     public static void CheckCoinsNum(Integer amount){
         Integer countWallet = 0;
@@ -223,6 +258,7 @@ public class CoinMng implements OnTouchListener{
             CreateCoin( coinsType[i][0],num,position );
         }
     }
+
     public static void CreateCoin( Integer amount,Integer num,Integer position ){
 
         int x,y,typeNum;
