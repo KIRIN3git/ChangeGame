@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import java.lang.reflect.Method;
 
@@ -26,17 +27,65 @@ public class MainActivity extends AppCompatActivity {
 
 //        Log.w("DEBUG_DATA", "getRealSize" + CommonMng.real.x + " " + CommonMng.real.y);
 
-        Button btn = (Button) findViewById(R.id.game_start);
-        btn.setOnClickListener(new View.OnClickListener() {
-
+        TextView text1 = (TextView) findViewById(R.id.game_start1);
+        text1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // インテントのインスタンス生成
                 Intent intent = new Intent(MainActivity.this, GameActivity.class);
-                // ゲーム画面の起動
+				intent.putExtra("STAR", 1);
+				// ゲーム画面の起動
                 startActivity(intent);
             }
         });
+
+		TextView text2 = (TextView) findViewById(R.id.game_start2);
+		text2.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// インテントのインスタンス生成
+				Intent intent = new Intent(MainActivity.this, GameActivity.class);
+				intent.putExtra("STAR", 2);
+				// ゲーム画面の起動
+				startActivity(intent);
+			}
+		});
+
+		TextView text3 = (TextView) findViewById(R.id.game_start3);
+		text3.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// インテントのインスタンス生成
+				Intent intent = new Intent(MainActivity.this, GameActivity.class);
+				intent.putExtra("STAR", 3);
+				// ゲーム画面の起動
+				startActivity(intent);
+			}
+		});
+
+		TextView text4 = (TextView) findViewById(R.id.game_start4);
+		text4.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// インテントのインスタンス生成
+				Intent intent = new Intent(MainActivity.this, GameActivity.class);
+				intent.putExtra("STAR", 4);
+				// ゲーム画面の起動
+				startActivity(intent);
+			}
+		});
+
+		TextView text5 = (TextView) findViewById(R.id.game_start5);
+		text5.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// インテントのインスタンス生成
+				Intent intent = new Intent(MainActivity.this, GameActivity.class);
+				intent.putExtra("STAR", 5);
+				// ゲーム画面の起動
+				startActivity(intent);
+			}
+		});
     }
 
 

@@ -24,7 +24,7 @@ public class CoinStatus implements Animator.AnimatorListener {
 //    boolean walletFlg = true;
 
 
-    int position = CoinMng.WALLET_POSITION; // 0:財布,1:トレー,2:外
+    int position = CoinMng.WALLET_POSITION;
     boolean moveFlg = false;
     int moveMode = 0;
 
@@ -70,7 +70,8 @@ public class CoinStatus implements Animator.AnimatorListener {
         lp.leftMargin = (int)xy[0];
         lp.topMargin = (int)xy[1];
 
-        imageView.layout(sX + 50,sY + 20,sX + 200,sY + CoinMng.GetCoinSize(sAmount));
+//        imageView.layout(sX + 50,sY + 20,sX + 200,sY + CoinMng.GetCoinSize(sAmount));
+        imageView.layout( sX,sY,sX + CoinMng.GetCoinSize(sAmount),sY + CoinMng.GetCoinSize(sAmount)) ;
 
         // 画像の追加
         CoinMng.mLayout.addView(imageView,lp);
@@ -80,7 +81,7 @@ public class CoinStatus implements Animator.AnimatorListener {
     // 画像を削除
     void removeCoin( ){
         final ImageView imageView = (ImageView)CoinMng.mLayout.findViewById(sViewId);
-        imageView.setImageDrawable(null);
+        if( imageView != null ) imageView.setImageDrawable(null);
     }
 
 /*

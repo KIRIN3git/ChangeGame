@@ -11,6 +11,7 @@ import java.util.HashMap;
 
 import android.view.View.OnTouchListener;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.shinji.changegame.CoinStatus;
@@ -74,7 +75,6 @@ public class CoinMng implements OnTouchListener{
     static int COIN_X_PS3 = 55;
     static int COIN_X_PS4 = 79;
 
-
     static int coinsType[][] ={
             {1,ICHIYEN_SIZE_DP,ICHIYEN_SIZE_PX,COIN_X_PS1,COIN_Y_PS1},
             {5,GOYEN_SIZE_DP,GOYEN_SIZE_PX,COIN_X_PS2,COIN_Y_PS1},
@@ -89,18 +89,17 @@ public class CoinMng implements OnTouchListener{
     // 財布の中でのX座標位置のコインズレ（パーセント）
     static int COIN_X_SHIFT = 2;
 
-
     // 財布に入っているコインの数
     static HashMap<String,Integer> walletCoinNum;
+
     // トレーに入っているコインの数
     static HashMap<String,Integer> trayCoinNum;
 
-
     // 1円のID情報
-    static ArrayList<Integer> coinIds1 = new ArrayList<Integer>();
+    //static ArrayList<Integer> coinIds1 = new ArrayList<Integer>();
 
     // 1円の位置情報
-    static ArrayList<ArrayList<Float>> coinXY1 = new ArrayList<ArrayList<Float>>();
+    //static ArrayList<ArrayList<Float>> coinXY1 = new ArrayList<ArrayList<Float>>();
 
     public static ArrayList<CoinStatus> coinStatuses = new ArrayList<CoinStatus>();
 
@@ -117,34 +116,33 @@ public class CoinMng implements OnTouchListener{
         mContext = context;
         mLayout = layout;
         mVOL = (android.view.View.OnTouchListener)this;
-    }
-
-    public void CoinInit(){
-
-        // dp→px変換
-        float density = mContext.getResources().getDisplayMetrics().density;
-        ICHIYEN_SIZE_PX = CommonMng.PxToDp2(ICHIYEN_SIZE_DP,density);
-        GOYEN_SIZE_PX = CommonMng.PxToDp2(GOYEN_SIZE_DP,density);
-        JYUYEN_SIZE_PX = CommonMng.PxToDp2(JYUYEN_SIZE_DP,density);
-        GOJYUYEN_SIZE_PX = CommonMng.PxToDp2(GOJYUYEN_SIZE_DP,density);
-        HYAKUYEN_SIZE_PX = CommonMng.PxToDp2(HYAKUYEN_SIZE_DP,density);
-        GOHYAKUYEN_SIZE_PX = CommonMng.PxToDp2(GOHYAKUYEN_SIZE_DP,density);
-        SENYEN_SIZE_PX = CommonMng.PxToDp2(SENYEN_SIZE_DP,density);
-        GOSENYEN_SIZE_PX = CommonMng.PxToDp2(GOSENYEN_SIZE_DP,density);
-
-        // コインの初期作成
-        CreateCoin(1,2,WALLET_POSITION);
-        CreateCoin(5,1,WALLET_POSITION);
-        CreateCoin(10,1,WALLET_POSITION);
-        CreateCoin(50,1,WALLET_POSITION);
-        CreateCoin(100,2,WALLET_POSITION);
-        CreateCoin(500,1,WALLET_POSITION);
-        CreateCoin(1000,3,WALLET_POSITION);
-        CreateCoin(5000,1,WALLET_POSITION);
-
-        //CreateCoin(10,4,false);
 
 
+		// dp→px変換
+		float density = mContext.getResources().getDisplayMetrics().density;
+		ICHIYEN_SIZE_PX = CommonMng.PxToDp2(ICHIYEN_SIZE_DP,density);
+		GOYEN_SIZE_PX = CommonMng.PxToDp2(GOYEN_SIZE_DP,density);
+		JYUYEN_SIZE_PX = CommonMng.PxToDp2(JYUYEN_SIZE_DP,density);
+		GOJYUYEN_SIZE_PX = CommonMng.PxToDp2(GOJYUYEN_SIZE_DP,density);
+		HYAKUYEN_SIZE_PX = CommonMng.PxToDp2(HYAKUYEN_SIZE_DP,density);
+		GOHYAKUYEN_SIZE_PX = CommonMng.PxToDp2(GOHYAKUYEN_SIZE_DP,density);
+		SENYEN_SIZE_PX = CommonMng.PxToDp2(SENYEN_SIZE_DP,density);
+		GOSENYEN_SIZE_PX = CommonMng.PxToDp2(GOSENYEN_SIZE_DP,density);
+
+		// コインをクリア
+		DeleteCoins(0,ALL_POSITION);
+
+		// コインの初期作成
+		CreateCoin(1,2,WALLET_POSITION);
+		CreateCoin(5,1,WALLET_POSITION);
+		CreateCoin(10,1,WALLET_POSITION);
+		CreateCoin(50,1,WALLET_POSITION);
+		CreateCoin(100,2,WALLET_POSITION);
+		CreateCoin(500,1,WALLET_POSITION);
+		CreateCoin(1000,3,WALLET_POSITION);
+		CreateCoin(5000,1,WALLET_POSITION);
+
+		//CreateCoin(10,4,false);
 
         /*
         // 5000円の複数枚表示
@@ -153,7 +151,12 @@ public class CoinMng implements OnTouchListener{
         coinStatuses.add(coinMng);
         */
 
-        CreateText(1,WALLET_POSITION);
+		//CreateText(1,WALLET_POSITION);
+    }
+
+    public void CoinInit(){
+
+
 
     }
 
@@ -176,12 +179,23 @@ public class CoinMng implements OnTouchListener{
 		x = (int)xy[0];
 		y = (int)xy[1];
 
+		FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(80,30);
+
+		// 表示座標の設定
+		lp.leftMargin = 150;
+		lp.topMargin = 200;
+
 		TextView textView = new TextView(CoinMng.mContext);
-		textView.setText("6");
+		textView.setText("8");
+		textView.setTextSize(50);
 		Log.w( "GGGGGGGGGGGGGGGGGG", "x " + x );
 		Log.w( "GGGGGGGGGGGGGGGGGG", "y " + y );
-		textView.layout(x+30,y + 30,x+200,y + 200);
+		//textView.layout(200,600,300,800);
 		mLayout.addView(textView);
+	}
+
+	private static LinearLayout.LayoutParams createParam(int w, int h){
+		return new LinearLayout.LayoutParams(w, h);
 	}
 
 
@@ -222,12 +236,12 @@ public class CoinMng implements OnTouchListener{
         CreateCoin( amount,count,position );
     }
 
-    // amount:0 全削除
+    // amount 0:全削除 position 0:全削除
     public static int DeleteCoins( Integer amount,Integer position ){
         Integer count = 0;
         for( int i = coinStatuses.size() - 1; i >= 0; i-- ) {
             if( coinStatuses.get(i).sAmount == amount || amount == 0 ){
-                if( coinStatuses.get(i).position == position ) {
+                if( coinStatuses.get(i).position == position || position == 0 ) {
                     count++;
                     coinStatuses.get(i).removeCoin(); // 画像削除
                     coinStatuses.remove(i); // 配列から削除
@@ -290,7 +304,6 @@ public class CoinMng implements OnTouchListener{
         }
         return typeNum;
     }
-
 
     public CoinStatus GetStatus(int viewId ){
         for( int i = 0; i < coinStatuses.size(); i++ ){

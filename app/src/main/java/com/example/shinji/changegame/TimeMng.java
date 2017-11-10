@@ -37,7 +37,7 @@ public class TimeMng {
         progressBar.setScaleY(30f); // 高さを指定
 
         // 前時間表示
-        sTextView = sLayout.findViewById(R.id.textTime);
+        //sTextView = sLayout.findViewById(R.id.textTime);
 
     }
 

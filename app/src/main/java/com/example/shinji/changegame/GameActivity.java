@@ -42,17 +42,22 @@ public class GameActivity extends AppCompatActivity {
     CoinMng sCoinMng;
 
     Timer sTimer = null;
-    TextView sTextStart;
+    TextView sTextSenter;
     TextView sTextTimer;
     TextView sTextOdai;
     TextView sTextShiharai;
     TextView sTextOtsuri;
-    TextView sTextSeikaiNum;
+
+	TextView sTextStar;
+	TextView sTextSeikaiNum;
+	TextView sTextClearNum;
+	TextView sTextHuSeikaiNum;
+	TextView sTextNotClearNum;
 
     ImageView sImageOk;
     ImageView sImageNg;
 
-
+	static int sStarNum = 0;
 
     static QuestionMng sQuestionMng;
 
@@ -79,7 +84,7 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
 
         FrameLayout r = (FrameLayout)findViewById(R.id.activity_game);
-        sTextStart = (TextView)findViewById(R.id.textStart);
+        sTextSenter = (TextView)findViewById(R.id.textCenter);
 
         sImageOk = (ImageView)findViewById(R.id.imageOk);
         sImageNg = (ImageView)findViewById(R.id.imageNg);
@@ -90,7 +95,22 @@ public class GameActivity extends AppCompatActivity {
         sCoinLayout = (FrameLayout)findViewById(R.id.coin_layout);
         sBackLayout = (LinearLayout)findViewById(R.id.back_layout);
 
-    }
+		// 前時間表示
+		//sTextTimer = (TextView)findViewById(R.id.textTime);
+		sTextOdai = (TextView)findViewById(R.id.textAll);
+		sTextShiharai = (TextView)findViewById(R.id.textPayment);
+		sTextOtsuri = (TextView)findViewById(R.id.textChange);
+
+		sTextStar = (TextView)findViewById(R.id.textStar);
+		sTextSeikaiNum = (TextView)findViewById(R.id.SeikaiNum);
+		sTextClearNum = (TextView)findViewById(R.id.ClearNum);
+		sTextHuSeikaiNum = (TextView)findViewById(R.id.HuSeikaiNum);
+		sTextNotClearNum = (TextView)findViewById(R.id.NotClearNum);
+
+		Bundle extras = getIntent().getExtras();
+		sStarNum = extras.getInt("STAR");
+
+	}
 
     // 再度起動時
     @Override
@@ -99,17 +119,51 @@ public class GameActivity extends AppCompatActivity {
 
         //CoinMng
         sCoinMng = new CoinMng(this, sCoinLayout);
-        sCoinMng.CoinInit();
+//      sCoinMng.CoinInit();
 
         //QuestionMng
         sHandler = new Handler();
-        sQuestionMng = new QuestionMng(this,sBackLayout,sHandler);
+        sQuestionMng = new QuestionMng(this,sBackLayout,sHandler,sStarNum);
+
+		// 全体時間
+		sLapTimeReal = 0.0f;
+		// ゲーム時間
+		sLapTime= 0.0f;
+		// 記録時間
+		sMemTime = 0.0f;
+
+		//難易度
+		String strStar = "";
+		for( int i = 0; i < sStarNum; i++ ){
+			strStar += "★";
+		}
+		sTextStar.setText(strStar);
+
+		// テキストデータの更新
+		UpdateText();
 
         // 支払ボタンをクリック
         answer();
 
         mainGame();
     }
+
+
+    public void UpdateText(){
+		//支払金額
+		sTextShiharai.setText(Integer.toString(sQuestionMng.sShirarai));
+		//お釣り金額
+		sTextOtsuri.setText(Integer.toString(sQuestionMng.sOtsuri));
+
+		//正解数
+		sTextSeikaiNum.setText(Integer.toString(sQuestionMng.sSeikaiNum));
+		//クリア数
+		sTextClearNum.setText(Integer.toString(sQuestionMng.sClearNum));
+		//不正解数
+		sTextHuSeikaiNum.setText(Integer.toString(sQuestionMng.sHuSeikaiNum));
+		//ノットクリア数
+		sTextNotClearNum.setText(Integer.toString(sQuestionMng.sNotClearNum));
+	}
 
     private void answer(){
 
@@ -129,21 +183,27 @@ public class GameActivity extends AppCompatActivity {
                 HashMap<String,Integer> trayCoinNum = CoinMng.GetCoinNum(CoinMng.TRAY_POSITION);
 
                 sQuestionOkFlg = sQuestionMng.answerQuestion(allCoinNum,trayCoinNum);
-                if(sQuestionOkFlg){
+                if(sQuestionOkFlg){ // 正解
 //                    sCoinMng.OutSideCoin();
                     // コイン全削除
                     sCoinMng.DeleteCoins(0,CoinMng.TRAY_POSITION);
                     // トレイにお釣り表示
                     sCoinMng.CreateCoinChange(QuestionMng.sOtsuri,CoinMng.TRAY_POSITION);
                     // シンキングタイム1秒マイナス
-                    sQuestionMng.sThinkingTime -= 10;
+                    //sQuestionMng.sThinkingTime -= 10;
                     // 正解数プラス
                     sQuestionMng.sSeikaiNum++;
+					sQuestionMng.UpdateLevel();
 
                     // 五千円札がなければ補充
                     if( walletCoinNum.get("5000") == 0 ){
                         CoinMng.CreateCoin( 5000,1,CoinMng.WALLET_POSITION );
                     }
+				}
+				else{ // 不正解
+					// 正解数プラス
+					sQuestionMng.sHuSeikaiNum++;
+
 				}
                 Log.w( "AAAAA", "okkkkkkkkkkkkkkkkkkk " + sQuestionOkFlg);
             }
@@ -151,14 +211,6 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void mainGame(){
-
-        // 前時間表示
-        sTextTimer = (TextView)findViewById(R.id.textTime);
-        sTextOdai = (TextView)findViewById(R.id.textAll);
-        sTextShiharai = (TextView)findViewById(R.id.textPayment);
-        sTextOtsuri = (TextView)findViewById(R.id.textChange);
-        sTextSeikaiNum = (TextView)findViewById(R.id.SeikaiNum);
-
 
         sOpeningFlg = true;
         sNewQuestionFlg = false;
@@ -176,7 +228,7 @@ public class GameActivity extends AppCompatActivity {
                 sHandler.post( new Runnable() {
 
                     public void run() {
-                        sTextStart.setVisibility(View.GONE);
+                        sTextSenter.setVisibility(View.GONE);
                         sImageOk.setVisibility(View.GONE);
                         sImageNg.setVisibility(View.GONE);
 
@@ -188,7 +240,7 @@ public class GameActivity extends AppCompatActivity {
                         sLapTime = bi.setScale(1, BigDecimal.ROUND_HALF_UP).floatValue();
 
                         //現在のLapTime
-                        sTextTimer.setText(Float.toString(sLapTime));
+                        //sTextTimer.setText(Float.toString(sLapTime));
 
                         //出題金額
                         sTextOdai.setText(Integer.toString(sQuestionMng.sOdai));
@@ -201,12 +253,15 @@ public class GameActivity extends AppCompatActivity {
 
                         // 正解表示時間終了
                         if( sNowAnserFlg == true ) {
+							/*
                             //支払金額
                             sTextShiharai.setText(Integer.toString(sQuestionMng.sShirarai));
                             //お釣り金額
                             sTextOtsuri.setText(Integer.toString(sQuestionMng.sOtsuri));
                             //正解数
                             sTextSeikaiNum.setText(Integer.toString(sQuestionMng.sSeikaiNum));
+							*/
+							UpdateText();
 
                             if ((sLapTime - sMemTime) > 2.0) {
 
@@ -225,14 +280,13 @@ public class GameActivity extends AppCompatActivity {
 
                         // カウントダウン表示
                         if( sOpeningFlg == true ){
-                            sTextStart.setVisibility(View.VISIBLE);
+                            sTextSenter.setVisibility(View.VISIBLE);
                         }
                         // ゲーム開始
                         else{
                             // 新しい問題
                             if( sNewQuestionFlg ){
 
-                                Log.w( "DEBUG_DATA", "aaaaaaaaaaaaaaaa");
                                 sQuestionMng.startProgressBar(100); // 初期値
                                 sNewQuestionFlg = false;
                                 sNowThinkingFlg = true;
@@ -259,8 +313,14 @@ public class GameActivity extends AppCompatActivity {
                             }
                             if(sNowThinkingFlg){
                                 boolean timeOverFlg = sQuestionMng.extendProgressBar(1); // 0.1秒づつバーを伸ばす
+								// 時間切れ
                                 if( timeOverFlg == true ){
-                                    sNewQuestionFlg = true;
+                                    //sNewQuestionFlg = true;
+									sQuestionMng.sHuSeikaiNum++; //
+									sQuestionOkFlg = false;
+									sNowThinkingFlg = false;
+									sNowAnserFlg = true;
+									sMemTime = sLapTime;
                                 }
                             }
                         }
@@ -270,6 +330,12 @@ public class GameActivity extends AppCompatActivity {
         }, GAME_MILLI_SECOND, GAME_MILLI_SECOND); // 0.1秒間隔
 
     }
+
+    // 0:clear 1:not clear
+    static void gameClear(){
+
+	}
+
 
     // 端末のサイズを取得(Pointクラス px)
     private Point geViewSize() {

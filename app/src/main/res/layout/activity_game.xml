@@ -106,7 +106,7 @@
                 android:layout_weight="1"
                 android:background="#33ffff"
                 android:orientation="vertical">
-
+<!--
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -124,18 +124,94 @@
                         android:text="0" />
 
                 </LinearLayout>
+-->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="10dp">
+                    <TextView
+                        android:textSize="20sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="難易度" />
+                    <TextView
+                        android:textSize="20sp"
+                        android:textColor="#ffff00"
+                        android:id="@+id/textStar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="★" />
+                </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
                     <TextView
-                        android:textSize="40sp"
+                        android:textSize="20sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="レベル" />
+                    <TextView
+                        android:textSize="20sp"
+                        android:id="@+id/textLevel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:textSize="20sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="正解数" />
                     <TextView
-                        android:textSize="40sp"
+                        android:textSize="20sp"
                         android:id="@+id/SeikaiNum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0" />
+                    <TextView
+                        android:textSize="20sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="/" />
+                    <TextView
+                        android:textSize="20sp"
+                        android:id="@+id/ClearNum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:textSize="20sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="不正解数" />
+                    <TextView
+                        android:textSize="20sp"
+                        android:id="@+id/HuSeikaiNum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0" />
+                    <TextView
+                        android:textSize="20sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="/" />
+                    <TextView
+                        android:textSize="20sp"
+                        android:id="@+id/NotClearNum"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0" />
@@ -216,8 +292,28 @@
         android:src="@drawable/ng"
         android:visibility="gone" />
 
+    <!--
     <TextView
-        android:id="@+id/textStart"
+        android:id="@+id/textNotClear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="@android:color/holo_red_light"
+        android:text="Not Clear"
+        android:visibility="gone" />
+    <TextView
+        android:id="@+id/textNotClear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="@android:color/holo_red_light"
+        android:text="Not Clear"
+        android:visibility="gone" />
+    -->
+
+
+    <TextView
+        android:id="@+id/textCenter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

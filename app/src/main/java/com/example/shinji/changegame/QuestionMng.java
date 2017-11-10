@@ -32,10 +32,55 @@ public class QuestionMng {
     static int sNowPB;
     static int sPointNum = 0;
 
+	static int sStarNum = 0;
+	static int sLevelNum = 0;
+
     // シンキングタイム（1/10秒）
     static int sThinkingTime = 200;
 
+	// スタートレベル,クリア正解数,間違い可能数
+	static int sStarInfo[][] = {
+			{ 0,0,0 },
+
+			{ 1,1,2 },  // スター1
+			{ 2,7,3 },  // スター2
+			{ 3,10,1 }, // スター3
+			{ 4,20,1 }, // スター4
+			{ 5,30,1 }, // スター5
+	};
+
+	// 問題時間,クリア正解数
+	static int sLevelInfo[][] = {
+			{ 0,0 },
+
+			{ 200,2 }, // レベル1
+			{ 190,2 }, // レベル2
+			{ 180,2 }, // レベル3
+			{ 170,2 }, // レベル4
+			{ 160,2 }, // レベル5
+			{ 150,2 }, // レベル6
+			{ 140,2 }, // レベル7
+			{ 130,2 }, // レベル8
+			{ 120,2 }, // レベル9
+			{ 110,2 }, // レベル10
+			{ 100,2 }, // レベル11
+			{ 90,2 },  // レベル12
+			{ 80,2 },  // レベル13
+			{ 70,2 },  // レベル14
+			{ 60,2 },  // レベル15
+			{ 50,2 },  // レベル16
+			{ 40,2 },  // レベル17
+			{ 30,2 },  // レベル18
+			{ 20,2 },  // レベル19
+			{ 10,2 },  // レベル20
+	};
+
+	static int sLevelSeikaiNum = 0;
+
     static int sSeikaiNum = 0;
+	static int sClearNum = 0;
+	static int sHuSeikaiNum = 0;
+	static int sNotClearNum = 0;
 
     // 出題金額
     static int sOdai = 0;
@@ -47,18 +92,40 @@ public class QuestionMng {
     // 正解コイン数
     static HashMap<String,Integer> answerCoinNum;
 
-
-    public QuestionMng(Context context, LinearLayout layout,Handler handler) {
+    public QuestionMng(Context context, LinearLayout layout,Handler handler,int starNum) {
             sContext = context;
             sLayout = layout;
+			sStarNum = starNum;
 
             // プログレスバーの設定
             progressBar = sLayout.findViewById(R.id.ProgressBarHorizontal);
             progressBar.setScaleY(30f); // 高さを指定
 
             // 前時間表示
-            sTextView = sLayout.findViewById(R.id.textTime);
-        }
+            //sTextView = sLayout.findViewById(R.id.textTime);
+
+			// レベル正解数を初期化
+			sLevelSeikaiNum = 0;
+            // 正解数を初期化
+            sSeikaiNum = 0;
+			// 不正解数を初期化
+			sHuSeikaiNum = 0;
+			// 初期レベルを初期化
+			sLevelNum = sStarInfo[sStarNum][0];
+			// クリア数を初期化
+			sClearNum = sStarInfo[sStarNum][1];
+			// ノットクリア数を初期化
+			sNotClearNum = sStarInfo[sStarNum][2];
+			// シンキングタイムを初期化
+			sThinkingTime = sLevelInfo[sLevelNum][0];
+
+			// 出題金額
+			sOdai = 0;
+			// 支払い金額
+			sShirarai = 0;
+			// お釣り金額
+			sOtsuri = 0;
+     }
 
     // プログレスバーの開始
     public void startProgressBar(int max){
@@ -70,7 +137,7 @@ public class QuestionMng {
 
     /*
     プログレスバーの延長
-    tenSec:経過秒数×10
+    tenSec:経過秒数/10
      */
     public boolean extendProgressBar(int tenSec ){
 
@@ -79,7 +146,7 @@ public class QuestionMng {
         //progressBar.setProgress(sNowPB);
 
         ObjectAnimator animation = ObjectAnimator.ofInt(progressBar, "progress", (int)sNowPB);
-        animation.setDuration(GameActivity.GAME_MILLI_SECOND); // 0.1 second
+        animation.setDuration(GameActivity.GAME_MILLI_SECOND); // 0.1 secondかけてアニメーション
         animation.setInterpolator(new DecelerateInterpolator());
         animation.start();
 
@@ -96,6 +163,7 @@ public class QuestionMng {
         startProgressBar(sThinkingTime);
 
         Log.w( "AAAAA", "aaa sOdai = " + sOdai);
+		Log.w( "AAAAAaaaaaaaaaaaaaaaaa", "aaa sThinkingTime = " + sThinkingTime);
         return sOdai;
     }
 
@@ -307,5 +375,21 @@ public class QuestionMng {
 
         return false;
     }
+
+	/*
+		レベルアップ
+	 */
+	public void UpdateLevel(){
+		sLevelSeikaiNum++;
+		if( sLevelSeikaiNum >= sLevelInfo[sLevelNum][1] ){
+			sLevelNum++;
+			sThinkingTime = sLevelInfo[sLevelNum][0];
+
+			Log.w( "AAAAAaaaaaaaaaaaaaaaaa2", "aaa sThinkingTime = " + sThinkingTime);
+
+			sLevelSeikaiNum = 0;
+		};
+
+	}
 }
 

@@ -21,15 +21,57 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/linearLayout1"
             android:layout_marginBottom="10dp"
-            android:text="お釣りゲーム"
-            android:textAppearance="?android:attr/textAppearanceLarge"></TextView>
+            android:text="お釣り最適化"
+            android:textSize="40sp"
+            android:textAppearance="?android:attr/textAppearanceLarge">
+        </TextView>
 
-        <Button
-            android:id="@+id/game_start"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="ゲーム開始"></Button>
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/game_start1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:textSize="30sp"
+                android:text="レベル★">
+            </TextView>
+            <TextView
+                android:id="@+id/game_start2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:textSize="30sp"
+                android:text="レベル★★">
+            </TextView>
+            <TextView
+                android:id="@+id/game_start3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:textSize="30sp"
+                android:text="レベル★★★">
+            </TextView>
+            <TextView
+                android:id="@+id/game_start4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:textSize="30sp"
+                android:text="レベル★★★★">
+            </TextView>
+            <TextView
+                android:id="@+id/game_start5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:textSize="30sp"
+                android:text="レベル★★★★★">
+            </TextView>
+        </LinearLayout>
     </LinearLayout>
 
 </RelativeLayout>
