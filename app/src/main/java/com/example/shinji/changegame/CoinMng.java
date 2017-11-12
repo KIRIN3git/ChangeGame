@@ -39,28 +39,28 @@ public class CoinMng implements OnTouchListener{
     static int coinCount1 = 0;
 
     // コインサイズ
-    static int ICHIYEN_SIZE_DP = 50;
+    static int ICHIYEN_SIZE_DP = 60;
     static int ICHIYEN_SIZE_PX;
 
-    static int GOYEN_SIZE_DP = 50;
+    static int GOYEN_SIZE_DP = 60;
     static int GOYEN_SIZE_PX;
 
-    static int JYUYEN_SIZE_DP = 50;
+    static int JYUYEN_SIZE_DP = 60;
     static int JYUYEN_SIZE_PX;
 
-    static int GOJYUYEN_SIZE_DP = 50;
+    static int GOJYUYEN_SIZE_DP = 60;
     static int GOJYUYEN_SIZE_PX;
 
-    static int HYAKUYEN_SIZE_DP = 50;
+    static int HYAKUYEN_SIZE_DP = 60;
     static int HYAKUYEN_SIZE_PX;
 
-    static int GOHYAKUYEN_SIZE_DP = 50;
+    static int GOHYAKUYEN_SIZE_DP = 60;
     static int GOHYAKUYEN_SIZE_PX;
 
-    static int SENYEN_SIZE_DP = 50;
+    static int SENYEN_SIZE_DP = 60;
     static int SENYEN_SIZE_PX;
 
-    static int GOSENYEN_SIZE_DP = 50;
+    static int GOSENYEN_SIZE_DP = 60;
     static int GOSENYEN_SIZE_PX;
 
     // 財布の中でのY座標位置（パーセント）

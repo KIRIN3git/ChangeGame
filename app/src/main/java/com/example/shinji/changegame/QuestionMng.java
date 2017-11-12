@@ -42,11 +42,11 @@ public class QuestionMng {
 	static int sStarInfo[][] = {
 			{ 0,0,0 },
 
-			{ 1,1,2 },  // スター1
-			{ 2,7,3 },  // スター2
-			{ 3,10,1 }, // スター3
-			{ 4,20,1 }, // スター4
-			{ 5,30,1 }, // スター5
+			{ 1,3,3 },  // スター1
+			{ 2,5,3 },  // スター2
+			{ 3,7,2 }, // スター3
+			{ 4,10,2 }, // スター4
+			{ 5,15,0 }, // スター5
 	};
 
 	// 問題時間,クリア正解数
@@ -99,7 +99,7 @@ public class QuestionMng {
 
             // プログレスバーの設定
             progressBar = sLayout.findViewById(R.id.ProgressBarHorizontal);
-            progressBar.setScaleY(30f); // 高さを指定
+            progressBar.setScaleY(40f); // 高さを指定
 
             // 前時間表示
             //sTextView = sLayout.findViewById(R.id.textTime);

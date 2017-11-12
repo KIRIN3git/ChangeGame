@@ -1,6 +1,7 @@
 package com.example.shinji.changegame;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
@@ -49,6 +50,7 @@ public class GameActivity extends AppCompatActivity {
     TextView sTextOtsuri;
 
 	TextView sTextStar;
+    TextView sTextLevelNum;
 	TextView sTextSeikaiNum;
 	TextView sTextClearNum;
 	TextView sTextHuSeikaiNum;
@@ -73,6 +75,8 @@ public class GameActivity extends AppCompatActivity {
     static boolean sQuestionOkFlg;
     // お釣り返却中フラグ
     static boolean sNowAmountFlg;
+    // ゲームオーバーフラグ
+    static boolean sGameOverFlg;
 
     static int GAME_MILLI_SECOND = 100;
     static int sQuestionYen = 0;
@@ -102,6 +106,7 @@ public class GameActivity extends AppCompatActivity {
 		sTextOtsuri = (TextView)findViewById(R.id.textChange);
 
 		sTextStar = (TextView)findViewById(R.id.textStar);
+        sTextLevelNum = (TextView)findViewById(R.id.LevelNum);
 		sTextSeikaiNum = (TextView)findViewById(R.id.SeikaiNum);
 		sTextClearNum = (TextView)findViewById(R.id.ClearNum);
 		sTextHuSeikaiNum = (TextView)findViewById(R.id.HuSeikaiNum);
@@ -109,7 +114,6 @@ public class GameActivity extends AppCompatActivity {
 
 		Bundle extras = getIntent().getExtras();
 		sStarNum = extras.getInt("STAR");
-
 	}
 
     // 再度起動時
@@ -117,11 +121,11 @@ public class GameActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        //CoinMng
+        // CoinMng
         sCoinMng = new CoinMng(this, sCoinLayout);
 //      sCoinMng.CoinInit();
 
-        //QuestionMng
+        // QuestionMng
         sHandler = new Handler();
         sQuestionMng = new QuestionMng(this,sBackLayout,sHandler,sStarNum);
 
@@ -155,6 +159,8 @@ public class GameActivity extends AppCompatActivity {
 		//お釣り金額
 		sTextOtsuri.setText(Integer.toString(sQuestionMng.sOtsuri));
 
+        //レベル数
+        sTextLevelNum.setText(Integer.toString(sQuestionMng.sLevelNum));
 		//正解数
 		sTextSeikaiNum.setText(Integer.toString(sQuestionMng.sSeikaiNum));
 		//クリア数
@@ -172,7 +178,7 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if( sNowAnserFlg == true ) return;
+                if( sNowAnserFlg == true || sGameOverFlg == true ) return;
 
                 sNowThinkingFlg = false;
                 sNowAnserFlg = true;
@@ -195,6 +201,16 @@ public class GameActivity extends AppCompatActivity {
                     sQuestionMng.sSeikaiNum++;
 					sQuestionMng.UpdateLevel();
 
+                    Log.w( "DEBUG_DATA", "sQuestionMng.sSeikaiNum " + sQuestionMng.sSeikaiNum);
+                    Log.w( "DEBUG_DATA", "sQuestionMng.sClearNum " + sQuestionMng.sClearNum);
+
+                    if( sQuestionMng.sSeikaiNum >= sQuestionMng.sClearNum ){
+                        Intent intent = new Intent(GameActivity.this, ClearActivity.class);
+                        intent.putExtra("STAR", sStarNum);
+                        // ゲーム画面の起動
+                        startActivity(intent);
+                    }
+
                     // 五千円札がなければ補充
                     if( walletCoinNum.get("5000") == 0 ){
                         CoinMng.CreateCoin( 5000,1,CoinMng.WALLET_POSITION );
@@ -203,6 +219,7 @@ public class GameActivity extends AppCompatActivity {
 				else{ // 不正解
 					// 正解数プラス
 					sQuestionMng.sHuSeikaiNum++;
+                    if( sQuestionMng.sHuSeikaiNum >= sQuestionMng.sNotClearNum ) gameClear(1);
 
 				}
                 Log.w( "AAAAA", "okkkkkkkkkkkkkkkkkkk " + sQuestionOkFlg);
@@ -218,6 +235,7 @@ public class GameActivity extends AppCompatActivity {
         sNowAnserFlg = false;
         sQuestionOkFlg = false;
         sNowAmountFlg = false;
+        sGameOverFlg = false;
 
         sTimer = new Timer(true);
         sTimer.schedule(new TimerTask(){
@@ -226,33 +244,43 @@ public class GameActivity extends AppCompatActivity {
 
                 // sHandlerを通じてUI Threadへ処理をキューイング
                 sHandler.post( new Runnable() {
-
                     public void run() {
-                        sTextSenter.setVisibility(View.GONE);
-                        sImageOk.setVisibility(View.GONE);
-                        sImageNg.setVisibility(View.GONE);
+                        roop();
+                    }
+                });
+            }
+        }, GAME_MILLI_SECOND, GAME_MILLI_SECOND); // 0.1秒間隔
 
-                        //実行間隔分を加算処理
-                        sLapTimeReal +=  0.1;
+    }
 
-                        //計算にゆらぎがあるので小数点第1位で丸める
-                        BigDecimal bi = new BigDecimal(sLapTimeReal);
-                        sLapTime = bi.setScale(1, BigDecimal.ROUND_HALF_UP).floatValue();
+    void roop(){
+        if( sGameOverFlg ) return;
 
-                        //現在のLapTime
-                        //sTextTimer.setText(Float.toString(sLapTime));
+        sImageOk.setVisibility(View.GONE);
+        sImageNg.setVisibility(View.GONE);
 
-                        //出題金額
-                        sTextOdai.setText(Integer.toString(sQuestionMng.sOdai));
+        //実行間隔分を加算処理
+        sLapTimeReal +=  0.1;
 
-                        // カウントダウン終了
-                        if( sOpeningFlg == true && sLapTime > 2.0 ){
-                            sOpeningFlg = false;
-                            sNewQuestionFlg = true; // とりあえず第一問
-                        }
+        //計算にゆらぎがあるので小数点第1位で丸める
+        BigDecimal bi = new BigDecimal(sLapTimeReal);
+        sLapTime = bi.setScale(1, BigDecimal.ROUND_HALF_UP).floatValue();
 
-                        // 正解表示時間終了
-                        if( sNowAnserFlg == true ) {
+        //現在のLapTime
+        //sTextTimer.setText(Float.toString(sLapTime));
+
+        //出題金額
+        sTextOdai.setText(Integer.toString(sQuestionMng.sOdai));
+
+        // カウントダウン終了
+        if( sOpeningFlg == true && sLapTime > 2.0 ){
+            sTextSenter.setVisibility(View.GONE);
+            sOpeningFlg = false;
+            sNewQuestionFlg = true; // とりあえず第一問
+        }
+
+        // 正解表示時間終了
+        if( sNowAnserFlg == true ) {
 							/*
                             //支払金額
                             sTextShiharai.setText(Integer.toString(sQuestionMng.sShirarai));
@@ -261,79 +289,85 @@ public class GameActivity extends AppCompatActivity {
                             //正解数
                             sTextSeikaiNum.setText(Integer.toString(sQuestionMng.sSeikaiNum));
 							*/
-							UpdateText();
+            UpdateText();
 
-                            if ((sLapTime - sMemTime) > 2.0) {
+            if ((sLapTime - sMemTime) > 2.0) {
 
-                                //支払金額
-                                sTextShiharai.setText("");
-                                //お釣り金額
-                                sTextOtsuri.setText("");
+                //支払金額
+                sTextShiharai.setText("");
+                //お釣り金額
+                sTextOtsuri.setText("");
 
-                                // トレイに乗っているコインを全部財布に移動
-                                CoinMng.MoveAllCoin(CoinMng.TRAY_POSITION,1);
+                // トレイに乗っているコインを全部財布に移動
+                CoinMng.MoveAllCoin(CoinMng.TRAY_POSITION,1);
 
-                                sNowAnserFlg = false;
-                                sNewQuestionFlg = true;
-                            }
-                        }
-
-                        // カウントダウン表示
-                        if( sOpeningFlg == true ){
-                            sTextSenter.setVisibility(View.VISIBLE);
-                        }
-                        // ゲーム開始
-                        else{
-                            // 新しい問題
-                            if( sNewQuestionFlg ){
-
-                                sQuestionMng.startProgressBar(100); // 初期値
-                                sNewQuestionFlg = false;
-                                sNowThinkingFlg = true;
-
-                                // 出題
-                                // 値段を取得 プログレスバーが起動
-                                sQuestionYen = sQuestionMng.NewQuestion();
-
-                            }
-                            // 解答結果待ち
-                            else if( sNowAnserFlg == true ){
-                                if(sQuestionOkFlg){
-                                    sImageOk.setVisibility(View.VISIBLE);
-                                }
-                                else{
-                                    sImageNg.setVisibility(View.VISIBLE);
-                                }
-                                if( sNowAmountFlg ){
-
-//                                CoinStatus coinStatus = new CoinStatus(1, 10, 0,true);
-//                                CoinMng.AddCoin(sAmount);
-                                    sNowAmountFlg = false;
-                                }
-                            }
-                            if(sNowThinkingFlg){
-                                boolean timeOverFlg = sQuestionMng.extendProgressBar(1); // 0.1秒づつバーを伸ばす
-								// 時間切れ
-                                if( timeOverFlg == true ){
-                                    //sNewQuestionFlg = true;
-									sQuestionMng.sHuSeikaiNum++; //
-									sQuestionOkFlg = false;
-									sNowThinkingFlg = false;
-									sNowAnserFlg = true;
-									sMemTime = sLapTime;
-                                }
-                            }
-                        }
-                    }
-                });
+                sNowAnserFlg = false;
+                sNewQuestionFlg = true;
             }
-        }, GAME_MILLI_SECOND, GAME_MILLI_SECOND); // 0.1秒間隔
+        }
 
+        // カウントダウン表示
+        if( sOpeningFlg == true ){
+            sTextSenter.setText("スタート");
+            sTextSenter.setVisibility(View.VISIBLE);
+        }
+        // ゲーム開始
+        else {
+            // 新しい問題
+            if (sNewQuestionFlg) {
+
+                sQuestionMng.startProgressBar(100); // 初期値
+                sNewQuestionFlg = false;
+                sNowThinkingFlg = true;
+
+                // 出題
+                // 値段を取得 プログレスバーが起動
+                sQuestionYen = sQuestionMng.NewQuestion();
+
+            }
+            // 解答結果待ち
+            else if (sNowAnserFlg == true) {
+                if (sQuestionOkFlg) {
+                    sImageOk.setVisibility(View.VISIBLE);
+                } else {
+                    sImageNg.setVisibility(View.VISIBLE);
+                }
+                if (sNowAmountFlg) {
+
+//                  CoinStatus coinStatus = new CoinStatus(1, 10, 0,true);
+//                  CoinMng.AddCoin(sAmount);
+                    sNowAmountFlg = false;
+                }
+            }
+            if (sNowThinkingFlg) {
+                boolean timeOverFlg = sQuestionMng.extendProgressBar(1); // 0.1秒づつバーを伸ばす
+                // 時間切れ
+                if (timeOverFlg == true) {
+                    //sNewQuestionFlg = true;
+
+                    sQuestionOkFlg = false;
+                    sNowThinkingFlg = false;
+                    sNowAnserFlg = true;
+                    sMemTime = sLapTime;
+                    sQuestionMng.sHuSeikaiNum++; //
+                    if (sQuestionMng.sHuSeikaiNum >= sQuestionMng.sNotClearNum) gameClear(1);
+                }
+            }
+        }
     }
 
     // 0:clear 1:not clear
-    static void gameClear(){
+    void gameClear( int mode ){
+        if( mode == 1 ){
+            sTextSenter.setText("GAME OVER");
+            sTextSenter.setVisibility(View.VISIBLE);
+            sGameOverFlg = true;
+            sQuestionOkFlg = false;
+            sNowThinkingFlg = false;
+            sNowAnserFlg = false;
+            UpdateText();
 
+        }
 	}
 
 
