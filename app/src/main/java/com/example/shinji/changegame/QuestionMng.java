@@ -38,41 +38,46 @@ public class QuestionMng {
     // シンキングタイム（1/10秒）
     static int sThinkingTime = 200;
 
+	// 最小お題金額
+	static int sMinOdaiPrice;
+	// ランダムお題金額
+	static int sRandomOdaiPrice;
+
 	// スタートレベル,クリア正解数,間違い可能数
 	static int sStarInfo[][] = {
 			{ 0,0,0 },
 
 			{ 1,3,3 },  // スター1
 			{ 2,5,3 },  // スター2
-			{ 3,7,2 }, // スター3
+			{ 3,7,2 },  // スター3
 			{ 4,10,2 }, // スター4
-			{ 5,15,0 }, // スター5
+			{ 5,15,1 }, // スター5
 	};
 
-	// 問題時間,クリア正解数
+	// シンキングタイム,クリア正解数,最低金額、ランダム金額
 	static int sLevelInfo[][] = {
-			{ 0,0 },
+			{ 0,0,0,0 },
 
-			{ 200,2 }, // レベル1
-			{ 190,2 }, // レベル2
-			{ 180,2 }, // レベル3
-			{ 170,2 }, // レベル4
-			{ 160,2 }, // レベル5
-			{ 150,2 }, // レベル6
-			{ 140,2 }, // レベル7
-			{ 130,2 }, // レベル8
-			{ 120,2 }, // レベル9
-			{ 110,2 }, // レベル10
-			{ 100,2 }, // レベル11
-			{ 90,2 },  // レベル12
-			{ 80,2 },  // レベル13
-			{ 70,2 },  // レベル14
-			{ 60,2 },  // レベル15
-			{ 50,2 },  // レベル16
-			{ 40,2 },  // レベル17
-			{ 30,2 },  // レベル18
-			{ 20,2 },  // レベル19
-			{ 10,2 },  // レベル20
+			{ 200,2,10  ,500  }, // レベル1
+			{ 190,2,100 ,600  }, // レベル2
+			{ 180,2,200 ,700  }, // レベル3
+			{ 170,2,300 ,900  }, // レベル4
+			{ 160,2,400 ,1000 }, // レベル5
+			{ 150,2,500 ,1100 }, // レベル6
+			{ 140,2,600 ,1200 }, // レベル7
+			{ 130,2,70  ,1300 }, // レベル8
+			{ 120,2,700 ,1400 }, // レベル9
+			{ 110,2,800 ,1500 }, // レベル10
+			{ 100,2,900 ,1600 }, // レベル11
+			{  90,2,1000,1700 }, // レベル12
+			{  80,2,1500,1800 }, // レベル13
+			{  70,2,2000,1900 }, // レベル14
+			{  60,2,2000,2000 }, // レベル15
+			{  50,2,2000,2000 }, // レベル16
+			{  40,2,2000,2000 }, // レベル17
+			{  30,2,2000,2000 }, // レベル18
+			{  20,2,2000,2000 }, // レベル19
+			{  10,2,2000,2000 }, // レベル20
 	};
 
 	static int sLevelSeikaiNum = 0;
@@ -89,42 +94,49 @@ public class QuestionMng {
     // お釣り金額
     static int sOtsuri = 0;
 
-    // 正解コイン数
-    static HashMap<String,Integer> answerCoinNum;
+	// 正解コイン数
+	static HashMap<String,Integer> sAnswerCoinNum = null;
 
     public QuestionMng(Context context, LinearLayout layout,Handler handler,int starNum) {
-            sContext = context;
-            sLayout = layout;
-			sStarNum = starNum;
+        sContext = context;
+        sLayout = layout;
+		sStarNum = starNum;
 
-            // プログレスバーの設定
-            progressBar = sLayout.findViewById(R.id.ProgressBarHorizontal);
-            progressBar.setScaleY(40f); // 高さを指定
+        // プログレスバーの設定
+        progressBar = sLayout.findViewById(R.id.ProgressBarHorizontal);
+        progressBar.setScaleY(40f); // 高さを指定
 
-            // 前時間表示
-            //sTextView = sLayout.findViewById(R.id.textTime);
+        // 前時間表示
+        //sTextView = sLayout.findViewById(R.id.textTime);
 
-			// レベル正解数を初期化
-			sLevelSeikaiNum = 0;
-            // 正解数を初期化
-            sSeikaiNum = 0;
-			// 不正解数を初期化
-			sHuSeikaiNum = 0;
-			// 初期レベルを初期化
-			sLevelNum = sStarInfo[sStarNum][0];
-			// クリア数を初期化
-			sClearNum = sStarInfo[sStarNum][1];
-			// ノットクリア数を初期化
-			sNotClearNum = sStarInfo[sStarNum][2];
-			// シンキングタイムを初期化
-			sThinkingTime = sLevelInfo[sLevelNum][0];
+		// レベル正解数を初期化
+		sLevelSeikaiNum = 0;
+        // 正解数を初期化
+        sSeikaiNum = 0;
+		// 不正解数を初期化
+		sHuSeikaiNum = 0;
+		// 初期レベルを初期化
+		sLevelNum = sStarInfo[sStarNum][0];
+		// クリア数を初期化
+		sClearNum = sStarInfo[sStarNum][1];
+		// ノットクリア数を初期化
+		sNotClearNum = sStarInfo[sStarNum][2];
+		// シンキングタイムを初期化
+		sThinkingTime = sLevelInfo[sLevelNum][0];
+		// 最小お題金額
+		sMinOdaiPrice = sLevelInfo[sLevelNum][2];
+		// ランダムお題金額
+		sRandomOdaiPrice = sLevelInfo[sLevelNum][3];
 
-			// 出題金額
-			sOdai = 0;
-			// 支払い金額
-			sShirarai = 0;
-			// お釣り金額
-			sOtsuri = 0;
+		// 出題金額
+		sOdai = 0;
+		// 支払い金額
+		sShirarai = 0;
+		// お釣り金額
+		sOtsuri = 0;
+
+		// 正解コイン数
+		sAnswerCoinNum = null;
      }
 
     // プログレスバーの開始
@@ -143,7 +155,7 @@ public class QuestionMng {
 
         sNowPB += tenSec;
 
-        //progressBar.setProgress(sNowPB);
+        progressBar.setProgress(sNowPB);
 
         ObjectAnimator animation = ObjectAnimator.ofInt(progressBar, "progress", (int)sNowPB);
         animation.setDuration(GameActivity.GAME_MILLI_SECOND); // 0.1 secondかけてアニメーション
@@ -159,7 +171,7 @@ public class QuestionMng {
 
     public int NewQuestion(){
 
-        sOdai = (int)(Math.random()*1700 + 300);
+        sOdai = (int)(Math.random()*sRandomOdaiPrice + sMinOdaiPrice);
         startProgressBar(sThinkingTime);
 
         Log.w( "AAAAA", "aaa sOdai = " + sOdai);
@@ -180,16 +192,13 @@ public class QuestionMng {
             return false;
         }
 
-        // 正解コイン数
-        answerCoinNum = new HashMap<String,Integer>();
+		sAnswerCoinNum = new HashMap<String,Integer>();
 
         int a = 0,b = 0,c = 0,d = 0; // a:一の位,b:十の位,c:百の位,d:千の位
         if( 1000 <= sOdai) d = sOdai / 1000;
         if( 100 <= sOdai) c = ( sOdai - (d * 1000) ) / 100;
         if( 10 <= sOdai) b = ( sOdai -(d * 1000) - (c * 100) ) / 10;
         a = sOdai % 10;
-
-
 
         // 〇一の位の計算
         // 5を引いた金額
@@ -230,21 +239,21 @@ public class QuestionMng {
         // 一の位が足りていたら
         if( fewIchiFlg == false ){
             if( allCoinNum.get("1") >= aa ){
-                answerCoinNum.put("1",aa); // 1円支払い
-				if( a >= 5 ) answerCoinNum.put("5",1); //5円支払い
+                sAnswerCoinNum.put("1",aa); // 1円支払い
+				if( a >= 5 ) sAnswerCoinNum.put("5",1); //5円支払い
             }
             // 一円玉が足りないので5円支払い
-            else answerCoinNum.put("5",1); // 5円支払い
+            else sAnswerCoinNum.put("5",1); // 5円支払い
         }
         // 一の位が足りていなかったら
         else {
             // 5を引いた一の位が払えるなら払っておく
             if (allCoinNum.get("1") >= aa) {
-                answerCoinNum.put("1", aa);
+                sAnswerCoinNum.put("1", aa);
             }
             // 5円以下で5円玉があるならなら5円玉は払っておく
             else if ( a < 5 && allCoinNum.get("5") >= 1 ){
-                answerCoinNum.put("5", 1);
+                sAnswerCoinNum.put("5", 1);
             }
         }
 
@@ -260,21 +269,21 @@ public class QuestionMng {
         // 十の位が足りていたら
         if( fewJyuFlg == false ){
 			if( allCoinNum.get("10") >= bb ){
-				answerCoinNum.put("10",bb); // 10円支払い
-				if( b >= 5 ) answerCoinNum.put("50",1); //50円支払い
+				sAnswerCoinNum.put("10",bb); // 10円支払い
+				if( b >= 5 ) sAnswerCoinNum.put("50",1); //50円支払い
 			}
 			// 十円玉が足りないので50円支払い
-			else answerCoinNum.put("50",1); // 50円支払い
+			else sAnswerCoinNum.put("50",1); // 50円支払い
         }
         // 十の位が足りていなかったら
         else {
             // 5を引いた十の位が払えるなら払っておく
             if (allCoinNum.get("10") >= bb) {
-                answerCoinNum.put("10", bb);
+                sAnswerCoinNum.put("10", bb);
             }
             // 50円以下で50円玉があるならなら50円玉は払っておく
             else if ( b < 5  && allCoinNum.get("50") >= 1){
-                answerCoinNum.put("50", 1);
+                sAnswerCoinNum.put("50", 1);
             }
         }
 
@@ -289,26 +298,26 @@ public class QuestionMng {
         // 百の位が足りていたら
 		if( fewHyakuFlg == false ){
 			if( allCoinNum.get("100") >= cc ){
-				answerCoinNum.put("100",cc); // 100円支払い
+				sAnswerCoinNum.put("100",cc); // 100円支払い
 				Log.w( "AAAAA aa", "answer c2 " + c );
 				if(c >= 5 ){
 					Log.w( "AAAAA answer", "aaa1");
-					answerCoinNum.put("500",1); //500円支払い
+					sAnswerCoinNum.put("500",1); //500円支払い
 				}
 			}
 			// 百円玉が足りないので500円支払い
-			else answerCoinNum.put("500",1); // 50円支払い
+			else sAnswerCoinNum.put("500",1); // 50円支払い
 		}
         // 百の位が足りていなかったら
         else {
             // 5を引いた百の位が払えるなら払っておく
             if (allCoinNum.get("100") >= cc) {
-                answerCoinNum.put("100", cc);
+                sAnswerCoinNum.put("100", cc);
             }
             // 500円以下で500円玉があるなら500円玉は払っておく
             else if ( c < 5  && allCoinNum.get("500") >= 1 ){
                 Log.w( "AAAAA", "BBBBBBBBBBBBBBB2");
-                answerCoinNum.put("500", 1);
+                sAnswerCoinNum.put("500", 1);
             }
         }
 
@@ -319,29 +328,29 @@ public class QuestionMng {
         else dd = d;
 
 		if( allCoinNum.get("1000") >= dd ){
-			answerCoinNum.put("1000",dd); // 1000円支払い
-			if( d >= 5 ) answerCoinNum.put("5000",1); //5000円支払い
+			sAnswerCoinNum.put("1000",dd); // 1000円支払い
+			if( d >= 5 ) sAnswerCoinNum.put("5000",1); //5000円支払い
 		}
 		// 千円札が足りないので5000円支払い
-		else answerCoinNum.put("5000",1); // 5000円支払い
+		else sAnswerCoinNum.put("5000",1); // 5000円支払い
 
-        if( answerCoinNum.get("1") == null ) answerCoinNum.put( "1",0 );
-        if( answerCoinNum.get("5") == null ) answerCoinNum.put( "5",0 );
-        if( answerCoinNum.get("10") == null ) answerCoinNum.put( "10",0 );
-        if( answerCoinNum.get("50") == null ) answerCoinNum.put( "50",0 );
-        if( answerCoinNum.get("100") == null ) answerCoinNum.put( "100",0 );
-        if( answerCoinNum.get("500") == null ) answerCoinNum.put( "500",0 );
-        if( answerCoinNum.get("1000") == null ) answerCoinNum.put( "1000",0 );
-		if( answerCoinNum.get("5000") == null ) answerCoinNum.put( "5000",0 );
+        if( sAnswerCoinNum.get("1") == null ) sAnswerCoinNum.put( "1",0 );
+        if( sAnswerCoinNum.get("5") == null ) sAnswerCoinNum.put( "5",0 );
+        if( sAnswerCoinNum.get("10") == null ) sAnswerCoinNum.put( "10",0 );
+        if( sAnswerCoinNum.get("50") == null ) sAnswerCoinNum.put( "50",0 );
+        if( sAnswerCoinNum.get("100") == null ) sAnswerCoinNum.put( "100",0 );
+        if( sAnswerCoinNum.get("500") == null ) sAnswerCoinNum.put( "500",0 );
+        if( sAnswerCoinNum.get("1000") == null ) sAnswerCoinNum.put( "1000",0 );
+		if( sAnswerCoinNum.get("5000") == null ) sAnswerCoinNum.put( "5000",0 );
 
-        Log.w( "answerCoinNum", "1[" + answerCoinNum.get("1") + "]");
-        Log.w( "answerCoinNum", "5[" + answerCoinNum.get("5") + "]");
-        Log.w( "answerCoinNum", "10[" + answerCoinNum.get("10") + "]");
-        Log.w( "answerCoinNum", "50[" + answerCoinNum.get("50") + "]");
-        Log.w( "answerCoinNum", "100[" + answerCoinNum.get("100") + "]");
-        Log.w( "answerCoinNum", "500[" + answerCoinNum.get("500") + "]");
-        Log.w( "answerCoinNum", "1000[" + answerCoinNum.get("1000") + "]");
-		Log.w( "answerCoinNum", "5000[" + answerCoinNum.get("5000") + "]");
+        Log.w( "sAnswerCoinNum", "1[" + sAnswerCoinNum.get("1") + "]");
+        Log.w( "sAnswerCoinNum", "5[" + sAnswerCoinNum.get("5") + "]");
+        Log.w( "sAnswerCoinNum", "10[" + sAnswerCoinNum.get("10") + "]");
+        Log.w( "sAnswerCoinNum", "50[" + sAnswerCoinNum.get("50") + "]");
+        Log.w( "sAnswerCoinNum", "100[" + sAnswerCoinNum.get("100") + "]");
+        Log.w( "sAnswerCoinNum", "500[" + sAnswerCoinNum.get("500") + "]");
+        Log.w( "sAnswerCoinNum", "1000[" + sAnswerCoinNum.get("1000") + "]");
+		Log.w( "sAnswerCoinNum", "5000[" + sAnswerCoinNum.get("5000") + "]");
 
 		Log.w( "trayCoinNum", "1[" + trayCoinNum.get("1") + "]");
 		Log.w( "trayCoinNum", "5[" + trayCoinNum.get("5") + "]");
@@ -359,14 +368,16 @@ public class QuestionMng {
         //お釣りをセット
         sOtsuri = sShirarai - sOdai;
 
-        if( answerCoinNum.get("1") == trayCoinNum.get("1") &&
-                answerCoinNum.get("5") == trayCoinNum.get("5") &&
-                answerCoinNum.get("10") == trayCoinNum.get("10") &&
-                answerCoinNum.get("50") == trayCoinNum.get("50") &&
-                answerCoinNum.get("100") == trayCoinNum.get("100") &&
-                answerCoinNum.get("500") == trayCoinNum.get("500") &&
-                answerCoinNum.get("1000") == trayCoinNum.get("1000") &&
-				answerCoinNum.get("5000") == trayCoinNum.get("5000")){
+
+
+        if( sAnswerCoinNum.get("1") == trayCoinNum.get("1") &&
+                sAnswerCoinNum.get("5") == trayCoinNum.get("5") &&
+                sAnswerCoinNum.get("10") == trayCoinNum.get("10") &&
+                sAnswerCoinNum.get("50") == trayCoinNum.get("50") &&
+                sAnswerCoinNum.get("100") == trayCoinNum.get("100") &&
+                sAnswerCoinNum.get("500") == trayCoinNum.get("500") &&
+                sAnswerCoinNum.get("1000") == trayCoinNum.get("1000") &&
+				sAnswerCoinNum.get("5000") == trayCoinNum.get("5000")){
 
             // CoinMng.AddCoin(changeAmount);
 
@@ -384,6 +395,10 @@ public class QuestionMng {
 		if( sLevelSeikaiNum >= sLevelInfo[sLevelNum][1] ){
 			sLevelNum++;
 			sThinkingTime = sLevelInfo[sLevelNum][0];
+			// 最小お題金額
+			sMinOdaiPrice = sLevelInfo[sLevelNum][2];
+			// ランダムお題金額
+			sRandomOdaiPrice = sLevelInfo[sLevelNum][3];
 
 			Log.w( "AAAAAaaaaaaaaaaaaaaaaa2", "aaa sThinkingTime = " + sThinkingTime);
 

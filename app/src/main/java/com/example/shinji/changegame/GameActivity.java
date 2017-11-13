@@ -56,6 +56,15 @@ public class GameActivity extends AppCompatActivity {
 	TextView sTextHuSeikaiNum;
 	TextView sTextNotClearNum;
 
+	TextView sTextSeikaiIchien;
+	TextView sTextSeikaiGoen;
+	TextView sTextSeikaiJyuen;
+	TextView sTextSeikaiGojyuen;
+	TextView sTextSeikaiHyakuen;
+	TextView sTextSeikaiGohyakuen;
+	TextView sTextSeikaiSenen;
+	TextView sTextSeikaiGosenen;
+
     ImageView sImageOk;
     ImageView sImageNg;
 
@@ -112,8 +121,26 @@ public class GameActivity extends AppCompatActivity {
 		sTextHuSeikaiNum = (TextView)findViewById(R.id.HuSeikaiNum);
 		sTextNotClearNum = (TextView)findViewById(R.id.NotClearNum);
 
+		sTextSeikaiIchien = (TextView)findViewById(R.id.SeikaiIchien);
+		sTextSeikaiGoen = (TextView)findViewById(R.id.SeikaiGoen);
+		sTextSeikaiJyuen = (TextView)findViewById(R.id.SeikaiJyuen);
+		sTextSeikaiGojyuen = (TextView)findViewById(R.id.SeikaiGojyuen);
+		sTextSeikaiHyakuen = (TextView)findViewById(R.id.SeikaiHyakuen);
+		sTextSeikaiGohyakuen = (TextView)findViewById(R.id.SeikaiGohyakuen);
+		sTextSeikaiSenen = (TextView)findViewById(R.id.SeikaiSenen);
+		sTextSeikaiGosenen = (TextView)findViewById(R.id.SeikaiGosenen);
+
 		Bundle extras = getIntent().getExtras();
 		sStarNum = extras.getInt("STAR");
+	}
+
+	// 停止時
+	@Override
+	protected void onStop() {
+		super.onStop();
+		sTimer.cancel();
+		sHandler.removeCallbacksAndMessages(null);
+
 	}
 
     // 再度起動時
@@ -143,6 +170,8 @@ public class GameActivity extends AppCompatActivity {
 		}
 		sTextStar.setText(strStar);
 
+		Log.w( "AAAAA", "aaaawwwwwwwwwwwwwwwwwwww00011 ");
+
 		// テキストデータの更新
 		UpdateText();
 
@@ -153,14 +182,15 @@ public class GameActivity extends AppCompatActivity {
     }
 
 
-    public void UpdateText(){
+    public void UpdateText() {
+		Log.w( "AAAAA", "aaaawwwwwwwwwwwwwwwwwwww00022 ");
 		//支払金額
 		sTextShiharai.setText(Integer.toString(sQuestionMng.sShirarai));
 		//お釣り金額
 		sTextOtsuri.setText(Integer.toString(sQuestionMng.sOtsuri));
 
-        //レベル数
-        sTextLevelNum.setText(Integer.toString(sQuestionMng.sLevelNum));
+		//レベル数
+		sTextLevelNum.setText(Integer.toString(sQuestionMng.sLevelNum));
 		//正解数
 		sTextSeikaiNum.setText(Integer.toString(sQuestionMng.sSeikaiNum));
 		//クリア数
@@ -169,6 +199,33 @@ public class GameActivity extends AppCompatActivity {
 		sTextHuSeikaiNum.setText(Integer.toString(sQuestionMng.sHuSeikaiNum));
 		//ノットクリア数
 		sTextNotClearNum.setText(Integer.toString(sQuestionMng.sNotClearNum));
+
+
+		//if( sQuestionMng.sAnswerCoinNum.get("1") != null ) sTextSeikaiIchien.setText(Integer.toString(sQuestionMng.sSeikaiIchien));
+		if (sQuestionMng.sAnswerCoinNum != null) {
+			Log.w( "AAAAA", "aaaawwwwwwwwwwwwwwwwwwww1 " + Integer.toString(sQuestionMng.sAnswerCoinNum.get("1")));
+			Log.w( "AAAAA", "aaaawwwwwwwwwwwwwwwwwwww2 " + Integer.toString(sQuestionMng.sAnswerCoinNum.get("500")));
+
+			sTextSeikaiIchien.setText(Integer.toString(sQuestionMng.sAnswerCoinNum.get("1")));
+			sTextSeikaiGoen.setText(Integer.toString(sQuestionMng.sAnswerCoinNum.get("5")));
+			sTextSeikaiJyuen.setText(Integer.toString(sQuestionMng.sAnswerCoinNum.get("10")));
+			sTextSeikaiGojyuen.setText(Integer.toString(sQuestionMng.sAnswerCoinNum.get("50")));
+			sTextSeikaiHyakuen.setText(Integer.toString(sQuestionMng.sAnswerCoinNum.get("100")));
+			sTextSeikaiGohyakuen.setText(Integer.toString(sQuestionMng.sAnswerCoinNum.get("500")));
+			sTextSeikaiSenen.setText(Integer.toString(sQuestionMng.sAnswerCoinNum.get("1000")));
+			sTextSeikaiGosenen.setText(Integer.toString(sQuestionMng.sAnswerCoinNum.get("5000")));
+		}
+		else{
+			Log.w( "AAAAA", "aaaawwwwwwwwwwwwwwwwwwww000 ");
+			sTextSeikaiIchien.setText("");
+			sTextSeikaiGoen.setText("");
+			sTextSeikaiJyuen.setText("");
+			sTextSeikaiGojyuen.setText("");
+			sTextSeikaiHyakuen.setText("");
+			sTextSeikaiGohyakuen.setText("");
+			sTextSeikaiSenen.setText("");
+			sTextSeikaiGohyakuen.setText("");
+		}
 	}
 
     private void answer(){
@@ -222,6 +279,8 @@ public class GameActivity extends AppCompatActivity {
                     if( sQuestionMng.sHuSeikaiNum >= sQuestionMng.sNotClearNum ) gameClear(1);
 
 				}
+				// 正解コインを表示
+
                 Log.w( "AAAAA", "okkkkkkkkkkkkkkkkkkk " + sQuestionOkFlg);
             }
         });
