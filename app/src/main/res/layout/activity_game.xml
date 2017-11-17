@@ -19,7 +19,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="2"
+            android:layout_weight="3"
 
             android:orientation="horizontal">
 
@@ -437,7 +437,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="3"
+            android:layout_weight="2.5"
             android:background="#D3EDFB"
             android:orientation="horizontal">
 
@@ -467,6 +467,7 @@
             <ProgressBar android:id="@+id/ProgressBarHorizontal"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:progressDrawable="@drawable/progress"
                 style="?android:attr/progressBarStyleHorizontal">
             </ProgressBar>
 
@@ -475,7 +476,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="3"
+            android:layout_weight="2.5"
             android:background="#D5DFFF"
             android:orientation="horizontal">
 
@@ -492,7 +493,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="#D5DFFF"
+            android:background="#ffffff"
             android:orientation="horizontal">
 
             <RelativeLayout

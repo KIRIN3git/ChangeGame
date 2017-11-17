@@ -2,6 +2,8 @@ package com.example.shinji.changegame;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Handler;
 import android.util.Log;
 import android.view.animation.DecelerateInterpolator;
@@ -21,7 +23,7 @@ public class QuestionMng {
 
     static Context sContext;
     static LinearLayout sLayout;
-    static ProgressBar progressBar;
+    static ProgressBar sProgressBar;
     static float sLaptime = 0.0f;
 
     Timer sTimer = null;
@@ -103,8 +105,8 @@ public class QuestionMng {
 		sStarNum = starNum;
 
         // プログレスバーの設定
-        progressBar = sLayout.findViewById(R.id.ProgressBarHorizontal);
-        progressBar.setScaleY(40f); // 高さを指定
+        sProgressBar = sLayout.findViewById(R.id.ProgressBarHorizontal);
+        sProgressBar.setScaleY(40f); // 高さを指定
 
         // 前時間表示
         //sTextView = sLayout.findViewById(R.id.textTime);
@@ -143,8 +145,8 @@ public class QuestionMng {
     public void startProgressBar(int max){
         sMaxPB = max;
         sNowPB = 0;
-        progressBar.setMax(sMaxPB); // 水平プログレスバーの最大値を設定
-        progressBar.setProgress(0);
+        sProgressBar.setMax(sMaxPB); // 水平プログレスバーの最大値を設定
+        sProgressBar.setProgress(0);
     }
 
     /*
@@ -155,9 +157,9 @@ public class QuestionMng {
 
         sNowPB += tenSec;
 
-        progressBar.setProgress(sNowPB);
+        sProgressBar.setProgress(sNowPB);
 
-        ObjectAnimator animation = ObjectAnimator.ofInt(progressBar, "progress", (int)sNowPB);
+        ObjectAnimator animation = ObjectAnimator.ofInt(sProgressBar, "progress", (int)sNowPB);
         animation.setDuration(GameActivity.GAME_MILLI_SECOND); // 0.1 secondかけてアニメーション
         animation.setInterpolator(new DecelerateInterpolator());
         animation.start();

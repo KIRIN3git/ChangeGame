@@ -25,8 +25,6 @@ public class CoinMng implements OnTouchListener{
     static FrameLayout mLayout;
     static View.OnTouchListener mVOL;
 
-    // 財布とトレーのy座標差（％）
-    static final int wTotY = 40;
 
     static final int ALL_POSITION = 0;
     static final int WALLET_POSITION = 1;
@@ -63,11 +61,15 @@ public class CoinMng implements OnTouchListener{
     static int GOSENYEN_SIZE_DP = 60;
     static int GOSENYEN_SIZE_PX;
 
+
+    // 財布とトレーのy座標差（％）
+    static final int wTotY = 35;
+
     // 財布の中でのY座標位置（パーセント）
     // 上の段
-    static int COIN_Y_PS1 = 65;
+    static int COIN_Y_PS1 = 68;
     // 下の段
-    static int COIN_Y_PS2 = 77;
+    static int COIN_Y_PS2 = 80;
 
     // 財布の中でのX座標位置（パーセント）
     static int COIN_X_PS1 = 5;

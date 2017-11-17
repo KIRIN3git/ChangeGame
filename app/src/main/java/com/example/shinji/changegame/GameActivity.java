@@ -279,12 +279,7 @@ public class GameActivity extends AppCompatActivity {
                     Log.w( "DEBUG_DATA", "sQuestionMng.sSeikaiNum " + sQuestionMng.sSeikaiNum);
                     Log.w( "DEBUG_DATA", "sQuestionMng.sClearNum " + sQuestionMng.sClearNum);
 
-                    if( sQuestionMng.sSeikaiNum >= sQuestionMng.sClearNum ){
-                        Intent intent = new Intent(GameActivity.this, ClearActivity.class);
-                        intent.putExtra("STAR", sStarNum);
-                        // ゲーム画面の起動
-                        startActivity(intent);
-                    }
+
 
                     // 五千円札がなければ補充
                     if( walletCoinNum.get("5000") == 0 ){
@@ -380,6 +375,13 @@ public class GameActivity extends AppCompatActivity {
 
                 sNowAnserFlg = false;
                 sNewQuestionFlg = true;
+
+                if( sQuestionMng.sSeikaiNum >= sQuestionMng.sClearNum ){
+                    Intent intent = new Intent(GameActivity.this, ClearActivity.class);
+                    intent.putExtra("STAR", sStarNum);
+                    // ゲーム画面の起動
+                    startActivity(intent);
+                }
             }
         }
 
