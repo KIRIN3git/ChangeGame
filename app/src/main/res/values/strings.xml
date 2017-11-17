@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">ChangeGame</string>
+
+    <string name="banner_ad_unit_id1">ca-app-pub-1057765466901496/1117773300</string>
+    <string name="banner_ad_unit_id2">ca-app-pub-1057765466901496/9047346160</string>
+
 </resources>

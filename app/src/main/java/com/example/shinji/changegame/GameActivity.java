@@ -14,6 +14,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Timer;
@@ -26,6 +29,8 @@ import java.util.TimerTask;
 //https://akira-watson.com/android/property-animation.html
 
 public class GameActivity extends AppCompatActivity {
+
+    private AdView mAdView;
 
     static Context mContext;
     static Handler sHandler;
@@ -65,6 +70,8 @@ public class GameActivity extends AppCompatActivity {
 	TextView sTextSeikaiSenen;
 	TextView sTextSeikaiGosenen;
 
+    LinearLayout sLLSeikai;
+
     ImageView sImageOk;
     ImageView sImageNg;
 
@@ -95,6 +102,10 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
+        mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
         FrameLayout r = (FrameLayout)findViewById(R.id.activity_game);
         sTextSenter = (TextView)findViewById(R.id.textCenter);
@@ -129,6 +140,8 @@ public class GameActivity extends AppCompatActivity {
 		sTextSeikaiGohyakuen = (TextView)findViewById(R.id.SeikaiGohyakuen);
 		sTextSeikaiSenen = (TextView)findViewById(R.id.SeikaiSenen);
 		sTextSeikaiGosenen = (TextView)findViewById(R.id.SeikaiGosenen);
+
+        sLLSeikai = (LinearLayout)findViewById(R.id.SeikaiInfo);
 
 		Bundle extras = getIntent().getExtras();
 		sStarNum = extras.getInt("STAR");
@@ -206,6 +219,8 @@ public class GameActivity extends AppCompatActivity {
 			Log.w( "AAAAA", "aaaawwwwwwwwwwwwwwwwwwww1 " + Integer.toString(sQuestionMng.sAnswerCoinNum.get("1")));
 			Log.w( "AAAAA", "aaaawwwwwwwwwwwwwwwwwwww2 " + Integer.toString(sQuestionMng.sAnswerCoinNum.get("500")));
 
+            sLLSeikai.setVisibility(View.VISIBLE);
+
 			sTextSeikaiIchien.setText(Integer.toString(sQuestionMng.sAnswerCoinNum.get("1")));
 			sTextSeikaiGoen.setText(Integer.toString(sQuestionMng.sAnswerCoinNum.get("5")));
 			sTextSeikaiJyuen.setText(Integer.toString(sQuestionMng.sAnswerCoinNum.get("10")));
@@ -217,6 +232,9 @@ public class GameActivity extends AppCompatActivity {
 		}
 		else{
 			Log.w( "AAAAA", "aaaawwwwwwwwwwwwwwwwwwww000 ");
+
+            sLLSeikai.setVisibility(View.GONE);
+
 			sTextSeikaiIchien.setText("");
 			sTextSeikaiGoen.setText("");
 			sTextSeikaiJyuen.setText("");

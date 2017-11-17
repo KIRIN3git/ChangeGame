@@ -17,9 +17,14 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import java.lang.reflect.Method;
 
 public class MainActivity extends AppCompatActivity {
+
+    private AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
 
 //        Log.w("DEBUG_DATA", "getRealSize" + CommonMng.real.x + " " + CommonMng.real.y);
 
+        mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
     }
 

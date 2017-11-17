@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -32,12 +33,19 @@
             android:layout_gravity="center"
             android:orientation="vertical">
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:textSize="30sp"
+                android:text="難易度">
+            </TextView>
+            <TextView
                 android:id="@+id/game_start1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
                 android:textSize="30sp"
-                android:text="レベル★">
+                android:text="★">
             </TextView>
             <TextView
                 android:id="@+id/game_start2"
@@ -45,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
                 android:textSize="30sp"
-                android:text="レベル★★">
+                android:text="★★">
             </TextView>
             <TextView
                 android:id="@+id/game_start3"
@@ -53,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
                 android:textSize="30sp"
-                android:text="レベル★★★">
+                android:text="★★★">
             </TextView>
             <TextView
                 android:id="@+id/game_start4"
@@ -61,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
                 android:textSize="30sp"
-                android:text="レベル★★★★">
+                android:text="★★★★">
             </TextView>
             <TextView
                 android:id="@+id/game_start5"
@@ -69,9 +77,24 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
                 android:textSize="30sp"
-                android:text="レベル★★★★★">
+                android:text="★★★★★">
             </TextView>
         </LinearLayout>
     </LinearLayout>
+
+    <RelativeLayout
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            ads:adSize="BANNER"
+            ads:adUnitId="@string/banner_ad_unit_id1">
+        </com.google.android.gms.ads.AdView>
+    </RelativeLayout>
 
 </RelativeLayout>

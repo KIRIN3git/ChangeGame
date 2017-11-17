@@ -65,9 +65,9 @@ public class CoinMng implements OnTouchListener{
 
     // 財布の中でのY座標位置（パーセント）
     // 上の段
-    static int COIN_Y_PS1 = 75;
+    static int COIN_Y_PS1 = 65;
     // 下の段
-    static int COIN_Y_PS2 = 87;
+    static int COIN_Y_PS2 = 77;
 
     // 財布の中でのX座標位置（パーセント）
     static int COIN_X_PS1 = 5;
@@ -133,13 +133,13 @@ public class CoinMng implements OnTouchListener{
 		DeleteCoins(0,ALL_POSITION);
 
 		// コインの初期作成
-		CreateCoin(1,2,WALLET_POSITION);
+		CreateCoin(1,4,WALLET_POSITION);
 		CreateCoin(5,1,WALLET_POSITION);
-		CreateCoin(10,1,WALLET_POSITION);
+		CreateCoin(10,4,WALLET_POSITION);
 		CreateCoin(50,1,WALLET_POSITION);
-		CreateCoin(100,2,WALLET_POSITION);
+		CreateCoin(100,4,WALLET_POSITION);
 		CreateCoin(500,1,WALLET_POSITION);
-		CreateCoin(1000,3,WALLET_POSITION);
+		CreateCoin(1000,2,WALLET_POSITION);
 		CreateCoin(5000,1,WALLET_POSITION);
 
 		//CreateCoin(10,4,false);
