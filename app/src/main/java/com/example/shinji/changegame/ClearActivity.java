@@ -1,9 +1,13 @@
 package com.example.shinji.changegame;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 /**
  * Created by etisu on 2017/11/12.
@@ -12,37 +16,92 @@ import android.support.v7.app.AppCompatActivity;
 public class ClearActivity extends AppCompatActivity {
 
     static int sStarNum;
+    static float sGameTime;
+    static float sVestGameTime;
+    static boolean sVestGameTimeFlg = false;
+    static SharedPreferences sSharedData;
+    final String sClearStar[] = { "","ClearStar1","ClearStar2","ClearStar3","ClearStar4","ClearStar5" };
+    final String sClearGameTime[] = { "","VestGameTime1","VestGameTime2","VestGameTime3","VestGameTime4","VestGameTime5" };
+
+    TextView sTextStar;
+    TextView sTextVestGameTimeMsg;
+    TextView sTextVestGameTime;
+    TextView sTextGameTime;
+    Button sButtonTop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         setContentView(R.layout.activity_clear);
+
+        sTextStar = (TextView)findViewById(R.id.textStar);
+        sTextVestGameTimeMsg = (TextView)findViewById(R.id.textVestGameTimeMsg);
+        sTextVestGameTime = (TextView)findViewById(R.id.textVestGameTime);
+        sTextGameTime = (TextView)findViewById(R.id.textGameTime);
+        sButtonTop = (Button)findViewById(R.id.buttonTop);
+
+
+        sSharedData = getSharedPreferences("DataSave", Context.MODE_PRIVATE);
 
         Bundle extras = getIntent().getExtras();
         sStarNum = extras.getInt("STAR");
+        sGameTime = extras.getFloat("GAME_TIME");
 
-        SharedPreferences data = getSharedPreferences("DataSave", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = data.edit();
-        if( sStarNum == 1 ) {
-            editor.putInt("ClearStar1", 1);
-            editor.apply();
+        // ベストタイムの取得と保存
+        SaveVestTime();
+
+        // クリア難易度を保存
+        SaveStar();
+
+        // ・テキスト設定
+        //難易度
+        String strStar = "";
+        for( int i = 0; i < sStarNum; i++ ){
+            strStar += "★";
         }
-        else if( sStarNum == 2 ) {
-            editor.putInt("ClearStar2", 1);
-            editor.apply();
+        sTextStar.setText(strStar);
+
+        sTextVestGameTime.setText(String.valueOf(sVestGameTime));
+        sTextGameTime.setText(String.valueOf(sGameTime));
+        if( sVestGameTimeFlg ){
+            sTextVestGameTimeMsg.setVisibility(View.VISIBLE);
         }
-        else if( sStarNum == 3 ) {
-            editor.putInt("ClearStar3", 1);
+
+        // ・ボタン設定
+        sButtonTop.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                // インテントのインスタンス生成
+                Intent intent = new Intent(ClearActivity.this, MainActivity.class);
+                intent.putExtra("STAR", 4);
+                // ゲーム画面の起動
+                startActivity(intent);
+            }
+        });
+    }
+
+    void SaveVestTime(){
+        if( sStarNum < 1 ) return;
+
+        sVestGameTime = sSharedData.getFloat(sClearGameTime[sStarNum],0 );
+
+        // 新記録
+        if( sVestGameTime < 1 || sVestGameTime > sGameTime ){
+            sVestGameTimeFlg = true;
+            SharedPreferences.Editor editor = sSharedData.edit();
+            editor.putFloat(sClearGameTime[sStarNum], sGameTime);
             editor.apply();
+            sVestGameTime = sGameTime;
         }
-        else if( sStarNum == 4 ) {
-            editor.putInt("ClearStar4", 1);
-            editor.apply();
-        }
-        else if( sStarNum == 5 ) {
-            editor.putInt("ClearStar5", 1);
-            editor.apply();
-        }
+    }
+
+    void SaveStar(){
+        if( sStarNum < 1 ) return;
+
+        SharedPreferences.Editor editor = sSharedData.edit();
+        editor.putInt(sClearStar[sStarNum], 1);
+        editor.apply();
     }
 }

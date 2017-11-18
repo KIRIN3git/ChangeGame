@@ -40,8 +40,12 @@ public class GameActivity extends AppCompatActivity {
 
     // 全体時間
     static float sLapTimeReal = 0.0f;
+    // まるめ全体時間
+    static float sLapTime = 0.0f;
     // ゲーム時間
-    static float sLapTime= 0.0f;
+    static float sGameTimeReal = 0.0f;
+    // ゲーム時間まるめ
+    static float sGameTime = 0.0f;
     // 記録時間
     static float sMemTime = 0.0f;
 
@@ -60,6 +64,7 @@ public class GameActivity extends AppCompatActivity {
 	TextView sTextClearNum;
 	TextView sTextHuSeikaiNum;
 	TextView sTextNotClearNum;
+    TextView sTextGameTime;
 
 	TextView sTextSeikaiIchien;
 	TextView sTextSeikaiGoen;
@@ -126,20 +131,21 @@ public class GameActivity extends AppCompatActivity {
 		sTextOtsuri = (TextView)findViewById(R.id.textChange);
 
 		sTextStar = (TextView)findViewById(R.id.textStar);
-        sTextLevelNum = (TextView)findViewById(R.id.LevelNum);
-		sTextSeikaiNum = (TextView)findViewById(R.id.SeikaiNum);
-		sTextClearNum = (TextView)findViewById(R.id.ClearNum);
-		sTextHuSeikaiNum = (TextView)findViewById(R.id.HuSeikaiNum);
-		sTextNotClearNum = (TextView)findViewById(R.id.NotClearNum);
+        sTextLevelNum = (TextView)findViewById(R.id.testLevelNum);
+		sTextSeikaiNum = (TextView)findViewById(R.id.textSeikaiNum);
+		sTextClearNum = (TextView)findViewById(R.id.textClearNum);
+		sTextHuSeikaiNum = (TextView)findViewById(R.id.textHuSeikaiNum);
+		sTextNotClearNum = (TextView)findViewById(R.id.textNotClearNum);
+        sTextGameTime = (TextView)findViewById(R.id.textGameTime);
 
-		sTextSeikaiIchien = (TextView)findViewById(R.id.SeikaiIchien);
-		sTextSeikaiGoen = (TextView)findViewById(R.id.SeikaiGoen);
-		sTextSeikaiJyuen = (TextView)findViewById(R.id.SeikaiJyuen);
-		sTextSeikaiGojyuen = (TextView)findViewById(R.id.SeikaiGojyuen);
-		sTextSeikaiHyakuen = (TextView)findViewById(R.id.SeikaiHyakuen);
-		sTextSeikaiGohyakuen = (TextView)findViewById(R.id.SeikaiGohyakuen);
-		sTextSeikaiSenen = (TextView)findViewById(R.id.SeikaiSenen);
-		sTextSeikaiGosenen = (TextView)findViewById(R.id.SeikaiGosenen);
+		sTextSeikaiIchien = (TextView)findViewById(R.id.textSeikaiIchien);
+		sTextSeikaiGoen = (TextView)findViewById(R.id.textSeikaiGoen);
+		sTextSeikaiJyuen = (TextView)findViewById(R.id.textSeikaiJyuen);
+		sTextSeikaiGojyuen = (TextView)findViewById(R.id.textSeikaiGojyuen);
+		sTextSeikaiHyakuen = (TextView)findViewById(R.id.textSeikaiHyakuen);
+		sTextSeikaiGohyakuen = (TextView)findViewById(R.id.textSeikaiGohyakuen);
+		sTextSeikaiSenen = (TextView)findViewById(R.id.textSeikaiSenen);
+		sTextSeikaiGosenen = (TextView)findViewById(R.id.textSeikaiGosenen);
 
         sLLSeikai = (LinearLayout)findViewById(R.id.SeikaiInfo);
 
@@ -171,8 +177,13 @@ public class GameActivity extends AppCompatActivity {
 
 		// 全体時間
 		sLapTimeReal = 0.0f;
-		// ゲーム時間
+		// まるめ全体時間
 		sLapTime= 0.0f;
+        // ゲーム時間
+        sGameTimeReal = 0.0f;
+        // まるめゲーム時間
+        sGameTime = 0.0f;
+
 		// 記録時間
 		sMemTime = 0.0f;
 
@@ -338,8 +349,6 @@ public class GameActivity extends AppCompatActivity {
         BigDecimal bi = new BigDecimal(sLapTimeReal);
         sLapTime = bi.setScale(1, BigDecimal.ROUND_HALF_UP).floatValue();
 
-        //現在のLapTime
-        //sTextTimer.setText(Float.toString(sLapTime));
 
         //出題金額
         sTextOdai.setText(Integer.toString(sQuestionMng.sOdai));
@@ -379,6 +388,7 @@ public class GameActivity extends AppCompatActivity {
                 if( sQuestionMng.sSeikaiNum >= sQuestionMng.sClearNum ){
                     Intent intent = new Intent(GameActivity.this, ClearActivity.class);
                     intent.putExtra("STAR", sStarNum);
+                    intent.putExtra("GAME_TIME", sGameTime);
                     // ゲーム画面の起動
                     startActivity(intent);
                 }
@@ -419,6 +429,10 @@ public class GameActivity extends AppCompatActivity {
                 }
             }
             if (sNowThinkingFlg) {
+
+                // ゲーム時間の追加と表示
+                addGameTime();
+
                 boolean timeOverFlg = sQuestionMng.extendProgressBar(1); // 0.1秒づつバーを伸ばす
                 // 時間切れ
                 if (timeOverFlg == true) {
@@ -434,6 +448,19 @@ public class GameActivity extends AppCompatActivity {
             }
         }
     }
+
+    void addGameTime(){
+        //実行間隔分を加算処理
+        sGameTimeReal +=  0.1;
+
+        //計算にゆらぎがあるので小数点第1位で丸める
+        BigDecimal bi = new BigDecimal(sGameTimeReal);
+        sGameTime = bi.setScale(1, BigDecimal.ROUND_HALF_UP).floatValue();
+
+        //現在のLapTime
+        sTextGameTime.setText(Float.toString(sGameTime));
+    }
+
 
     // 0:clear 1:not clear
     void gameClear( int mode ){

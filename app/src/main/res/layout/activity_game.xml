@@ -127,25 +127,6 @@
                 android:layout_weight="1"
                 android:background="#F5D5FF"
                 android:orientation="vertical">
-<!--
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:textSize="40sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="時間" />
-                    <TextView
-                        android:textSize="40sp"
-                        android:id="@+id/textTime"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="0" />
-
-                </LinearLayout>
--->
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -159,7 +140,7 @@
                         android:text="難易度" />
                     <TextView
                         android:textSize="20sp"
-                        android:textColor="#ffff00"
+                        android:textColor="@color/orenge"
                         android:id="@+id/textStar"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -177,7 +158,7 @@
                         android:text="レベル" />
                     <TextView
                         android:textSize="20sp"
-                        android:id="@+id/LevelNum"
+                        android:id="@+id/testLevelNum"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="0" />
@@ -194,7 +175,7 @@
                         android:text="正解数" />
                     <TextView
                         android:textSize="20sp"
-                        android:id="@+id/SeikaiNum"
+                        android:id="@+id/textSeikaiNum"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0" />
@@ -205,7 +186,7 @@
                         android:text="/" />
                     <TextView
                         android:textSize="20sp"
-                        android:id="@+id/ClearNum"
+                        android:id="@+id/textClearNum"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0" />
@@ -222,7 +203,7 @@
                         android:text="不正解数" />
                     <TextView
                         android:textSize="20sp"
-                        android:id="@+id/HuSeikaiNum"
+                        android:id="@+id/textHuSeikaiNum"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0" />
@@ -233,11 +214,31 @@
                         android:text="/" />
                     <TextView
                         android:textSize="20sp"
-                        android:id="@+id/NotClearNum"
+                        android:id="@+id/textNotClearNum"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0" />
                 </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:textSize="20sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="時間" />
+                    <TextView
+                        android:textSize="20sp"
+                        android:id="@+id/textGameTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="0" />
+
+                </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/SeikaiInfo"
                     android:layout_width="wrap_content"
@@ -265,7 +266,7 @@
                                 android:text="一:[" />
                             <TextView
                                 android:textSize="12sp"
-                                android:id="@+id/SeikaiIchien"
+                                android:id="@+id/textSeikaiIchien"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="" />
@@ -286,7 +287,7 @@
                                 android:text="　五:[" />
                             <TextView
                                 android:textSize="12sp"
-                                android:id="@+id/SeikaiGoen"
+                                android:id="@+id/textSeikaiGoen"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="" />
@@ -307,7 +308,7 @@
                                 android:text="十:[" />
                             <TextView
                                 android:textSize="12sp"
-                                android:id="@+id/SeikaiJyuen"
+                                android:id="@+id/textSeikaiJyuen"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="" />
@@ -328,7 +329,7 @@
                                 android:text="五十:[" />
                             <TextView
                                 android:textSize="12sp"
-                                android:id="@+id/SeikaiGojyuen"
+                                android:id="@+id/textSeikaiGojyuen"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="" />
@@ -354,7 +355,7 @@
                                 android:text="百:[" />
                             <TextView
                                 android:textSize="12sp"
-                                android:id="@+id/SeikaiHyakuen"
+                                android:id="@+id/textSeikaiHyakuen"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="" />
@@ -375,7 +376,7 @@
                                 android:text="五百:[" />
                             <TextView
                                 android:textSize="12sp"
-                                android:id="@+id/SeikaiGohyakuen"
+                                android:id="@+id/textSeikaiGohyakuen"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="" />
@@ -396,7 +397,7 @@
                                 android:text="千:[" />
                             <TextView
                                 android:textSize="12sp"
-                                android:id="@+id/SeikaiSenen"
+                                android:id="@+id/textSeikaiSenen"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="" />
@@ -417,7 +418,7 @@
                                 android:text="五千:[" />
                             <TextView
                                 android:textSize="12sp"
-                                android:id="@+id/SeikaiGosenen"
+                                android:id="@+id/textSeikaiGosenen"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="" />

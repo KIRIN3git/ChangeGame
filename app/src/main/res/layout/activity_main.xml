@@ -39,46 +39,116 @@
                 android:textSize="30sp"
                 android:text="難易度">
             </TextView>
-            <TextView
-                android:id="@+id/game_start1"
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:textSize="30sp"
-                android:text="★">
-            </TextView>
-            <TextView
-                android:id="@+id/game_start2"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/textGameStart1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:textSize="30sp"
+                    android:text="★">
+                </TextView>
+                <TextView
+                    android:visibility = "gone"
+                    android:layout_marginLeft = "10dp"
+                    android:id="@+id/textGameVestTime1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/forestgreen"
+                    android:textSize="30sp"
+                    android:text="0">
+                </TextView>
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:textSize="30sp"
-                android:text="★★">
-            </TextView>
-            <TextView
-                android:id="@+id/game_start3"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/textGameStart2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:textSize="30sp"
+                    android:text="★★">
+                </TextView>
+                <TextView
+                    android:visibility = "gone"
+                    android:layout_marginLeft = "10dp"
+                    android:id="@+id/textGameVestTime2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/forestgreen"
+                    android:textSize="30sp"
+                    android:text="0">
+                </TextView>
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:textSize="30sp"
-                android:text="★★★">
-            </TextView>
-            <TextView
-                android:id="@+id/game_start4"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/textGameStart3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:textSize="30sp"
+                    android:text="★★★">
+                </TextView>
+                <TextView
+                    android:visibility = "gone"
+                    android:layout_marginLeft = "10dp"
+                    android:id="@+id/textGameVestTime3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/forestgreen"
+                    android:textSize="30sp"
+                    android:text="0">
+                </TextView>
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:textSize="30sp"
-                android:text="★★★★">
-            </TextView>
-            <TextView
-                android:id="@+id/game_start5"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/textGameStart4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:textSize="30sp"
+                    android:text="★★★★">
+                </TextView>
+                <TextView
+                    android:visibility = "gone"
+                    android:layout_marginLeft = "10dp"
+                    android:id="@+id/textGameVestTime4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/forestgreen"
+                    android:textSize="30sp"
+                    android:text="0">
+                </TextView>
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:textSize="30sp"
-                android:text="★★★★★">
-            </TextView>
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/textGameStart5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:textSize="30sp"
+                    android:text="★★★★★">
+                </TextView>
+                <TextView
+                    android:visibility = "gone"
+                    android:layout_marginLeft = "10dp"
+                    android:id="@+id/textGameVestTime5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/forestgreen"
+                    android:textSize="30sp"
+                    android:text="0">
+                </TextView>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
