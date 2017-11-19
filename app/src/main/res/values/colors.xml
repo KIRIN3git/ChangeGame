@@ -6,4 +6,9 @@
     <color name="orenge">#ffa500</color>
     <color name="pink">#FFC0CB</color>
     <color name="forestgreen">#228B22</color>
+    <color name="pGreen">#def7c9</color>
+    <color name="pBlue">#d9fbff</color>
+    <color name="pPurple">#ffe8ff</color>
+    <color name="pPurple2">#ffe8ff</color>
+
 </resources>

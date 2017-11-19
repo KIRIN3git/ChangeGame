@@ -54,16 +54,25 @@
             android:layout_marginTop="20dp"
             android:orientation="horizontal">
             <TextView
-                android:textSize="40sp"
+                android:textSize="30sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="ベストタイム:" />
             <TextView
-                android:textSize="40sp"
+                android:textSize="30sp"
+                android:layout_marginLeft="3dp"
                 android:id="@+id/textVestGameTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/forestgreen"
                 android:text="0" />
+            <TextView
+                android:textSize="20sp"
+                android:layout_marginLeft="2dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/forestgreen"
+                android:text="sec" />
         </LinearLayout>
 
         <LinearLayout
@@ -71,16 +80,23 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
-                android:textSize="40sp"
+                android:textSize="30sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="タイム:" />
             <TextView
-                android:textSize="40sp"
+                android:textSize="30sp"
+                android:layout_marginLeft="3dp"
                 android:id="@+id/textGameTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0" />
+            <TextView
+                android:textSize="20sp"
+                android:layout_marginLeft="2dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="sec" />
         </LinearLayout>
 
         <Button

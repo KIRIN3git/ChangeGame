@@ -21,11 +21,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@+id/linearLayout1"
-            android:layout_marginBottom="10dp"
-            android:text="お釣り最適化"
+            android:layout_gravity="center"
+            android:layout_marginBottom="30dp"
+            android:text="お釣りの最適化"
             android:textSize="40sp"
             android:textAppearance="?android:attr/textAppearanceLarge">
         </TextView>
+
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -60,6 +62,16 @@
                     android:textSize="30sp"
                     android:text="0">
                 </TextView>
+                <TextView
+                    android:visibility = "gone"
+                    android:id="@+id/textGameVestTimeSec1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/forestgreen"
+                    android:paddingLeft="2dp"
+                    android:textSize="20sp"
+                    android:text="sec">
+                </TextView>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -81,6 +93,16 @@
                     android:textColor="@color/forestgreen"
                     android:textSize="30sp"
                     android:text="0">
+                </TextView>
+                <TextView
+                    android:visibility = "gone"
+                    android:id="@+id/textGameVestTimeSec2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/forestgreen"
+                    android:paddingLeft="2dp"
+                    android:textSize="20sp"
+                    android:text="sec">
                 </TextView>
             </LinearLayout>
             <LinearLayout
@@ -104,6 +126,16 @@
                     android:textSize="30sp"
                     android:text="0">
                 </TextView>
+                <TextView
+                    android:visibility = "gone"
+                    android:id="@+id/textGameVestTimeSec3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/forestgreen"
+                    android:paddingLeft="2dp"
+                    android:textSize="20sp"
+                    android:text="sec">
+                </TextView>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -125,6 +157,16 @@
                     android:textColor="@color/forestgreen"
                     android:textSize="30sp"
                     android:text="0">
+                </TextView>
+                <TextView
+                    android:visibility = "gone"
+                    android:id="@+id/textGameVestTimeSec4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/forestgreen"
+                    android:paddingLeft="2dp"
+                    android:textSize="20sp"
+                    android:text="sec">
                 </TextView>
             </LinearLayout>
             <LinearLayout
@@ -148,8 +190,19 @@
                     android:textSize="30sp"
                     android:text="0">
                 </TextView>
+                <TextView
+                    android:visibility = "gone"
+                    android:id="@+id/textGameVestTimeSec5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/forestgreen"
+                    android:paddingLeft="2dp"
+                    android:textSize="20sp"
+                    android:text="sec">
+                </TextView>
             </LinearLayout>
         </LinearLayout>
+
     </LinearLayout>
 
     <RelativeLayout

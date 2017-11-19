@@ -300,7 +300,7 @@ public class GameActivity extends AppCompatActivity {
 				else{ // 不正解
 					// 正解数プラス
 					sQuestionMng.sHuSeikaiNum++;
-                    if( sQuestionMng.sHuSeikaiNum >= sQuestionMng.sNotClearNum ) gameClear(1);
+                    //if( sQuestionMng.sHuSeikaiNum >= sQuestionMng.sNotClearNum ) gameClear(1);
 
 				}
 				// 正解コインを表示
@@ -374,23 +374,29 @@ public class GameActivity extends AppCompatActivity {
 
             if ((sLapTime - sMemTime) > 2.0) {
 
-                //支払金額
-                sTextShiharai.setText("");
-                //お釣り金額
-                sTextOtsuri.setText("");
-
-                // トレイに乗っているコインを全部財布に移動
-                CoinMng.MoveAllCoin(CoinMng.TRAY_POSITION,1);
-
-                sNowAnserFlg = false;
-                sNewQuestionFlg = true;
-
-                if( sQuestionMng.sSeikaiNum >= sQuestionMng.sClearNum ){
+                // クリア
+                if (sQuestionMng.sSeikaiNum >= sQuestionMng.sClearNum) {
                     Intent intent = new Intent(GameActivity.this, ClearActivity.class);
                     intent.putExtra("STAR", sStarNum);
                     intent.putExtra("GAME_TIME", sGameTime);
-                    // ゲーム画面の起動
+                    // クリア画面の起動
                     startActivity(intent);
+                    sGameOverFlg = true;
+                }
+                // ゲームオーバー
+                else if (sQuestionMng.sHuSeikaiNum >= sQuestionMng.sNotClearNum) gameClear(1);
+                else {
+                    //支払金額
+                    sTextShiharai.setText("0");
+                    //お釣り金額
+                    sTextOtsuri.setText("0");
+
+                    // トレイに乗っているコインを全部財布に移動
+                    CoinMng.MoveAllCoin(CoinMng.TRAY_POSITION, 1);
+
+                    sNowAnserFlg = false;
+                    sNewQuestionFlg = true;
+
                 }
             }
         }
@@ -443,7 +449,7 @@ public class GameActivity extends AppCompatActivity {
                     sNowAnserFlg = true;
                     sMemTime = sLapTime;
                     sQuestionMng.sHuSeikaiNum++; //
-                    if (sQuestionMng.sHuSeikaiNum >= sQuestionMng.sNotClearNum) gameClear(1);
+                    //if (sQuestionMng.sHuSeikaiNum >= sQuestionMng.sNotClearNum) gameClear(1);
                 }
             }
         }

@@ -33,6 +33,11 @@ public class MainActivity extends AppCompatActivity {
     TextView textGameVestTime4;
     TextView textGameVestTime5;
 
+    TextView textGameVestTimeSec1;
+    TextView textGameVestTimeSec2;
+    TextView textGameVestTimeSec3;
+    TextView textGameVestTimeSec4;
+    TextView textGameVestTimeSec5;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +58,12 @@ public class MainActivity extends AppCompatActivity {
         textGameVestTime3 = (TextView) findViewById(R.id.textGameVestTime3);
         textGameVestTime4 = (TextView) findViewById(R.id.textGameVestTime4);
         textGameVestTime5 = (TextView) findViewById(R.id.textGameVestTime5);
+
+        textGameVestTimeSec1 = (TextView) findViewById(R.id.textGameVestTimeSec1);
+        textGameVestTimeSec2 = (TextView) findViewById(R.id.textGameVestTimeSec2);
+        textGameVestTimeSec3 = (TextView) findViewById(R.id.textGameVestTimeSec3);
+        textGameVestTimeSec4 = (TextView) findViewById(R.id.textGameVestTimeSec4);
+        textGameVestTimeSec5 = (TextView) findViewById(R.id.textGameVestTimeSec5);
 
 
         mAdView = (AdView) findViewById(R.id.adView);
@@ -75,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
             textGameVestTime1.setText(String.valueOf(vestGameTime1));
             textGameVestTime1.setVisibility(View.VISIBLE);
+            textGameVestTimeSec1.setVisibility(View.VISIBLE);
         }
         textGameStart1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
             float vestGameTime2 = data.getFloat("VestGameTime2",0);
             textGameVestTime2.setText(String.valueOf(vestGameTime2));
             textGameVestTime2.setVisibility(View.VISIBLE);
+            textGameVestTimeSec2.setVisibility(View.VISIBLE);
         }
         textGameStart2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
             float vestGameTime3 = data.getFloat("VestGameTime3",0);
             textGameVestTime3.setText(String.valueOf(vestGameTime3));
             textGameVestTime3.setVisibility(View.VISIBLE);
+            textGameVestTimeSec3.setVisibility(View.VISIBLE);
         }
         textGameStart3.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,6 +143,7 @@ public class MainActivity extends AppCompatActivity {
             float vestGameTime4 = data.getFloat("VestGameTime4",0);
             textGameVestTime4.setText(String.valueOf(vestGameTime4));
             textGameVestTime4.setVisibility(View.VISIBLE);
+            textGameVestTimeSec4.setVisibility(View.VISIBLE);
         }
         textGameStart4.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,6 +162,7 @@ public class MainActivity extends AppCompatActivity {
             float vestGameTime5 = data.getFloat("VestGameTime5",0);
             textGameVestTime5.setText(String.valueOf(vestGameTime5));
             textGameVestTime5.setVisibility(View.VISIBLE);
+            textGameVestTimeSec5.setVisibility(View.VISIBLE);
         }
         textGameStart5.setOnClickListener(new View.OnClickListener() {
             @Override

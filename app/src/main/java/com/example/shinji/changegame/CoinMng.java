@@ -52,14 +52,17 @@ public class CoinMng implements OnTouchListener{
     static int HYAKUYEN_SIZE_DP = 60;
     static int HYAKUYEN_SIZE_PX;
 
-    static int GOHYAKUYEN_SIZE_DP = 60;
+    static int GOHYAKUYEN_SIZE_DP = 63;
     static int GOHYAKUYEN_SIZE_PX;
 
-    static int SENYEN_SIZE_DP = 60;
+    static int SENYEN_SIZE_DP = 70;
     static int SENYEN_SIZE_PX;
 
-    static int GOSENYEN_SIZE_DP = 60;
+    static int GOSENYEN_SIZE_DP = 70;
     static int GOSENYEN_SIZE_PX;
+
+    // 財布の中でのX座標位置のコインズレ（パーセント）
+    static int COIN_X_SHIFT = 2;
 
 
     // 財布とトレーのy座標差（％）
@@ -67,14 +70,14 @@ public class CoinMng implements OnTouchListener{
 
     // 財布の中でのY座標位置（パーセント）
     // 上の段
-    static int COIN_Y_PS1 = 67;
+    static int COIN_Y_PS1 = 70;
     // 下の段
-    static int COIN_Y_PS2 = 79;
+    static int COIN_Y_PS2 = 82;
 
     // 財布の中でのX座標位置（パーセント）
-    static int COIN_X_PS1 = 5;
-    static int COIN_X_PS2 = 29;
-    static int COIN_X_PS3 = 55;
+    static int COIN_X_PS1 = 4;
+    static int COIN_X_PS2 = 33;
+    static int COIN_X_PS3 = 53;
     static int COIN_X_PS4 = 79;
 
     static int coinsType[][] ={
@@ -88,8 +91,6 @@ public class CoinMng implements OnTouchListener{
             {5000,SENYEN_SIZE_DP,SENYEN_SIZE_PX,COIN_X_PS4,COIN_Y_PS2},
     };
 
-    // 財布の中でのX座標位置のコインズレ（パーセント）
-    static int COIN_X_SHIFT = 2;
 
     // 財布に入っているコインの数
     static HashMap<String,Integer> walletCoinNum;
@@ -141,7 +142,7 @@ public class CoinMng implements OnTouchListener{
 		CreateCoin(50,1,WALLET_POSITION);
 		CreateCoin(100,4,WALLET_POSITION);
 		CreateCoin(500,1,WALLET_POSITION);
-		CreateCoin(1000,2,WALLET_POSITION);
+		CreateCoin(1000,4,WALLET_POSITION);
 		CreateCoin(5000,1,WALLET_POSITION);
 
 		//CreateCoin(10,4,false);

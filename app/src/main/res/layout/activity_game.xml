@@ -8,496 +8,496 @@
     tools:context="com.example.shinji.changegame.MainActivity">
 
 
-
-
     <LinearLayout
-        android:id="@+id/back_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/back_layout"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="3"
-
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/linearLayout1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="#D5FFDF"
-                android:orientation="vertical">
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3.2"
+
+                android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:textSize="20sp"
-                        android:textColor="#FFAA55"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="料金" />
-
-                    <TextView
-                        android:id="@+id/textAll"
-                        android:textSize="40sp"
-                        android:textColor="#FFAA55"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0" />
-
-                    <TextView
-                        android:id="@+id/textView4"
-                        android:textSize="20sp"
-                        android:textColor="#FFAA55"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="円" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:textSize="20sp"
-                        android:textColor="#FFAA55"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="支払" />
-
-                    <TextView
-                        android:id="@+id/textPayment"
-                        android:textSize="40sp"
-                        android:textColor="#FFAA55"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0" />
-
-                    <TextView
-                        android:id="@+id/textView72"
-                        android:textSize="20sp"
-                        android:textColor="#FFAA55"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="円" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:textSize="20sp"
-                        android:textColor="#FFAA55"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="釣り" />
-
-                    <TextView
-                        android:id="@+id/textChange"
-                        android:textSize="40sp"
-                        android:textColor="#FFAA55"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0" />
-
-                    <TextView
-                       android:id="@+id/textView7"
-                        android:textSize="20sp"
-                        android:textColor="#FFAA55"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="円" />
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="#F5D5FF"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="5dp">
-                    <TextView
-                        android:textSize="20sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="難易度" />
-                    <TextView
-                        android:textSize="20sp"
-                        android:textColor="@color/orenge"
-                        android:id="@+id/textStar"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="★" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:textSize="5sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="レベル" />
-                    <TextView
-                        android:textSize="5sp"
-                        android:id="@+id/testLevelNum"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="0" />
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:textSize="20sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="時間" />
-                    <TextView
-                        android:textSize="20sp"
-                        android:id="@+id/textGameTime"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="0" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:textSize="20sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="正解数" />
-                    <TextView
-                        android:textSize="20sp"
-                        android:id="@+id/textSeikaiNum"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0" />
-                    <TextView
-                        android:textSize="20sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="/" />
-                    <TextView
-                        android:textSize="20sp"
-                        android:id="@+id/textClearNum"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:textSize="20sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="不正解数" />
-                    <TextView
-                        android:textSize="20sp"
-                        android:id="@+id/textHuSeikaiNum"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0" />
-                    <TextView
-                        android:textSize="20sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="/" />
-                    <TextView
-                        android:textSize="20sp"
-                        android:id="@+id/textNotClearNum"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0" />
-                </LinearLayout>
-
-
-
-                <LinearLayout
-                    android:id="@+id/SeikaiInfo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
+                    android:id="@+id/linearLayout1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="4dp"
                     android:orientation="vertical">
-                    <TextView
-                        android:textSize="12sp"
-                        android:layout_marginTop="5dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="正解" />
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
-                        <LinearLayout
-                            android:layout_width="match_parent"
+
+                        <TextView
+                            android:textSize="20sp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-                            <TextView
-                                android:textSize="12sp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="一:[" />
-                            <TextView
-                                android:textSize="12sp"
-                                android:id="@+id/textSeikaiIchien"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="" />
-                            <TextView
-                                android:textSize="12sp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="] " />
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="match_parent"
+                            android:text="料金" />
+
+                        <TextView
+                            android:id="@+id/textAll"
+                            android:textSize="40sp"
+                            android:textColor="@color/orenge"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-                            <TextView
-                                android:textSize="12sp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="　五:[" />
-                            <TextView
-                                android:textSize="12sp"
-                                android:id="@+id/textSeikaiGoen"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="" />
-                            <TextView
-                                android:textSize="12sp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="] " />
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="match_parent"
+                            android:text="0" />
+
+                        <TextView
+                            android:id="@+id/textAllEn"
+                            android:textSize="20sp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-                            <TextView
-                                android:textSize="12sp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="十:[" />
-                            <TextView
-                                android:textSize="12sp"
-                                android:id="@+id/textSeikaiJyuen"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="" />
-                            <TextView
-                                android:textSize="12sp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="] " />
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-                            <TextView
-                                android:textSize="12sp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="五十:[" />
-                            <TextView
-                                android:textSize="12sp"
-                                android:id="@+id/textSeikaiGojyuen"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="" />
-                            <TextView
-                                android:textSize="12sp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="] " />
-                        </LinearLayout>
+                            android:text="円" />
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
-                        <LinearLayout
+
+                        <TextView
+                            android:textSize="20sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="支払" />
+
+                        <TextView
+                            android:id="@+id/textPayment"
+                            android:textSize="40sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0" />
+
+                        <TextView
+                            android:id="@+id/textPaymentEn"
+                            android:textSize="20sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="円" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:textSize="20sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="釣り" />
+
+                        <TextView
+                            android:id="@+id/textChange"
+                            android:textSize="40sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0" />
+
+                        <TextView
+                            android:id="@+id/textChangeEn"
+                            android:textSize="20sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="円" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="4dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="5dp">
+                        <TextView
+                            android:textSize="20sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="難易度" />
+                        <TextView
+                            android:textSize="20sp"
+                            android:textColor="@color/orenge"
+                            android:id="@+id/textStar"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:text="★" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:textSize="5sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="レベル" />
+                        <TextView
+                            android:textSize="5sp"
+                            android:id="@+id/testLevelNum"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="0" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:textSize="20sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="時間" />
+                        <TextView
+                            android:textSize="20sp"
+                            android:textColor="@color/orenge"
+                            android:id="@+id/textGameTime"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="0" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:textSize="20sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="正解数" />
+                        <TextView
+                            android:textSize="20sp"
+                            android:textColor="@color/orenge"
+                            android:id="@+id/textSeikaiNum"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0" />
+                        <TextView
+                            android:textSize="20sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="/" />
+                        <TextView
+                            android:textSize="20sp"
+                            android:textColor="@color/orenge"
+                            android:id="@+id/textClearNum"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:textSize="20sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="不正解数" />
+                        <TextView
+                            android:textSize="20sp"
+                            android:textColor="@color/orenge"
+                            android:id="@+id/textHuSeikaiNum"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0" />
+                        <TextView
+                            android:textSize="20sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="/" />
+                        <TextView
+                            android:textSize="20sp"
+                            android:textColor="@color/orenge"
+                            android:id="@+id/textNotClearNum"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0" />
+                    </LinearLayout>
+
+
+
+                    <LinearLayout
+                        android:id="@+id/SeikaiInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:orientation="vertical">
+                        <TextView
+                            android:textSize="12sp"
+                            android:layout_marginTop="5dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="正解" />
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:orientation="horizontal">
-                            <TextView
-                                android:textSize="12sp"
-                                android:layout_width="wrap_content"
+                            <LinearLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="百:[" />
-                            <TextView
-                                android:textSize="12sp"
-                                android:id="@+id/textSeikaiHyakuen"
-                                android:layout_width="wrap_content"
+                                android:orientation="horizontal">
+                                <TextView
+                                    android:textSize="12sp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="一:[" />
+                                <TextView
+                                    android:textSize="12sp"
+                                    android:id="@+id/textSeikaiIchien"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="" />
+                                <TextView
+                                    android:textSize="12sp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="] " />
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="" />
-                            <TextView
-                                android:textSize="12sp"
-                                android:layout_width="wrap_content"
+                                android:orientation="horizontal">
+                                <TextView
+                                    android:textSize="12sp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="　五:[" />
+                                <TextView
+                                    android:textSize="12sp"
+                                    android:id="@+id/textSeikaiGoen"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="" />
+                                <TextView
+                                    android:textSize="12sp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="] " />
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="] " />
+                                android:orientation="horizontal">
+                                <TextView
+                                    android:textSize="12sp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="十:[" />
+                                <TextView
+                                    android:textSize="12sp"
+                                    android:id="@+id/textSeikaiJyuen"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="" />
+                                <TextView
+                                    android:textSize="12sp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="] " />
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+                                <TextView
+                                    android:textSize="12sp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="五十:[" />
+                                <TextView
+                                    android:textSize="12sp"
+                                    android:id="@+id/textSeikaiGojyuen"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="" />
+                                <TextView
+                                    android:textSize="12sp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="] " />
+                            </LinearLayout>
                         </LinearLayout>
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
-                            <TextView
-                                android:textSize="12sp"
-                                android:layout_width="wrap_content"
+                            <LinearLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="五百:[" />
-                            <TextView
-                                android:textSize="12sp"
-                                android:id="@+id/textSeikaiGohyakuen"
-                                android:layout_width="wrap_content"
+                                android:orientation="horizontal">
+                                <TextView
+                                    android:textSize="12sp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="百:[" />
+                                <TextView
+                                    android:textSize="12sp"
+                                    android:id="@+id/textSeikaiHyakuen"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="" />
+                                <TextView
+                                    android:textSize="12sp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="] " />
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="" />
-                            <TextView
-                                android:textSize="12sp"
-                                android:layout_width="wrap_content"
+                                android:orientation="horizontal">
+                                <TextView
+                                    android:textSize="12sp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="五百:[" />
+                                <TextView
+                                    android:textSize="12sp"
+                                    android:id="@+id/textSeikaiGohyakuen"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="" />
+                                <TextView
+                                    android:textSize="12sp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="] " />
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="] " />
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-                            <TextView
-                                android:textSize="12sp"
-                                android:layout_width="wrap_content"
+                                android:orientation="horizontal">
+                                <TextView
+                                    android:textSize="12sp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="千:[" />
+                                <TextView
+                                    android:textSize="12sp"
+                                    android:id="@+id/textSeikaiSenen"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="" />
+                                <TextView
+                                    android:textSize="12sp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="] " />
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="千:[" />
-                            <TextView
-                                android:textSize="12sp"
-                                android:id="@+id/textSeikaiSenen"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="" />
-                            <TextView
-                                android:textSize="12sp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="] " />
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-                            <TextView
-                                android:textSize="12sp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="五千:[" />
-                            <TextView
-                                android:textSize="12sp"
-                                android:id="@+id/textSeikaiGosenen"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="" />
-                            <TextView
-                                android:textSize="12sp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="] " />
+                                android:orientation="horizontal">
+                                <TextView
+                                    android:textSize="12sp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="五千:[" />
+                                <TextView
+                                    android:textSize="12sp"
+                                    android:id="@+id/textSeikaiGosenen"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="" />
+                                <TextView
+                                    android:textSize="12sp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="] " />
+                            </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2.7"
+                android:background="@color/pGreen"
+                android:orientation="horizontal">
+
+
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/buttonAnswer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="支払い" />
+
+                <ProgressBar android:id="@+id/ProgressBarHorizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:progressDrawable="@drawable/progress"
+                    style="?android:attr/progressBarStyleHorizontal">
+                </ProgressBar>
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3.1"
+                android:background="@color/pGreen"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    xmlns:ads="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <com.google.android.gms.ads.AdView
+                        android:id="@+id/adView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_alignParentBottom="true"
+                        ads:adSize="BANNER"
+                        ads:adUnitId="@string/banner_ad_unit_id2">
+                    </com.google.android.gms.ads.AdView>
+                </RelativeLayout>
             </LinearLayout>
 
         </LinearLayout>
 
-
+        <!--
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2.5"
-            android:background="#D3EDFB"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/textView8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="お金入れるところ" />
-
-        </LinearLayout>
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.8"
-            android:background="#FFFFD5"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/buttonAnswer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="支払い" />
-
-            <ProgressBar android:id="@+id/ProgressBarHorizontal"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:progressDrawable="@drawable/progress"
-                style="?android:attr/progressBarStyleHorizontal">
-            </ProgressBar>
-
-        </FrameLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2.5"
-            android:background="#D5DFFF"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/textView9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="財布" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="#ffffff"
-            android:orientation="horizontal">
-
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
             <RelativeLayout
                 xmlns:ads="http://schemas.android.com/apk/res-auto"
                 android:layout_width="wrap_content"
@@ -513,8 +513,9 @@
                 </com.google.android.gms.ads.AdView>
             </RelativeLayout>
         </LinearLayout>
-    </LinearLayout>
+        -->
 
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/imageOk"
@@ -551,15 +552,7 @@
     -->
 
 
-    <TextView
-        android:id="@+id/textCenter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="スタート"
-        android:visibility="gone"
-        android:textColor="@android:color/white"
-        android:textSize="40sp" />
+
 
     <!-- コイン -->
     <FrameLayout
@@ -567,10 +560,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:orientation="vertical">
-    </FrameLayout>
+        android:orientation="vertical"></FrameLayout>
 
 
+    <TextView
+        android:id="@+id/textCenter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="START"
+        android:textStyle="bold"
+        android:visibility="gone"
+        android:textColor="@color/orenge"
+        android:textSize="50sp" />
 
 
     <!-- カウント -->
