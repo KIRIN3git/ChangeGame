@@ -1,4 +1,4 @@
-package com.example.shinji.changegame;
+package jp.kirin3.changegame;
 
 import android.content.Context;
 import android.util.Log;
@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.shinji.changegame.CoinStatus;
+import jp.kirin3.changegame.CoinStatus;
 
 /**
  * Created by shinji on 2017/09/12.
@@ -76,9 +76,9 @@ public class CoinMng implements OnTouchListener{
 
     // 財布の中でのX座標位置（パーセント）
     static int COIN_X_PS1 = 4;
-    static int COIN_X_PS2 = 33;
+    static int COIN_X_PS2 = 31;
     static int COIN_X_PS3 = 53;
-    static int COIN_X_PS4 = 79;
+    static int COIN_X_PS4 = 80;
 
     static int coinsType[][] ={
             {1,ICHIYEN_SIZE_DP,ICHIYEN_SIZE_PX,COIN_X_PS1,COIN_Y_PS1},

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center_horizontal"
-    tools:context="com.example.shinji.changegame.MainActivity">
+    tools:context="jp.kirin3.changegame.MainActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout1"

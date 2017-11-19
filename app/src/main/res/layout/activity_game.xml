@@ -5,7 +5,7 @@
     android:id="@+id/activity_game"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.shinji.changegame.MainActivity">
+    tools:context="jp.kirin3.changegame.MainActivity">
 
 
     <LinearLayout
@@ -22,7 +22,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="3.2"
+                android:layout_weight="3.4"
 
                 android:orientation="horizontal">
 
@@ -439,7 +439,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="2.7"
+                android:layout_weight="2.5"
                 android:background="@color/pGreen"
                 android:orientation="horizontal">
 

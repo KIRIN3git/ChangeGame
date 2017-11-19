@@ -1,4 +1,4 @@
-package com.example.shinji.changegame;
+package jp.kirin3.changegame;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.example.shinji.changegame", appContext.getPackageName());
+        assertEquals("jp.kirin3.changegame", appContext.getPackageName());
     }
 }

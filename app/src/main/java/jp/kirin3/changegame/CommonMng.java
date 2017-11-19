@@ -1,4 +1,4 @@
-package com.example.shinji.changegame;
+package jp.kirin3.changegame;
 
 import android.app.Activity;
 import android.graphics.Canvas;

@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:789500089894:android:5708d717c1d51047",
         "android_client_info": {
-          "package_name": "com.example.shinji.changegame"
+          "package_name": "jp.kirin3.changegame"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "789500089894-fn3dvo66iu3t33dbv9tvl9d0odfoomt6.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.shinji.changegame",
+            "package_name": "jp.kirin3.changegame",
             "certificate_hash": "7e5b35a1d37387e4d95cbdbf351ec45c2c9ad822"
           }
         },

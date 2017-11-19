@@ -1,4 +1,4 @@
-package com.example.shinji.changegame;
+package jp.kirin3.changegame;
 
 import android.content.Context;
 import android.content.Intent;

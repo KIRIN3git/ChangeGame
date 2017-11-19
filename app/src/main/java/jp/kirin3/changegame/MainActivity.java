@@ -1,4 +1,4 @@
-package com.example.shinji.changegame;
+package jp.kirin3.changegame;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,11 +14,15 @@ import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.firebase.analytics.FirebaseAnalytics;
+
 
 import java.lang.reflect.Method;
 
 public class MainActivity extends AppCompatActivity {
 
+    private FirebaseAnalytics mFirebaseAnalytics;
     private AdView mAdView;
 
     TextView textGameStart1;
@@ -66,9 +70,17 @@ public class MainActivity extends AppCompatActivity {
         textGameVestTimeSec5 = (TextView) findViewById(R.id.textGameVestTimeSec5);
 
 
+        // Obtain the FirebaseAnalytics instance.
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
+
+        MobileAds.initialize(this,getResources().getString(R.string.admob_app_id) );
+
         mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+
+
 
     }
 

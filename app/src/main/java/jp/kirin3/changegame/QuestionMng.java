@@ -1,9 +1,7 @@
-package com.example.shinji.changegame;
+package jp.kirin3.changegame;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Handler;
 import android.util.Log;
 import android.view.animation.DecelerateInterpolator;
