@@ -131,7 +131,7 @@ public class GameActivity extends AppCompatActivity {
 		sTextOtsuri = (TextView)findViewById(R.id.textChange);
 
 		sTextStar = (TextView)findViewById(R.id.textStar);
-        sTextLevelNum = (TextView)findViewById(R.id.testLevelNum);
+        sTextLevelNum = (TextView)findViewById(R.id.textLevelNum);
 		sTextSeikaiNum = (TextView)findViewById(R.id.textSeikaiNum);
 		sTextClearNum = (TextView)findViewById(R.id.textClearNum);
 		sTextHuSeikaiNum = (TextView)findViewById(R.id.textHuSeikaiNum);

@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     tools:context="jp.kirin3.changegame.MainActivity">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -47,7 +46,7 @@
 
                         <TextView
                             android:id="@+id/textAll"
-                            android:textSize="40sp"
+                            android:textSize="35sp"
                             android:textColor="@color/orenge"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -74,7 +73,7 @@
 
                         <TextView
                             android:id="@+id/textPayment"
-                            android:textSize="40sp"
+                            android:textSize="35sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0" />
@@ -100,7 +99,7 @@
 
                         <TextView
                             android:id="@+id/textChange"
-                            android:textSize="40sp"
+                            android:textSize="35sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0" />
@@ -113,7 +112,6 @@
                             android:layout_weight="1"
                             android:text="円" />
                     </LinearLayout>
-
                 </LinearLayout>
 
                 <LinearLayout
@@ -143,7 +141,9 @@
                             android:text="★" />
                     </LinearLayout>
 
+
                     <LinearLayout
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
@@ -154,7 +154,7 @@
                             android:text="レベル" />
                         <TextView
                             android:textSize="5sp"
-                            android:id="@+id/testLevelNum"
+                            android:id="@+id/textLevelNum"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="0" />
@@ -238,8 +238,6 @@
                             android:layout_height="wrap_content"
                             android:text="0" />
                     </LinearLayout>
-
-
 
                     <LinearLayout
                         android:id="@+id/SeikaiInfo"
@@ -433,7 +431,6 @@
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
-
             </LinearLayout>
 
             <LinearLayout
@@ -442,9 +439,6 @@
                 android:layout_weight="2.5"
                 android:background="@color/pGreen"
                 android:orientation="horizontal">
-
-
-
             </LinearLayout>
 
             <FrameLayout
@@ -466,7 +460,6 @@
                     android:progressDrawable="@drawable/progress"
                     style="?android:attr/progressBarStyleHorizontal">
                 </ProgressBar>
-
             </FrameLayout>
 
             <LinearLayout

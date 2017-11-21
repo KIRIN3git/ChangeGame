@@ -18,7 +18,7 @@ public class ClearActivity extends AppCompatActivity {
     static int sStarNum;
     static float sGameTime;
     static float sVestGameTime;
-    static boolean sVestGameTimeFlg = false;
+    static boolean sVestGameTimeFlg;
     static SharedPreferences sSharedData;
     final String sClearStar[] = { "","ClearStar1","ClearStar2","ClearStar3","ClearStar4","ClearStar5" };
     final String sClearGameTime[] = { "","VestGameTime1","VestGameTime2","VestGameTime3","VestGameTime4","VestGameTime5" };
@@ -35,6 +35,8 @@ public class ClearActivity extends AppCompatActivity {
 
 
         setContentView(R.layout.activity_clear);
+
+		sVestGameTimeFlg = false;
 
         sTextStar = (TextView)findViewById(R.id.textStar);
         sTextVestGameTimeMsg = (TextView)findViewById(R.id.textVestGameTimeMsg);
@@ -68,6 +70,7 @@ public class ClearActivity extends AppCompatActivity {
         if( sVestGameTimeFlg ){
             sTextVestGameTimeMsg.setVisibility(View.VISIBLE);
         }
+
 
         // ・ボタン設定
         sButtonTop.setOnClickListener(new View.OnClickListener(){
