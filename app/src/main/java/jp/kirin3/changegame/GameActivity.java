@@ -234,42 +234,42 @@ public class GameActivity extends AppCompatActivity {
 
 			sTextSeikaiIchien.setText(Integer.toString(sQuestionMng.sAnswerCoinNum.get("1")));
 			if( sQuestionMng.sAnswerCoinNum.get("1") > 0 ) sTextSeikaiIchien.setTextColor(getResources().getColor(R.color.orenge));
-			else  sTextSeikaiIchien.setTextColor(getResources().getColor(R.color.white));
+			else  sTextSeikaiIchien.setTextColor(getResources().getColor(R.color.pGreen));
 			sTextSeikaiGoen.setText(Integer.toString(sQuestionMng.sAnswerCoinNum.get("5")));
 			if( sQuestionMng.sAnswerCoinNum.get("5") > 0 ) sTextSeikaiGoen.setTextColor(getResources().getColor(R.color.orenge));
-			else  sTextSeikaiGoen.setTextColor(getResources().getColor(R.color.white));
+			else  sTextSeikaiGoen.setTextColor(getResources().getColor(R.color.pGreen));
 			sTextSeikaiJyuen.setText(Integer.toString(sQuestionMng.sAnswerCoinNum.get("10")));
 			if( sQuestionMng.sAnswerCoinNum.get("10") > 0 ) sTextSeikaiJyuen.setTextColor(getResources().getColor(R.color.orenge));
-			else  sTextSeikaiJyuen.setTextColor(getResources().getColor(R.color.white));
+			else  sTextSeikaiJyuen.setTextColor(getResources().getColor(R.color.pGreen));
 			sTextSeikaiGojyuen.setText(Integer.toString(sQuestionMng.sAnswerCoinNum.get("50")));
 			if( sQuestionMng.sAnswerCoinNum.get("50") > 0 ) sTextSeikaiGojyuen.setTextColor(getResources().getColor(R.color.orenge));
-			else  sTextSeikaiGojyuen.setTextColor(getResources().getColor(R.color.white));
+			else  sTextSeikaiGojyuen.setTextColor(getResources().getColor(R.color.pGreen));
 			sTextSeikaiHyakuen.setText(Integer.toString(sQuestionMng.sAnswerCoinNum.get("100")));
 			if( sQuestionMng.sAnswerCoinNum.get("100") > 0 ) sTextSeikaiHyakuen.setTextColor(getResources().getColor(R.color.orenge));
-			else  sTextSeikaiHyakuen.setTextColor(getResources().getColor(R.color.white));
+			else  sTextSeikaiHyakuen.setTextColor(getResources().getColor(R.color.pGreen));
 			sTextSeikaiGohyakuen.setText(Integer.toString(sQuestionMng.sAnswerCoinNum.get("500")));
 			if( sQuestionMng.sAnswerCoinNum.get("500") > 0 ) sTextSeikaiGohyakuen.setTextColor(getResources().getColor(R.color.orenge));
-			else  sTextSeikaiGohyakuen.setTextColor(getResources().getColor(R.color.white));
+			else  sTextSeikaiGohyakuen.setTextColor(getResources().getColor(R.color.pGreen));
 			sTextSeikaiSenen.setText(Integer.toString(sQuestionMng.sAnswerCoinNum.get("1000")));
 			if( sQuestionMng.sAnswerCoinNum.get("1000") > 0 ) sTextSeikaiSenen.setTextColor(getResources().getColor(R.color.orenge));
-			else  sTextSeikaiSenen.setTextColor(getResources().getColor(R.color.white));
+			else  sTextSeikaiSenen.setTextColor(getResources().getColor(R.color.pGreen));
 			sTextSeikaiGosenen.setText(Integer.toString(sQuestionMng.sAnswerCoinNum.get("5000")));
 			if( sQuestionMng.sAnswerCoinNum.get("5000") > 0 ) sTextSeikaiGosenen.setTextColor(getResources().getColor(R.color.orenge));
-			else  sTextSeikaiGosenen.setTextColor(getResources().getColor(R.color.white));
+			else  sTextSeikaiGosenen.setTextColor(getResources().getColor(R.color.pGreen));
 		}
 		else{
 			Log.w( "AAAAA", "aaaawwwwwwwwwwwwwwwwwwww000 ");
 
             sLLSeikai.setVisibility(View.GONE);
 
-			sTextSeikaiIchien.setTextColor(getResources().getColor(R.color.white));
-			sTextSeikaiGoen.setTextColor(getResources().getColor(R.color.white));
-			sTextSeikaiJyuen.setTextColor(getResources().getColor(R.color.white));
-			sTextSeikaiGojyuen.setTextColor(getResources().getColor(R.color.white));
-			sTextSeikaiHyakuen.setTextColor(getResources().getColor(R.color.white));
-			sTextSeikaiGohyakuen.setTextColor(getResources().getColor(R.color.white));
-			sTextSeikaiSenen.setTextColor(getResources().getColor(R.color.white));
-			sTextSeikaiGohyakuen.setTextColor(getResources().getColor(R.color.white));
+			sTextSeikaiIchien.setTextColor(getResources().getColor(R.color.pGreen));
+			sTextSeikaiGoen.setTextColor(getResources().getColor(R.color.pGreen));
+			sTextSeikaiJyuen.setTextColor(getResources().getColor(R.color.pGreen));
+			sTextSeikaiGojyuen.setTextColor(getResources().getColor(R.color.pGreen));
+			sTextSeikaiHyakuen.setTextColor(getResources().getColor(R.color.pGreen));
+			sTextSeikaiGohyakuen.setTextColor(getResources().getColor(R.color.pGreen));
+			sTextSeikaiSenen.setTextColor(getResources().getColor(R.color.pGreen));
+			sTextSeikaiGohyakuen.setTextColor(getResources().getColor(R.color.pGreen));
 		}
 	}
 
@@ -284,7 +284,7 @@ public class GameActivity extends AppCompatActivity {
 
                 sNowThinkingFlg = false;
                 sNowAnserFlg = true;
-                sMemTime = sLapTime;
+
 
                 HashMap<String,Integer> allCoinNum = CoinMng.GetCoinNum(CoinMng.ALL_POSITION);
                 HashMap<String,Integer> walletCoinNum = CoinMng.GetCoinNum(CoinMng.WALLET_POSITION);
@@ -292,6 +292,7 @@ public class GameActivity extends AppCompatActivity {
 
                 sQuestionOkFlg = sQuestionMng.answerQuestion(allCoinNum,trayCoinNum);
                 if(sQuestionOkFlg){ // 正解
+                    sMemTime = sLapTime;
 //                    sCoinMng.OutSideCoin();
                     // コイン全削除
                     sCoinMng.DeleteCoins(0,CoinMng.TRAY_POSITION);
@@ -314,6 +315,7 @@ public class GameActivity extends AppCompatActivity {
                     }
 				}
 				else{ // 不正解
+                    sMemTime = sLapTime + 3;
 					// 正解数プラス
 					sQuestionMng.sHuSeikaiNum++;
                     //if( sQuestionMng.sHuSeikaiNum >= sQuestionMng.sNotClearNum ) gameClear(1);
@@ -469,7 +471,7 @@ public class GameActivity extends AppCompatActivity {
                     sQuestionOkFlg = false;
                     sNowThinkingFlg = false;
                     sNowAnserFlg = true;
-                    sMemTime = sLapTime;
+                    sMemTime = sLapTime + 3;
                     sQuestionMng.sHuSeikaiNum++; //
                     //if (sQuestionMng.sHuSeikaiNum >= sQuestionMng.sNotClearNum) gameClear(1);
                 }
