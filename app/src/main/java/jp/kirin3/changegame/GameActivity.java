@@ -194,8 +194,6 @@ public class GameActivity extends AppCompatActivity {
 		}
 		sTextStar.setText(strStar);
 
-		Log.w( "AAAAA", "aaaawwwwwwwwwwwwwwwwwwww00011 ");
-
 		// テキストデータの更新
 		UpdateText();
 
@@ -207,7 +205,6 @@ public class GameActivity extends AppCompatActivity {
 
 
     public void UpdateText() {
-		Log.w( "AAAAA", "aaaawwwwwwwwwwwwwwwwwwww00022 ");
 		//支払金額
 		sTextShiharai.setText(Integer.toString(sQuestionMng.sShirarai));
 		//お釣り金額
@@ -227,8 +224,6 @@ public class GameActivity extends AppCompatActivity {
 
 		//if( sQuestionMng.sAnswerCoinNum.get("1") != null ) sTextSeikaiIchien.setText(Integer.toString(sQuestionMng.sSeikaiIchien));
 		if (sQuestionMng.sAnswerCoinNum != null) {
-			Log.w( "AAAAA", "aaaawwwwwwwwwwwwwwwwwwww1 " + Integer.toString(sQuestionMng.sAnswerCoinNum.get("1")));
-			Log.w( "AAAAA", "aaaawwwwwwwwwwwwwwwwwwww2 " + Integer.toString(sQuestionMng.sAnswerCoinNum.get("500")));
 
             sLLSeikai.setVisibility(View.VISIBLE);
 
