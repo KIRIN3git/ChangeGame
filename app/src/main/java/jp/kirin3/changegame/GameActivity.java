@@ -233,27 +233,43 @@ public class GameActivity extends AppCompatActivity {
             sLLSeikai.setVisibility(View.VISIBLE);
 
 			sTextSeikaiIchien.setText(Integer.toString(sQuestionMng.sAnswerCoinNum.get("1")));
+			if( sQuestionMng.sAnswerCoinNum.get("1") > 0 ) sTextSeikaiIchien.setTextColor(getResources().getColor(R.color.orenge));
+			else  sTextSeikaiIchien.setTextColor(getResources().getColor(R.color.white));
 			sTextSeikaiGoen.setText(Integer.toString(sQuestionMng.sAnswerCoinNum.get("5")));
+			if( sQuestionMng.sAnswerCoinNum.get("5") > 0 ) sTextSeikaiGoen.setTextColor(getResources().getColor(R.color.orenge));
+			else  sTextSeikaiGoen.setTextColor(getResources().getColor(R.color.white));
 			sTextSeikaiJyuen.setText(Integer.toString(sQuestionMng.sAnswerCoinNum.get("10")));
+			if( sQuestionMng.sAnswerCoinNum.get("10") > 0 ) sTextSeikaiJyuen.setTextColor(getResources().getColor(R.color.orenge));
+			else  sTextSeikaiJyuen.setTextColor(getResources().getColor(R.color.white));
 			sTextSeikaiGojyuen.setText(Integer.toString(sQuestionMng.sAnswerCoinNum.get("50")));
+			if( sQuestionMng.sAnswerCoinNum.get("50") > 0 ) sTextSeikaiGojyuen.setTextColor(getResources().getColor(R.color.orenge));
+			else  sTextSeikaiGojyuen.setTextColor(getResources().getColor(R.color.white));
 			sTextSeikaiHyakuen.setText(Integer.toString(sQuestionMng.sAnswerCoinNum.get("100")));
+			if( sQuestionMng.sAnswerCoinNum.get("100") > 0 ) sTextSeikaiHyakuen.setTextColor(getResources().getColor(R.color.orenge));
+			else  sTextSeikaiHyakuen.setTextColor(getResources().getColor(R.color.white));
 			sTextSeikaiGohyakuen.setText(Integer.toString(sQuestionMng.sAnswerCoinNum.get("500")));
+			if( sQuestionMng.sAnswerCoinNum.get("500") > 0 ) sTextSeikaiGohyakuen.setTextColor(getResources().getColor(R.color.orenge));
+			else  sTextSeikaiGohyakuen.setTextColor(getResources().getColor(R.color.white));
 			sTextSeikaiSenen.setText(Integer.toString(sQuestionMng.sAnswerCoinNum.get("1000")));
+			if( sQuestionMng.sAnswerCoinNum.get("1000") > 0 ) sTextSeikaiSenen.setTextColor(getResources().getColor(R.color.orenge));
+			else  sTextSeikaiSenen.setTextColor(getResources().getColor(R.color.white));
 			sTextSeikaiGosenen.setText(Integer.toString(sQuestionMng.sAnswerCoinNum.get("5000")));
+			if( sQuestionMng.sAnswerCoinNum.get("5000") > 0 ) sTextSeikaiGosenen.setTextColor(getResources().getColor(R.color.orenge));
+			else  sTextSeikaiGosenen.setTextColor(getResources().getColor(R.color.white));
 		}
 		else{
 			Log.w( "AAAAA", "aaaawwwwwwwwwwwwwwwwwwww000 ");
 
             sLLSeikai.setVisibility(View.GONE);
 
-			sTextSeikaiIchien.setText("");
-			sTextSeikaiGoen.setText("");
-			sTextSeikaiJyuen.setText("");
-			sTextSeikaiGojyuen.setText("");
-			sTextSeikaiHyakuen.setText("");
-			sTextSeikaiGohyakuen.setText("");
-			sTextSeikaiSenen.setText("");
-			sTextSeikaiGohyakuen.setText("");
+			sTextSeikaiIchien.setTextColor(getResources().getColor(R.color.white));
+			sTextSeikaiGoen.setTextColor(getResources().getColor(R.color.white));
+			sTextSeikaiJyuen.setTextColor(getResources().getColor(R.color.white));
+			sTextSeikaiGojyuen.setTextColor(getResources().getColor(R.color.white));
+			sTextSeikaiHyakuen.setTextColor(getResources().getColor(R.color.white));
+			sTextSeikaiGohyakuen.setTextColor(getResources().getColor(R.color.white));
+			sTextSeikaiSenen.setTextColor(getResources().getColor(R.color.white));
+			sTextSeikaiGohyakuen.setTextColor(getResources().getColor(R.color.white));
 		}
 	}
 
@@ -442,6 +458,12 @@ public class GameActivity extends AppCompatActivity {
                 boolean timeOverFlg = sQuestionMng.extendProgressBar(1); // 0.1秒づつバーを伸ばす
                 // 時間切れ
                 if (timeOverFlg == true) {
+					// 解答のために正解を出しておく
+					HashMap<String,Integer> allCoinNum = CoinMng.GetCoinNum(CoinMng.ALL_POSITION);
+					HashMap<String,Integer> trayCoinNum = CoinMng.GetCoinNum(CoinMng.TRAY_POSITION);
+					sQuestionMng.answerQuestion(allCoinNum,trayCoinNum);
+
+					sLLSeikai.setVisibility(View.VISIBLE);
                     //sNewQuestionFlg = true;
 
                     sQuestionOkFlg = false;

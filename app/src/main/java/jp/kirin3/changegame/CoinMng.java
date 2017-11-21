@@ -65,14 +65,14 @@ public class CoinMng implements OnTouchListener{
     static int COIN_X_SHIFT = 2;
 
 
-    // 財布とトレーのy座標差（％）
-    static final int wTotY = 35;
+    // 財布とトレーのy座標差（パーセント）
+    static final int wTotY = 34;
 
     // 財布の中でのY座標位置（パーセント）
     // 上の段
-    static int COIN_Y_PS1 = 70;
+    static int COIN_Y_PS1 = 68;
     // 下の段
-    static int COIN_Y_PS2 = 82;
+    static int COIN_Y_PS2 = 79;
 
     // 財布の中でのX座標位置（パーセント）
     static int COIN_X_PS1 = 4;

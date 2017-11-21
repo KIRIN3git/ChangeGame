@@ -21,7 +21,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="3.4"
+                android:layout_weight="3.2"
 
                 android:orientation="horizontal">
 
@@ -172,11 +172,13 @@
                             android:text="時間" />
                         <TextView
                             android:textSize="20sp"
-                            android:textColor="@color/orenge"
+                            android:textColor="@color/gray"
                             android:id="@+id/textGameTime"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="0" />
+
+
                     </LinearLayout>
 
                     <LinearLayout
@@ -263,18 +265,14 @@
                                     android:textSize="12sp"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="一:[" />
+                                    android:text="一:" />
                                 <TextView
                                     android:textSize="12sp"
                                     android:id="@+id/textSeikaiIchien"
+                                    android:textColor="@color/orenge"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="" />
-                                <TextView
-                                    android:textSize="12sp"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="] " />
                             </LinearLayout>
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -282,20 +280,17 @@
                                 android:orientation="horizontal">
                                 <TextView
                                     android:textSize="12sp"
+                                    android:layout_marginLeft="8dp"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="　五:[" />
+                                    android:text="　五:" />
                                 <TextView
                                     android:textSize="12sp"
                                     android:id="@+id/textSeikaiGoen"
+                                    android:textColor="@color/orenge"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="" />
-                                <TextView
-                                    android:textSize="12sp"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="] " />
                             </LinearLayout>
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -303,20 +298,17 @@
                                 android:orientation="horizontal">
                                 <TextView
                                     android:textSize="12sp"
+                                    android:layout_marginLeft="8dp"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="十:[" />
+                                    android:text="十:" />
                                 <TextView
                                     android:textSize="12sp"
                                     android:id="@+id/textSeikaiJyuen"
+                                    android:textColor="@color/orenge"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="" />
-                                <TextView
-                                    android:textSize="12sp"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="] " />
                             </LinearLayout>
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -324,20 +316,17 @@
                                 android:orientation="horizontal">
                                 <TextView
                                     android:textSize="12sp"
+                                    android:layout_marginLeft="8dp"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="五十:[" />
+                                    android:text="五十:" />
                                 <TextView
                                     android:textSize="12sp"
                                     android:id="@+id/textSeikaiGojyuen"
+                                    android:textColor="@color/orenge"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="" />
-                                <TextView
-                                    android:textSize="12sp"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="] " />
                             </LinearLayout>
                         </LinearLayout>
                         <LinearLayout
@@ -352,18 +341,14 @@
                                     android:textSize="12sp"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="百:[" />
+                                    android:text="百:" />
                                 <TextView
                                     android:textSize="12sp"
                                     android:id="@+id/textSeikaiHyakuen"
+                                    android:textColor="@color/orenge"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="" />
-                                <TextView
-                                    android:textSize="12sp"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="] " />
                             </LinearLayout>
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -371,20 +356,17 @@
                                 android:orientation="horizontal">
                                 <TextView
                                     android:textSize="12sp"
+                                    android:layout_marginLeft="8dp"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="五百:[" />
+                                    android:text="五百:" />
                                 <TextView
                                     android:textSize="12sp"
                                     android:id="@+id/textSeikaiGohyakuen"
+                                    android:textColor="@color/orenge"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="" />
-                                <TextView
-                                    android:textSize="12sp"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="] " />
                             </LinearLayout>
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -392,20 +374,17 @@
                                 android:orientation="horizontal">
                                 <TextView
                                     android:textSize="12sp"
+                                    android:layout_marginLeft="8dp"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="千:[" />
+                                    android:text="千:" />
                                 <TextView
                                     android:textSize="12sp"
                                     android:id="@+id/textSeikaiSenen"
+                                    android:textColor="@color/orenge"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="" />
-                                <TextView
-                                    android:textSize="12sp"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="] " />
                             </LinearLayout>
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -413,20 +392,17 @@
                                 android:orientation="horizontal">
                                 <TextView
                                     android:textSize="12sp"
+                                    android:layout_marginLeft="8dp"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="五千:[" />
+                                    android:text="五千:" />
                                 <TextView
                                     android:textSize="12sp"
                                     android:id="@+id/textSeikaiGosenen"
+                                    android:textColor="@color/orenge"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="" />
-                                <TextView
-                                    android:textSize="12sp"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="] " />
                             </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
@@ -444,7 +420,7 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_weight="0.9"
                 android:orientation="horizontal">
 
                 <Button
@@ -465,7 +441,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="3.1"
+                android:layout_weight="3.4"
                 android:background="@color/pGreen"
                 android:orientation="horizontal">
 
