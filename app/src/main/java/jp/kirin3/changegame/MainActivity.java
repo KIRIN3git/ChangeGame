@@ -69,18 +69,14 @@ public class MainActivity extends AppCompatActivity {
         textGameVestTimeSec4 = (TextView) findViewById(R.id.textGameVestTimeSec4);
         textGameVestTimeSec5 = (TextView) findViewById(R.id.textGameVestTimeSec5);
 
-
         // Obtain the FirebaseAnalytics instance.
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
-
 
         MobileAds.initialize(this,getResources().getString(R.string.admob_app_id) );
 
         mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
-
-
 
     }
 
