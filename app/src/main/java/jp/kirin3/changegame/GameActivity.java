@@ -310,7 +310,7 @@ public class GameActivity extends AppCompatActivity {
                     }
 				}
 				else{ // 不正解
-                    sMemTime = sLapTime + 3;
+                    sMemTime = sLapTime + 2;
 					// 正解数プラス
 					sQuestionMng.sHuSeikaiNum++;
                     //if( sQuestionMng.sHuSeikaiNum >= sQuestionMng.sNotClearNum ) gameClear(1);
@@ -466,7 +466,7 @@ public class GameActivity extends AppCompatActivity {
                     sQuestionOkFlg = false;
                     sNowThinkingFlg = false;
                     sNowAnserFlg = true;
-                    sMemTime = sLapTime + 3;
+                    sMemTime = sLapTime + 2;
                     sQuestionMng.sHuSeikaiNum++; //
                     //if (sQuestionMng.sHuSeikaiNum >= sQuestionMng.sNotClearNum) gameClear(1);
                 }
