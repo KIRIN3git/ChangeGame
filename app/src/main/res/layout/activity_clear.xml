@@ -44,7 +44,7 @@
             android:id="@+id/textVestGameTimeMsg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/forestgreen"
+            android:textColor="@color/forestGreen"
             android:text="ベストタイム更新" />
 
 
@@ -64,14 +64,14 @@
                 android:id="@+id/textVestGameTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/forestgreen"
+                android:textColor="@color/forestGreen"
                 android:text="0" />
             <TextView
                 android:textSize="20sp"
                 android:layout_marginLeft="2dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/forestgreen"
+                android:textColor="@color/forestGreen"
                 android:text="sec" />
         </LinearLayout>
 

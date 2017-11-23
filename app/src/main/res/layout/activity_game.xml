@@ -172,7 +172,7 @@
                             android:text="時間" />
                         <TextView
                             android:textSize="20sp"
-                            android:textColor="@color/gray"
+                            android:textColor="@color/orenge"
                             android:id="@+id/textGameTime"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -542,10 +542,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="START"
         android:textStyle="bold"
         android:visibility="gone"
-        android:textColor="@color/orenge"
+        android:textColor="@color/centerRed"
         android:textSize="50sp" />
 
 

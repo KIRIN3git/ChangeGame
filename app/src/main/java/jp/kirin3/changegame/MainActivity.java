@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -42,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
     TextView textGameVestTimeSec3;
     TextView textGameVestTimeSec4;
     TextView textGameVestTimeSec5;
+
+    Button sButtonManual;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +71,20 @@ public class MainActivity extends AppCompatActivity {
         textGameVestTimeSec3 = (TextView) findViewById(R.id.textGameVestTimeSec3);
         textGameVestTimeSec4 = (TextView) findViewById(R.id.textGameVestTimeSec4);
         textGameVestTimeSec5 = (TextView) findViewById(R.id.textGameVestTimeSec5);
+
+        sButtonManual = (Button)findViewById(R.id.buttonManial);
+
+        // ・ボタン設定
+        sButtonManual.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                // インテントのインスタンス生成
+                Intent intent = new Intent(MainActivity.this, ManualActivity.class);
+                // ゲーム画面の起動
+                startActivity(intent);
+            }
+        });
+
 
         // Obtain the FirebaseAnalytics instance.
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);

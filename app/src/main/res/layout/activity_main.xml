@@ -23,25 +23,21 @@
             android:layout_above="@+id/linearLayout1"
             android:layout_gravity="center"
             android:layout_marginBottom="30dp"
-            android:text="お釣りの最適化"
+            android:text="@string/app_name"
             android:textSize="40sp"
+
             android:textAppearance="?android:attr/textAppearanceLarge">
         </TextView>
-
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:textSize="30sp"
-                android:text="難易度">
-            </TextView>
+
+
             <LinearLayout
+                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <TextView
@@ -49,31 +45,34 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
-                    android:textSize="30sp"
+                    android:textSize="35sp"
                     android:text="★">
                 </TextView>
                 <TextView
                     android:visibility = "gone"
                     android:layout_marginLeft = "10dp"
+                    android:layout_gravity="bottom"
                     android:id="@+id/textGameVestTime1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/forestgreen"
-                    android:textSize="30sp"
+                    android:textColor="@color/forestGreen"
+                    android:textSize="20sp"
                     android:text="0">
                 </TextView>
                 <TextView
                     android:visibility = "gone"
                     android:id="@+id/textGameVestTimeSec1"
+                    android:layout_gravity="bottom"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/forestgreen"
+                    android:textColor="@color/forestGreen"
                     android:paddingLeft="2dp"
-                    android:textSize="20sp"
+                    android:textSize="15sp"
                     android:text="sec">
                 </TextView>
             </LinearLayout>
             <LinearLayout
+                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <TextView
@@ -81,31 +80,34 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
-                    android:textSize="30sp"
+                    android:textSize="35sp"
                     android:text="★★">
                 </TextView>
                 <TextView
                     android:visibility = "gone"
                     android:layout_marginLeft = "10dp"
+                    android:layout_gravity="bottom"
                     android:id="@+id/textGameVestTime2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/forestgreen"
-                    android:textSize="30sp"
+                    android:textColor="@color/forestGreen"
+                    android:textSize="20sp"
                     android:text="0">
                 </TextView>
                 <TextView
                     android:visibility = "gone"
                     android:id="@+id/textGameVestTimeSec2"
+                    android:layout_gravity="bottom"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/forestgreen"
+                    android:textColor="@color/forestGreen"
                     android:paddingLeft="2dp"
-                    android:textSize="20sp"
+                    android:textSize="15sp"
                     android:text="sec">
                 </TextView>
             </LinearLayout>
             <LinearLayout
+                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <TextView
@@ -113,31 +115,34 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
-                    android:textSize="30sp"
+                    android:textSize="35sp"
                     android:text="★★★">
                 </TextView>
                 <TextView
                     android:visibility = "gone"
+                    android:layout_gravity="bottom"
                     android:layout_marginLeft = "10dp"
                     android:id="@+id/textGameVestTime3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/forestgreen"
-                    android:textSize="30sp"
+                    android:textColor="@color/forestGreen"
+                    android:textSize="20sp"
                     android:text="0">
                 </TextView>
                 <TextView
                     android:visibility = "gone"
+                    android:layout_gravity="bottom"
                     android:id="@+id/textGameVestTimeSec3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/forestgreen"
+                    android:textColor="@color/forestGreen"
                     android:paddingLeft="2dp"
-                    android:textSize="20sp"
+                    android:textSize="15sp"
                     android:text="sec">
                 </TextView>
             </LinearLayout>
             <LinearLayout
+                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <TextView
@@ -145,31 +150,34 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
-                    android:textSize="30sp"
+                    android:textSize="35sp"
                     android:text="★★★★">
                 </TextView>
                 <TextView
                     android:visibility = "gone"
+                    android:layout_gravity="bottom"
                     android:layout_marginLeft = "10dp"
                     android:id="@+id/textGameVestTime4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/forestgreen"
-                    android:textSize="30sp"
+                    android:textColor="@color/forestGreen"
+                    android:textSize="20sp"
                     android:text="0">
                 </TextView>
                 <TextView
                     android:visibility = "gone"
+                    android:layout_gravity="bottom"
                     android:id="@+id/textGameVestTimeSec4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/forestgreen"
+                    android:textColor="@color/forestGreen"
                     android:paddingLeft="2dp"
-                    android:textSize="20sp"
+                    android:textSize="15sp"
                     android:text="sec">
                 </TextView>
             </LinearLayout>
             <LinearLayout
+                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <TextView
@@ -177,31 +185,51 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
-                    android:textSize="30sp"
+                    android:textSize="35sp"
                     android:text="★★★★★">
                 </TextView>
                 <TextView
                     android:visibility = "gone"
+                    android:layout_gravity="bottom"
                     android:layout_marginLeft = "10dp"
                     android:id="@+id/textGameVestTime5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/forestgreen"
-                    android:textSize="30sp"
+                    android:textColor="@color/forestGreen"
+                    android:textSize="20sp"
                     android:text="0">
                 </TextView>
                 <TextView
                     android:visibility = "gone"
+                    android:layout_gravity="bottom"
                     android:id="@+id/textGameVestTimeSec5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/forestgreen"
+                    android:textColor="@color/forestGreen"
                     android:paddingLeft="2dp"
-                    android:textSize="20sp"
+                    android:textSize="15sp"
                     android:text="sec">
                 </TextView>
             </LinearLayout>
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/textGamee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:textSize="35sp"
+            android:text="★★★★★">
+        </TextView>
+
+        <Button
+            android:textSize="20sp"
+            android:id="@+id/buttonManial"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ゲーム説明" />
 
     </LinearLayout>
 

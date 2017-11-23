@@ -416,7 +416,7 @@ public class GameActivity extends AppCompatActivity {
 
         // カウントダウン表示
         if( sOpeningFlg == true ){
-            sTextSenter.setText("スタート");
+            sTextSenter.setText("START");
             sTextSenter.setVisibility(View.VISIBLE);
         }
         // ゲーム開始

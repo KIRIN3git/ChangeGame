@@ -3,13 +3,15 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="centerRed">#FF0C41</color>
+
     <color name="orenge">#ffa500</color>
     <color name="pink">#FFC0CB</color>
     <color name="black">#000000</color>
     <color name="white">#ffffff</color>
     <!-- デフォルトTextViewの値 -->
     <color name="gray">#777777</color>
-    <color name="forestgreen">#228B22</color>
+    <color name="forestGreen">#228B22</color>
     <color name="pGreen">#def7c9</color>
     <color name="pBlue">#d9fbff</color>
     <color name="pPurple">#ffe8ff</color>
