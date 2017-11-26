@@ -1,14 +1,7 @@
 package jp.kirin3.changegame;
 
-import android.app.Activity;
-import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.graphics.Point;
-import android.os.Build;
-import android.util.Log;
-import android.view.Display;
 
-import java.lang.reflect.Method;
 
 /**
  * Created by shinji on 2017/06/15.
@@ -16,9 +9,6 @@ import java.lang.reflect.Method;
 
 public class CommonMng{
 
-	static String printText = "";
-	static float printX,printY;
-	static float mirrorX,mirrorY;
 
     public static Point real = null;
 
@@ -40,11 +30,6 @@ public class CommonMng{
 
 		float ret[] = {0.0f,0.0f};
         if( real == null ) return ret;
-
-		Log.w( "DEBUG_DATA", "real.x " + real.x);
-		Log.w( "DEBUG_DATA", "real.y " + real.y);
-		Log.w( "DEBUG_DATA", "psx " + psx);
-		Log.w( "DEBUG_DATA", "psy " + psy);
 
         ret[0] = real.x * (psx / 100.0f);
         ret[1] = real.y * (psy / 100.0f);

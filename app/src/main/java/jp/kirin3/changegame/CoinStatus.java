@@ -21,8 +21,6 @@ public class CoinStatus implements Animator.AnimatorListener {
     int sImageId;
     int sX,sY;
     int sAmount;
-//    boolean walletFlg = true;
-
 
     int position = CoinMng.WALLET_POSITION;
     boolean moveFlg = false;
@@ -48,9 +46,6 @@ public class CoinStatus implements Animator.AnimatorListener {
 
         image = CoinMng.GetCoinImage( amount );
 
-        Log.w( "DEBUG", "aaa x[] " + xy[0]);
-        Log.w( "DEBUG", "aaa y[] " + xy[1]);
-
         // ImageViewオブジェクトの作成
         ImageView imageView = new ImageView(CoinMng.mContext);
 
@@ -70,7 +65,6 @@ public class CoinStatus implements Animator.AnimatorListener {
         lp.leftMargin = (int)xy[0];
         lp.topMargin = (int)xy[1];
 
-//        imageView.layout(sX + 50,sY + 20,sX + 200,sY + CoinMng.GetCoinSize(sAmount));
         imageView.layout( sX,sY,sX + CoinMng.GetCoinSize(sAmount),sY + CoinMng.GetCoinSize(sAmount)) ;
 
         // 画像の追加
@@ -80,7 +74,7 @@ public class CoinStatus implements Animator.AnimatorListener {
 
     // 画像を削除
     void removeCoin( ){
-        final ImageView imageView = (ImageView)CoinMng.mLayout.findViewById(sViewId);
+        final ImageView imageView = CoinMng.mLayout.findViewById(sViewId);
         if( imageView != null ) imageView.setImageDrawable(null);
     }
 
@@ -95,7 +89,7 @@ i:CoinMngから削除するID
 y:移動量(%)を指定
  */
     void MoveCoinOld( final int mode,final int i,int y ){
-        final ImageView imageView = (ImageView)CoinMng.mLayout.findViewById(sViewId);
+        final ImageView imageView = CoinMng.mLayout.findViewById(sViewId);
         final float xy[];
         final int moveY,x;
 
@@ -138,10 +132,6 @@ y:移動量(%)を指定
         sY += moveY;
 
         int yyy = sY + moveY;
-        Log.w( "DEBUG_DATAx", "mode " + mode );
-        Log.w( "DEBUG_DATAx", "moveY " + moveY );
-        Log.w( "DEBUG_DATAx", "sX " + sX );
-        Log.w( "DEBUG_DATAx", "sY + moveY " + yyy );
 
         // layoutによる移動はTouchイベントが終わらないと描画されないといけないので
         // アニメーションに変更
@@ -163,13 +153,11 @@ y:移動量(%)を指定
             public void onAnimationEnd(Animation animation) {
                 imageView.layout(sX, sY, sX + CoinMng.GetCoinSize(sAmount), sY + CoinMng.GetCoinSize(sAmount));
                 imageView.setAnimation(null); //これをしないとアニメーション完了後にチラつく
-                Log.w( "DEBUG_DATAxx1", "onAnimationEnddddddddddddddddddddd1");
 
                 moveFlg = false;
                 if(mode == 2){
                     //☆CoinMng.coinStatuses.remove(i);
                 }
-                Log.w( "DEBUG_DATAxx1", "onAnimationEnddddddddddddddddddddd2");
             }
         });
         imageView.startAnimation(translate);
@@ -191,8 +179,6 @@ y:移動量(%)を指定
         final int moveY,x;
         moveMode = mode;
 
-        //CoinMng.CheckCoinsNum(10);
-        //Log.w( "DEBUG_DATA", "count check1111111111");
         if( moveFlg ) return;
 
         if( y == 0) {
@@ -231,7 +217,7 @@ y:移動量(%)を指定
         }
         else return;
 
-        final ImageView imageView = (ImageView)CoinMng.mLayout.findViewById(sViewId);
+        final ImageView imageView = CoinMng.mLayout.findViewById(sViewId);
 
         ObjectAnimator objectAnimator;
 
@@ -286,20 +272,4 @@ y:移動量(%)を指定
     public void onAnimationRepeat(Animator animation) {
         Log.d("debug","onAnimationRepeat()");
     }
-
-/*
-    boolean CheckMoveOk(){
-        final ImageView imageView = (ImageView)CoinMng.mLayout.findViewById(sViewId);
-        int y = imageView.getTop();
-
-        final float xy[] = CommonMng.PsToPx( 0,60 );
-
-        Log.w( "DEBUG_DATAxx2aa", "xy[1] " + xy[1]);
-
-        if( walletFlg == true && xy[1] < y ) return true;
-        else if( walletFlg == false && xy[1] > y) return true;
-
-    return false;
-    }
-*/
 }

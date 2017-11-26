@@ -1,5 +1,38 @@
 <resources>
     <string name="app_name">至高の支払い</string>
+    <string name="nanido">難易度</string>
+    <string name="star1">★</string>
+    <string name="star2">★★</string>
+    <string name="star3">★★★</string>
+    <string name="star4">★★★★</string>
+    <string name="star5">★★★★★</string>
+    <string name="sec">sec</string>
+    <string name="game_manual">ゲーム説明</string>
+    <string name="zero">0</string>
+    <string name="ryokin">料金</string>
+    <string name="shiharai">支払</string>
+    <string name="shiharai2">支払い</string>
+    <string name="tsuri">釣り</string>
+    <string name="yen">円</string>
+    <string name="level">レベル</string>
+    <string name="time">時間</string>
+    <string name="seikaisu">正解数</string>
+    <string name="slash">/</string>
+    <string name="huseikaisu">不正解数</string>
+    <string name="ichi">一:</string>
+    <string name="go">　五:</string>
+    <string name="jyu">　十:</string>
+    <string name="gojyu">五十:</string>
+    <string name="hyaku">百:</string>
+    <string name="gohyaku">五百:</string>
+    <string name="sen">　千:</string>
+    <string name="gosen">五千</string>
+    <string name="go_to_top">トップに戻る</string>
+    <string name="time2">タイム:</string>
+    <string name="clear">CLEAR!</string>
+    <string name="vest_time_update">ベストタイム更新</string>
+    <string name="vest_time">ベストタイム:</string>
+
 
     <string name="admob_app_id">ca-app-pub-1057765466901496~2762027462</string>
 

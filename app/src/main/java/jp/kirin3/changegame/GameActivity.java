@@ -6,7 +6,6 @@ import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -75,6 +74,8 @@ public class GameActivity extends AppCompatActivity {
 	TextView sTextSeikaiSenen;
 	TextView sTextSeikaiGosenen;
 
+    Button sButtonTop;
+
     LinearLayout sLLSeikai;
 
     ImageView sImageOk;
@@ -101,7 +102,6 @@ public class GameActivity extends AppCompatActivity {
 
     static int GAME_MILLI_SECOND = 100;
     static int sQuestionYen = 0;
-    static int sCharge = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,7 +131,7 @@ public class GameActivity extends AppCompatActivity {
 		sTextOtsuri = (TextView)findViewById(R.id.textChange);
 
 		sTextStar = (TextView)findViewById(R.id.textStar);
-        sTextLevelNum = (TextView)findViewById(R.id.textLevelNum);
+        //sTextLevelNum = (TextView)findViewById(R.id.textLevelNum);
 		sTextSeikaiNum = (TextView)findViewById(R.id.textSeikaiNum);
 		sTextClearNum = (TextView)findViewById(R.id.textClearNum);
 		sTextHuSeikaiNum = (TextView)findViewById(R.id.textHuSeikaiNum);
@@ -151,6 +151,18 @@ public class GameActivity extends AppCompatActivity {
 
 		Bundle extras = getIntent().getExtras();
 		sStarNum = extras.getInt("STAR");
+
+        // ・ボタン設定
+        sButtonTop = (Button)findViewById(R.id.buttonTop);
+        sButtonTop.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                // インテントのインスタンス生成
+                Intent intent = new Intent(GameActivity.this, MainActivity.class);
+                // ゲーム画面の起動
+                startActivity(intent);
+            }
+        });
 	}
 
 	// 停止時
@@ -167,9 +179,11 @@ public class GameActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+
+        sButtonTop.setVisibility(View.GONE);
+
         // CoinMng
         sCoinMng = new CoinMng(this, sCoinLayout);
-//      sCoinMng.CoinInit();
 
         // QuestionMng
         sHandler = new Handler();
@@ -206,54 +220,52 @@ public class GameActivity extends AppCompatActivity {
 
     public void UpdateText() {
 		//支払金額
-		sTextShiharai.setText(Integer.toString(sQuestionMng.sShirarai));
+		sTextShiharai.setText(Integer.toString(QuestionMng.sShirarai));
 		//お釣り金額
-		sTextOtsuri.setText(Integer.toString(sQuestionMng.sOtsuri));
+		sTextOtsuri.setText(Integer.toString(QuestionMng.sOtsuri));
 
 		//レベル数
-		sTextLevelNum.setText(Integer.toString(sQuestionMng.sLevelNum));
+		//sTextLevelNum.setText(Integer.toString(QuestionMng.sLevelNum));
 		//正解数
-		sTextSeikaiNum.setText(Integer.toString(sQuestionMng.sSeikaiNum));
+		sTextSeikaiNum.setText(Integer.toString(QuestionMng.sSeikaiNum));
 		//クリア数
-		sTextClearNum.setText(Integer.toString(sQuestionMng.sClearNum));
+		sTextClearNum.setText(Integer.toString(QuestionMng.sClearNum));
 		//不正解数
-		sTextHuSeikaiNum.setText(Integer.toString(sQuestionMng.sHuSeikaiNum));
+		sTextHuSeikaiNum.setText(Integer.toString(QuestionMng.sHuSeikaiNum));
 		//ノットクリア数
-		sTextNotClearNum.setText(Integer.toString(sQuestionMng.sNotClearNum));
+		sTextNotClearNum.setText(Integer.toString(QuestionMng.sNotClearNum));
 
 
-		//if( sQuestionMng.sAnswerCoinNum.get("1") != null ) sTextSeikaiIchien.setText(Integer.toString(sQuestionMng.sSeikaiIchien));
-		if (sQuestionMng.sAnswerCoinNum != null) {
+		if (QuestionMng.sAnswerCoinNum != null) {
 
             sLLSeikai.setVisibility(View.VISIBLE);
 
-			sTextSeikaiIchien.setText(Integer.toString(sQuestionMng.sAnswerCoinNum.get("1")));
-			if( sQuestionMng.sAnswerCoinNum.get("1") > 0 ) sTextSeikaiIchien.setTextColor(getResources().getColor(R.color.orenge));
+			sTextSeikaiIchien.setText(Integer.toString(QuestionMng.sAnswerCoinNum.get("1")));
+			if( QuestionMng.sAnswerCoinNum.get("1") > 0 ) sTextSeikaiIchien.setTextColor(getResources().getColor(R.color.orenge));
 			else  sTextSeikaiIchien.setTextColor(getResources().getColor(R.color.pGreen));
-			sTextSeikaiGoen.setText(Integer.toString(sQuestionMng.sAnswerCoinNum.get("5")));
-			if( sQuestionMng.sAnswerCoinNum.get("5") > 0 ) sTextSeikaiGoen.setTextColor(getResources().getColor(R.color.orenge));
+			sTextSeikaiGoen.setText(Integer.toString(QuestionMng.sAnswerCoinNum.get("5")));
+			if( QuestionMng.sAnswerCoinNum.get("5") > 0 ) sTextSeikaiGoen.setTextColor(getResources().getColor(R.color.orenge));
 			else  sTextSeikaiGoen.setTextColor(getResources().getColor(R.color.pGreen));
-			sTextSeikaiJyuen.setText(Integer.toString(sQuestionMng.sAnswerCoinNum.get("10")));
-			if( sQuestionMng.sAnswerCoinNum.get("10") > 0 ) sTextSeikaiJyuen.setTextColor(getResources().getColor(R.color.orenge));
+			sTextSeikaiJyuen.setText(Integer.toString(QuestionMng.sAnswerCoinNum.get("10")));
+			if( QuestionMng.sAnswerCoinNum.get("10") > 0 ) sTextSeikaiJyuen.setTextColor(getResources().getColor(R.color.orenge));
 			else  sTextSeikaiJyuen.setTextColor(getResources().getColor(R.color.pGreen));
-			sTextSeikaiGojyuen.setText(Integer.toString(sQuestionMng.sAnswerCoinNum.get("50")));
-			if( sQuestionMng.sAnswerCoinNum.get("50") > 0 ) sTextSeikaiGojyuen.setTextColor(getResources().getColor(R.color.orenge));
+			sTextSeikaiGojyuen.setText(Integer.toString(QuestionMng.sAnswerCoinNum.get("50")));
+			if( QuestionMng.sAnswerCoinNum.get("50") > 0 ) sTextSeikaiGojyuen.setTextColor(getResources().getColor(R.color.orenge));
 			else  sTextSeikaiGojyuen.setTextColor(getResources().getColor(R.color.pGreen));
-			sTextSeikaiHyakuen.setText(Integer.toString(sQuestionMng.sAnswerCoinNum.get("100")));
-			if( sQuestionMng.sAnswerCoinNum.get("100") > 0 ) sTextSeikaiHyakuen.setTextColor(getResources().getColor(R.color.orenge));
+			sTextSeikaiHyakuen.setText(Integer.toString(QuestionMng.sAnswerCoinNum.get("100")));
+			if( QuestionMng.sAnswerCoinNum.get("100") > 0 ) sTextSeikaiHyakuen.setTextColor(getResources().getColor(R.color.orenge));
 			else  sTextSeikaiHyakuen.setTextColor(getResources().getColor(R.color.pGreen));
-			sTextSeikaiGohyakuen.setText(Integer.toString(sQuestionMng.sAnswerCoinNum.get("500")));
-			if( sQuestionMng.sAnswerCoinNum.get("500") > 0 ) sTextSeikaiGohyakuen.setTextColor(getResources().getColor(R.color.orenge));
+			sTextSeikaiGohyakuen.setText(Integer.toString(QuestionMng.sAnswerCoinNum.get("500")));
+			if( QuestionMng.sAnswerCoinNum.get("500") > 0 ) sTextSeikaiGohyakuen.setTextColor(getResources().getColor(R.color.orenge));
 			else  sTextSeikaiGohyakuen.setTextColor(getResources().getColor(R.color.pGreen));
-			sTextSeikaiSenen.setText(Integer.toString(sQuestionMng.sAnswerCoinNum.get("1000")));
-			if( sQuestionMng.sAnswerCoinNum.get("1000") > 0 ) sTextSeikaiSenen.setTextColor(getResources().getColor(R.color.orenge));
+			sTextSeikaiSenen.setText(Integer.toString(QuestionMng.sAnswerCoinNum.get("1000")));
+			if( QuestionMng.sAnswerCoinNum.get("1000") > 0 ) sTextSeikaiSenen.setTextColor(getResources().getColor(R.color.orenge));
 			else  sTextSeikaiSenen.setTextColor(getResources().getColor(R.color.pGreen));
-			sTextSeikaiGosenen.setText(Integer.toString(sQuestionMng.sAnswerCoinNum.get("5000")));
-			if( sQuestionMng.sAnswerCoinNum.get("5000") > 0 ) sTextSeikaiGosenen.setTextColor(getResources().getColor(R.color.orenge));
+			sTextSeikaiGosenen.setText(Integer.toString(QuestionMng.sAnswerCoinNum.get("5000")));
+			if( QuestionMng.sAnswerCoinNum.get("5000") > 0 ) sTextSeikaiGosenen.setTextColor(getResources().getColor(R.color.orenge));
 			else  sTextSeikaiGosenen.setTextColor(getResources().getColor(R.color.pGreen));
 		}
 		else{
-			Log.w( "AAAAA", "aaaawwwwwwwwwwwwwwwwwwww000 ");
 
             sLLSeikai.setVisibility(View.GONE);
 
@@ -290,19 +302,14 @@ public class GameActivity extends AppCompatActivity {
                     sMemTime = sLapTime;
 //                    sCoinMng.OutSideCoin();
                     // コイン全削除
-                    sCoinMng.DeleteCoins(0,CoinMng.TRAY_POSITION);
+                    CoinMng.DeleteCoins(0,CoinMng.TRAY_POSITION);
                     // トレイにお釣り表示
-                    sCoinMng.CreateCoinChange(QuestionMng.sOtsuri,CoinMng.TRAY_POSITION);
+                    CoinMng.CreateCoinChange(QuestionMng.sOtsuri,CoinMng.TRAY_POSITION);
                     // シンキングタイム1秒マイナス
                     //sQuestionMng.sThinkingTime -= 10;
                     // 正解数プラス
-                    sQuestionMng.sSeikaiNum++;
+                    QuestionMng.sSeikaiNum++;
 					sQuestionMng.UpdateLevel();
-
-                    Log.w( "DEBUG_DATA", "sQuestionMng.sSeikaiNum " + sQuestionMng.sSeikaiNum);
-                    Log.w( "DEBUG_DATA", "sQuestionMng.sClearNum " + sQuestionMng.sClearNum);
-
-
 
                     // 五千円札がなければ補充
                     if( walletCoinNum.get("5000") == 0 ){
@@ -312,13 +319,11 @@ public class GameActivity extends AppCompatActivity {
 				else{ // 不正解
                     sMemTime = sLapTime + 2;
 					// 正解数プラス
-					sQuestionMng.sHuSeikaiNum++;
-                    //if( sQuestionMng.sHuSeikaiNum >= sQuestionMng.sNotClearNum ) gameClear(1);
+					QuestionMng.sHuSeikaiNum++;
 
 				}
 				// 正解コインを表示
 
-                Log.w( "AAAAA", "okkkkkkkkkkkkkkkkkkk " + sQuestionOkFlg);
             }
         });
     }
@@ -364,7 +369,7 @@ public class GameActivity extends AppCompatActivity {
 
 
         //出題金額
-        sTextOdai.setText(Integer.toString(sQuestionMng.sOdai));
+        sTextOdai.setText(Integer.toString(QuestionMng.sOdai));
 
         // カウントダウン終了
         if( sOpeningFlg == true && sLapTime > 2.0 ){
@@ -375,20 +380,13 @@ public class GameActivity extends AppCompatActivity {
 
         // 正解表示時間終了
         if( sNowAnserFlg == true ) {
-							/*
-                            //支払金額
-                            sTextShiharai.setText(Integer.toString(sQuestionMng.sShirarai));
-                            //お釣り金額
-                            sTextOtsuri.setText(Integer.toString(sQuestionMng.sOtsuri));
-                            //正解数
-                            sTextSeikaiNum.setText(Integer.toString(sQuestionMng.sSeikaiNum));
-							*/
+
             UpdateText();
 
             if ((sLapTime - sMemTime) > 2.0) {
 
                 // クリア
-                if (sQuestionMng.sSeikaiNum >= sQuestionMng.sClearNum) {
+                if (QuestionMng.sSeikaiNum >= QuestionMng.sClearNum) {
                     Intent intent = new Intent(GameActivity.this, ClearActivity.class);
                     intent.putExtra("STAR", sStarNum);
                     intent.putExtra("GAME_TIME", sGameTime);
@@ -397,7 +395,7 @@ public class GameActivity extends AppCompatActivity {
                     sGameOverFlg = true;
                 }
                 // ゲームオーバー
-                else if (sQuestionMng.sHuSeikaiNum >= sQuestionMng.sNotClearNum) gameClear(1);
+                else if (QuestionMng.sHuSeikaiNum >= QuestionMng.sNotClearNum) gameClear(1);
                 else {
                     //支払金額
                     sTextShiharai.setText("0");
@@ -442,8 +440,6 @@ public class GameActivity extends AppCompatActivity {
                 }
                 if (sNowAmountFlg) {
 
-//                  CoinStatus coinStatus = new CoinStatus(1, 10, 0,true);
-//                  CoinMng.AddCoin(sAmount);
                     sNowAmountFlg = false;
                 }
             }
@@ -461,14 +457,12 @@ public class GameActivity extends AppCompatActivity {
 					sQuestionMng.answerQuestion(allCoinNum,trayCoinNum);
 
 					sLLSeikai.setVisibility(View.VISIBLE);
-                    //sNewQuestionFlg = true;
 
                     sQuestionOkFlg = false;
                     sNowThinkingFlg = false;
                     sNowAnserFlg = true;
                     sMemTime = sLapTime + 2;
-                    sQuestionMng.sHuSeikaiNum++; //
-                    //if (sQuestionMng.sHuSeikaiNum >= sQuestionMng.sNotClearNum) gameClear(1);
+                    QuestionMng.sHuSeikaiNum++; //
                 }
             }
         }
@@ -492,6 +486,7 @@ public class GameActivity extends AppCompatActivity {
         if( mode == 1 ){
             sTextSenter.setText("GAME OVER");
             sTextSenter.setVisibility(View.VISIBLE);
+            sButtonTop.setVisibility(View.VISIBLE);
             sGameOverFlg = true;
             sQuestionOkFlg = false;
             sNowThinkingFlg = false;
@@ -511,17 +506,15 @@ public class GameActivity extends AppCompatActivity {
         y = fl.getHeight();
         Point real = new Point(x, y);
 
-        Log.w( "DEBUG_DATA", "reaxl.x = " + x);
-        Log.w( "DEBUG_DATA", "reaxl.y = " + y);
         return real;
     }
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
-    // TODO Auto-generated method stub
+        // TODO Auto-generated method stub
         super.onWindowFocusChanged(hasFocus);
 
-    // Viewのサイズを取得
+        // Viewのサイズを取得
         int x,y;
 
         LinearLayout fl = (LinearLayout)findViewById(R.id.back_layout);
@@ -529,10 +522,6 @@ public class GameActivity extends AppCompatActivity {
         y = fl.getHeight();
         Point real = new Point(x, y);
 
-        Log.w( "DEBUG_DATA", "reaxl.x = " + x);
-        Log.w( "DEBUG_DATA", "reaxl.y = " + y);
-
- //       CommonMng.real = real;
     }
 
 

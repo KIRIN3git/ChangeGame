@@ -42,7 +42,7 @@
                             android:textSize="20sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="料金" />
+                            android:text="@string/ryokin" />
 
                         <TextView
                             android:id="@+id/textAll"
@@ -50,14 +50,14 @@
                             android:textColor="@color/orenge"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="0" />
+                            android:text="@string/zero" />
 
                         <TextView
                             android:id="@+id/textAllEn"
                             android:textSize="20sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="円" />
+                            android:text="@string/yen" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -69,21 +69,21 @@
                             android:textSize="20sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="支払" />
+                            android:text="@string/shiharai" />
 
                         <TextView
                             android:id="@+id/textPayment"
                             android:textSize="35sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="0" />
+                            android:text="@string/zero" />
 
                         <TextView
                             android:id="@+id/textPaymentEn"
                             android:textSize="20sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="円" />
+                            android:text="@string/yen" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -95,14 +95,14 @@
                             android:textSize="20sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="釣り" />
+                            android:text="@string/tsuri" />
 
                         <TextView
                             android:id="@+id/textChange"
                             android:textSize="35sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="0" />
+                            android:text="@string/zero" />
 
                         <TextView
                             android:id="@+id/textChangeEn"
@@ -110,7 +110,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="円" />
+                            android:text="@string/yen" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -131,17 +131,17 @@
                             android:textSize="20sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="難易度" />
+                            android:text="@string/nanido" />
                         <TextView
                             android:textSize="20sp"
                             android:textColor="@color/orenge"
                             android:id="@+id/textStar"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="★" />
+                            android:text="@string/star1" />
                     </LinearLayout>
 
-
+                    <!--
                     <LinearLayout
                         android:visibility="gone"
                         android:layout_width="match_parent"
@@ -151,15 +151,15 @@
                             android:textSize="5sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="レベル" />
+                            android:text="@string/level" />
                         <TextView
                             android:textSize="5sp"
                             android:id="@+id/textLevelNum"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="0" />
+                            android:text="@string/zero" />
                     </LinearLayout>
-
+                    -->
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -169,15 +169,14 @@
                             android:textSize="20sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="時間" />
+                            android:text="@string/time" />
                         <TextView
                             android:textSize="20sp"
                             android:textColor="@color/orenge"
                             android:id="@+id/textGameTime"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="0" />
-
+                            android:text="@string/zero" />
 
                     </LinearLayout>
 
@@ -189,26 +188,26 @@
                             android:textSize="20sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="正解数" />
+                            android:text="@string/seikaisu" />
                         <TextView
                             android:textSize="20sp"
                             android:textColor="@color/orenge"
                             android:id="@+id/textSeikaiNum"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="0" />
+                            android:text="@string/zero" />
                         <TextView
                             android:textSize="20sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="/" />
+                            android:text="@string/slash" />
                         <TextView
                             android:textSize="20sp"
                             android:textColor="@color/orenge"
                             android:id="@+id/textClearNum"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="0" />
+                            android:text="@string/zero" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -219,26 +218,26 @@
                             android:textSize="20sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="不正解数" />
+                            android:text="@string/huseikaisu" />
                         <TextView
                             android:textSize="20sp"
                             android:textColor="@color/orenge"
                             android:id="@+id/textHuSeikaiNum"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="0" />
+                            android:text="@string/zero" />
                         <TextView
                             android:textSize="20sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="/" />
+                            android:text="@string/slash" />
                         <TextView
                             android:textSize="20sp"
                             android:textColor="@color/orenge"
                             android:id="@+id/textNotClearNum"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="0" />
+                            android:text="@string/zero" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -270,14 +269,13 @@
                                     android:textSize="12sp"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="一:" />
+                                    android:text="@string/ichi" />
                                 <TextView
                                     android:textSize="12sp"
                                     android:id="@+id/textSeikaiIchien"
                                     android:textColor="@color/orenge"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="" />
+                                    android:layout_height="wrap_content" />
                             </LinearLayout>
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -288,14 +286,13 @@
                                     android:layout_marginLeft="8dp"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="　五:" />
+                                    android:text="@string/go" />
                                 <TextView
                                     android:textSize="12sp"
                                     android:id="@+id/textSeikaiGoen"
                                     android:textColor="@color/orenge"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="" />
+                                    android:layout_height="wrap_content" />
                             </LinearLayout>
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -306,14 +303,13 @@
                                     android:layout_marginLeft="8dp"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="十:" />
+                                    android:text="@string/jyu" />
                                 <TextView
                                     android:textSize="12sp"
                                     android:id="@+id/textSeikaiJyuen"
                                     android:textColor="@color/orenge"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="" />
+                                    android:layout_height="wrap_content" />
                             </LinearLayout>
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -324,14 +320,13 @@
                                     android:layout_marginLeft="8dp"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="五十:" />
+                                    android:text="@string/gojyu" />
                                 <TextView
                                     android:textSize="12sp"
                                     android:id="@+id/textSeikaiGojyuen"
                                     android:textColor="@color/orenge"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="" />
+                                    android:layout_height="wrap_content" />
                             </LinearLayout>
                         </LinearLayout>
                         <LinearLayout
@@ -346,14 +341,13 @@
                                     android:textSize="12sp"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="百:" />
+                                    android:text="@string/hyaku" />
                                 <TextView
                                     android:textSize="12sp"
                                     android:id="@+id/textSeikaiHyakuen"
                                     android:textColor="@color/orenge"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="" />
+                                    android:layout_height="wrap_content" />
                             </LinearLayout>
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -364,14 +358,13 @@
                                     android:layout_marginLeft="8dp"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="五百:" />
+                                    android:text="@string/gohyaku" />
                                 <TextView
                                     android:textSize="12sp"
                                     android:id="@+id/textSeikaiGohyakuen"
                                     android:textColor="@color/orenge"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="" />
+                                    android:layout_height="wrap_content" />
                             </LinearLayout>
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -382,14 +375,13 @@
                                     android:layout_marginLeft="8dp"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="千:" />
+                                    android:text="@string/sen" />
                                 <TextView
                                     android:textSize="12sp"
                                     android:id="@+id/textSeikaiSenen"
                                     android:textColor="@color/orenge"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="" />
+                                    android:layout_height="wrap_content" />
                             </LinearLayout>
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -400,14 +392,13 @@
                                     android:layout_marginLeft="8dp"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="五千:" />
+                                    android:text="@string/gosen" />
                                 <TextView
                                     android:textSize="12sp"
                                     android:id="@+id/textSeikaiGosenen"
                                     android:textColor="@color/orenge"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="" />
+                                    android:layout_height="wrap_content" />
                             </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
@@ -433,7 +424,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="支払い" />
+                    android:text="@string/shiharai2" />
 
                 <ProgressBar android:id="@+id/ProgressBarHorizontal"
                     android:layout_width="fill_parent"
@@ -525,9 +516,6 @@
         android:visibility="gone" />
     -->
 
-
-
-
     <!-- コイン -->
     <FrameLayout
         android:id="@+id/coin_layout"
@@ -543,10 +531,24 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:textStyle="bold"
-        android:visibility="gone"
+        android:visibility="visible"
+        android:text="ゲームオーバー"
         android:textColor="@color/centerRed"
         android:textSize="50sp" />
 
+    <Button
+        android:id="@+id/buttonTop"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="80dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/go_to_top"
+        android:background="@color/centerRed"
+        android:textColor="@color/white"
+        android:visibility="visible"
+        android:padding="10dp"
+        android:textSize="20sp" />
 
     <!-- カウント -->
     <!--

@@ -36,9 +36,6 @@ public class TimeMng {
         progressBar = sLayout.findViewById(R.id.ProgressBarHorizontal);
         progressBar.setScaleY(30f); // 高さを指定
 
-        // 前時間表示
-        //sTextView = sLayout.findViewById(R.id.textTime);
-
     }
 
     /*
@@ -48,24 +45,15 @@ public class TimeMng {
 
         sNowPB += tenSec;
 
-        //progressBar.setProgress(sNowPB);
-
-
         ObjectAnimator animation = ObjectAnimator.ofInt(progressBar, "progress", (int)sNowPB);
         animation.setDuration(GameActivity.GAME_MILLI_SECOND); // 0.1 second
         animation.setInterpolator(new DecelerateInterpolator());
         animation.start();
 
 
-        if( sMaxPB <= sNowPB ){
-            return true;
-        }
+        return sMaxPB <= sNowPB;
 
-        return false;
     }
-
-
-
 
     public void startProgressBar(int max){
         sMaxPB = max;

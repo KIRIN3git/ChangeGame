@@ -71,14 +71,12 @@ public class ClearActivity extends AppCompatActivity {
             sTextVestGameTimeMsg.setVisibility(View.VISIBLE);
         }
 
-
         // ・ボタン設定
         sButtonTop.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 // インテントのインスタンス生成
                 Intent intent = new Intent(ClearActivity.this, MainActivity.class);
-                intent.putExtra("STAR", 4);
                 // ゲーム画面の起動
                 startActivity(intent);
             }

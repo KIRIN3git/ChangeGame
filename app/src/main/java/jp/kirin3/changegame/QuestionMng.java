@@ -3,7 +3,6 @@ package jp.kirin3.changegame;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.os.Handler;
-import android.util.Log;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -22,7 +21,6 @@ public class QuestionMng {
     static Context sContext;
     static LinearLayout sLayout;
     static ProgressBar sProgressBar;
-    static float sLaptime = 0.0f;
 
     Timer sTimer = null;
     TextView sTextView;
@@ -106,9 +104,6 @@ public class QuestionMng {
         sProgressBar = sLayout.findViewById(R.id.ProgressBarHorizontal);
         sProgressBar.setScaleY(40f); // 高さを指定
 
-        // 前時間表示
-        //sTextView = sLayout.findViewById(R.id.textTime);
-
 		// レベル正解数を初期化
 		sLevelSeikaiNum = 0;
         // 正解数を初期化
@@ -162,11 +157,8 @@ public class QuestionMng {
         animation.setInterpolator(new DecelerateInterpolator());
         animation.start();
 
-        if( sMaxPB <= sNowPB ){
-            return true;
-        }
+        return sMaxPB <= sNowPB;
 
-        return false;
     }
 
     public int NewQuestion(){
@@ -174,8 +166,6 @@ public class QuestionMng {
         sOdai = (int)(Math.random()*sRandomOdaiPrice + sMinOdaiPrice);
         startProgressBar(sThinkingTime);
 
-        Log.w( "AAAAA", "aaa sOdai = " + sOdai);
-		Log.w( "AAAAAaaaaaaaaaaaaaaaaa", "aaa sThinkingTime = " + sThinkingTime);
         return sOdai;
     }
 
@@ -204,21 +194,8 @@ public class QuestionMng {
         // 5を引いた金額
         int aa,bb,cc,dd;
 
-		Log.w( "AAAAA aa", "answer c " + c );
-
         if(a >= 5) aa = a - 5;
         else aa = a;
-
-        Log.w( "AAAAABBBBB", "a [" + a + "]");
-        Log.w( "AAAAABBBBB", "b [" + b + "]");
-        Log.w( "AAAAABBBBB", "c [" + c + "]");
-        Log.w( "AAAAABBBBB", "d [" + d + "]");
-        /*
-        Log.w( "AAAAABBBBB", "aa [" + aa + "]");
-        Log.w( "AAAAABBBBB", "bb [" + bb + "]");
-        Log.w( "AAAAABBBBB", "cc [" + cc + "]");
-        Log.w( "AAAAABBBBB", "dd [" + dd + "]");
-*/
 
         // 全コインの各桁の値
         int allIchi = allCoinNum.get("1") + ( allCoinNum.get("5") * 5 );
@@ -226,12 +203,6 @@ public class QuestionMng {
         int allHyaku = allCoinNum.get("100") + ( allCoinNum.get("500") * 5 );
         int allSen = allCoinNum.get("1000") + ( allCoinNum.get("5000") * 5 );
         boolean fewIchiFlg = false,fewJyuFlg = false,fewHyakuFlg = false,fewSenFlg = false;
-
-
-        Log.w( "AAAAABBBBB", "allIchi [" + allIchi + "]");
-        Log.w( "AAAAABBBBB", "allJyu [" + allJyu + "]");
-        Log.w( "AAAAABBBBB", "allHyaku [" + allHyaku + "]");
-        Log.w( "AAAAABBBBB", "allSen [" + allSen + "]");
 
         // 一の位が足りない
         if( allIchi < a ) fewIchiFlg = true;
@@ -299,9 +270,7 @@ public class QuestionMng {
 		if( fewHyakuFlg == false ){
 			if( allCoinNum.get("100") >= cc ){
 				sAnswerCoinNum.put("100",cc); // 100円支払い
-				Log.w( "AAAAA aa", "answer c2 " + c );
 				if(c >= 5 ){
-					Log.w( "AAAAA answer", "aaa1");
 					sAnswerCoinNum.put("500",1); //500円支払い
 				}
 			}
@@ -316,7 +285,6 @@ public class QuestionMng {
             }
             // 500円以下で500円玉があるなら500円玉は払っておく
             else if ( c < 5  && allCoinNum.get("500") >= 1 ){
-                Log.w( "AAAAA", "BBBBBBBBBBBBBBB2");
                 sAnswerCoinNum.put("500", 1);
             }
         }
@@ -343,24 +311,6 @@ public class QuestionMng {
         if( sAnswerCoinNum.get("1000") == null ) sAnswerCoinNum.put( "1000",0 );
 		if( sAnswerCoinNum.get("5000") == null ) sAnswerCoinNum.put( "5000",0 );
 
-        Log.w( "sAnswerCoinNum", "1[" + sAnswerCoinNum.get("1") + "]");
-        Log.w( "sAnswerCoinNum", "5[" + sAnswerCoinNum.get("5") + "]");
-        Log.w( "sAnswerCoinNum", "10[" + sAnswerCoinNum.get("10") + "]");
-        Log.w( "sAnswerCoinNum", "50[" + sAnswerCoinNum.get("50") + "]");
-        Log.w( "sAnswerCoinNum", "100[" + sAnswerCoinNum.get("100") + "]");
-        Log.w( "sAnswerCoinNum", "500[" + sAnswerCoinNum.get("500") + "]");
-        Log.w( "sAnswerCoinNum", "1000[" + sAnswerCoinNum.get("1000") + "]");
-		Log.w( "sAnswerCoinNum", "5000[" + sAnswerCoinNum.get("5000") + "]");
-
-		Log.w( "trayCoinNum", "1[" + trayCoinNum.get("1") + "]");
-		Log.w( "trayCoinNum", "5[" + trayCoinNum.get("5") + "]");
-		Log.w( "trayCoinNum", "10[" + trayCoinNum.get("10") + "]");
-		Log.w( "trayCoinNum", "50[" + trayCoinNum.get("50") + "]");
-		Log.w( "trayCoinNum", "100[" + trayCoinNum.get("100") + "]");
-		Log.w( "trayCoinNum", "500[" + trayCoinNum.get("500") + "]");
-		Log.w( "trayCoinNum", "1000[" + trayCoinNum.get("1000") + "]");
-		Log.w( "trayCoinNum", "5000[" + trayCoinNum.get("5000") + "]");
-
         //支払い金額をセット
         sShirarai = ( ( trayCoinNum.get("5000") * 5000 ) + ( trayCoinNum.get("1000") * 1000 ) + ( trayCoinNum.get("500") * 500 ) + ( trayCoinNum.get("100") * 100 )
                 + ( trayCoinNum.get("50") * 50 ) + ( trayCoinNum.get("10") * 10 ) + ( trayCoinNum.get("5") * 5 ) + ( trayCoinNum.get("1") * 1 ) );
@@ -368,23 +318,15 @@ public class QuestionMng {
         //お釣りをセット
         sOtsuri = sShirarai - sOdai;
 
-
-
-        if( sAnswerCoinNum.get("1") == trayCoinNum.get("1") &&
+        return sAnswerCoinNum.get("1") == trayCoinNum.get("1") &&
                 sAnswerCoinNum.get("5") == trayCoinNum.get("5") &&
                 sAnswerCoinNum.get("10") == trayCoinNum.get("10") &&
                 sAnswerCoinNum.get("50") == trayCoinNum.get("50") &&
                 sAnswerCoinNum.get("100") == trayCoinNum.get("100") &&
                 sAnswerCoinNum.get("500") == trayCoinNum.get("500") &&
                 sAnswerCoinNum.get("1000") == trayCoinNum.get("1000") &&
-				sAnswerCoinNum.get("5000") == trayCoinNum.get("5000")){
+                sAnswerCoinNum.get("5000") == trayCoinNum.get("5000");
 
-            // CoinMng.AddCoin(changeAmount);
-
-            return true;
-        }
-
-        return false;
     }
 
 	/*
@@ -400,11 +342,9 @@ public class QuestionMng {
 			// ランダムお題金額
 			sRandomOdaiPrice = sLevelInfo[sLevelNum][3];
 
-			Log.w( "AAAAAaaaaaaaaaaaaaaaaa2", "aaa sThinkingTime = " + sThinkingTime);
-
 			sLevelSeikaiNum = 0;
-		};
+		}
 
-	}
+    }
 }
 

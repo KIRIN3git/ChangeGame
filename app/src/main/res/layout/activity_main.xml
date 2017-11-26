@@ -22,7 +22,8 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/linearLayout1"
             android:layout_gravity="center"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="50dp"
+            android:textStyle="bold"
             android:text="@string/app_name"
             android:textSize="40sp"
 
@@ -36,8 +37,19 @@
             android:orientation="vertical">
 
 
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/linearLayout1"
+                android:layout_gravity="left"
+                android:text="@string/nanido"
+                android:textSize="20sp" >
+
+            </TextView>
+
             <LinearLayout
-                android:layout_gravity="center"
+                android:layout_gravity="left"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <TextView
@@ -46,7 +58,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
                     android:textSize="35sp"
-                    android:text="★">
+                    android:text="@string/star1">
                 </TextView>
                 <TextView
                     android:visibility = "gone"
@@ -56,8 +68,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/forestGreen"
-                    android:textSize="20sp"
-                    android:text="0">
+                    android:textSize="20sp">
                 </TextView>
                 <TextView
                     android:visibility = "gone"
@@ -68,11 +79,11 @@
                     android:textColor="@color/forestGreen"
                     android:paddingLeft="2dp"
                     android:textSize="15sp"
-                    android:text="sec">
+                    android:text="@string/sec">
                 </TextView>
             </LinearLayout>
             <LinearLayout
-                android:layout_gravity="center"
+                android:layout_gravity="left"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <TextView
@@ -81,7 +92,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
                     android:textSize="35sp"
-                    android:text="★★">
+                    android:text="@string/star2">
                 </TextView>
                 <TextView
                     android:visibility = "gone"
@@ -91,8 +102,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/forestGreen"
-                    android:textSize="20sp"
-                    android:text="0">
+                    android:textSize="20sp">
                 </TextView>
                 <TextView
                     android:visibility = "gone"
@@ -103,11 +113,11 @@
                     android:textColor="@color/forestGreen"
                     android:paddingLeft="2dp"
                     android:textSize="15sp"
-                    android:text="sec">
+                    android:text="@string/sec">
                 </TextView>
             </LinearLayout>
             <LinearLayout
-                android:layout_gravity="center"
+                android:layout_gravity="left"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <TextView
@@ -116,7 +126,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
                     android:textSize="35sp"
-                    android:text="★★★">
+                    android:text="@string/star3">
                 </TextView>
                 <TextView
                     android:visibility = "gone"
@@ -126,8 +136,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/forestGreen"
-                    android:textSize="20sp"
-                    android:text="0">
+                    android:textSize="20sp">
                 </TextView>
                 <TextView
                     android:visibility = "gone"
@@ -138,11 +147,11 @@
                     android:textColor="@color/forestGreen"
                     android:paddingLeft="2dp"
                     android:textSize="15sp"
-                    android:text="sec">
+                    android:text="@string/sec">
                 </TextView>
             </LinearLayout>
             <LinearLayout
-                android:layout_gravity="center"
+                android:layout_gravity="left"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <TextView
@@ -151,7 +160,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
                     android:textSize="35sp"
-                    android:text="★★★★">
+                    android:text="@string/star4">
                 </TextView>
                 <TextView
                     android:visibility = "gone"
@@ -161,8 +170,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/forestGreen"
-                    android:textSize="20sp"
-                    android:text="0">
+                    android:textSize="20sp">
                 </TextView>
                 <TextView
                     android:visibility = "gone"
@@ -173,11 +181,11 @@
                     android:textColor="@color/forestGreen"
                     android:paddingLeft="2dp"
                     android:textSize="15sp"
-                    android:text="sec">
+                    android:text="@string/sec">
                 </TextView>
             </LinearLayout>
             <LinearLayout
-                android:layout_gravity="center"
+                android:layout_gravity="left"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <TextView
@@ -186,7 +194,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
                     android:textSize="35sp"
-                    android:text="★★★★★">
+                    android:text="@string/star5">
                 </TextView>
                 <TextView
                     android:visibility = "gone"
@@ -196,8 +204,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/forestGreen"
-                    android:textSize="20sp"
-                    android:text="0">
+                    android:textSize="20sp">
                 </TextView>
                 <TextView
                     android:visibility = "gone"
@@ -208,19 +215,10 @@
                     android:textColor="@color/forestGreen"
                     android:paddingLeft="2dp"
                     android:textSize="15sp"
-                    android:text="sec">
+                    android:text="@string/sec">
                 </TextView>
             </LinearLayout>
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/textGamee"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:textSize="35sp"
-            android:text="★★★★★">
-        </TextView>
 
         <Button
             android:textSize="20sp"
@@ -229,7 +227,7 @@
             android:layout_marginTop="40dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ゲーム説明" />
+            android:text="@string/game_manual" />
 
     </LinearLayout>
 
