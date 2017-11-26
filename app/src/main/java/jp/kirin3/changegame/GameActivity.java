@@ -179,7 +179,7 @@ public class GameActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-
+        sTextSenter.setText("");
         sButtonTop.setVisibility(View.GONE);
 
         // CoinMng
