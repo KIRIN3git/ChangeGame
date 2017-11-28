@@ -6,13 +6,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
+
 /**
  * Created by etisu on 2017/11/12.
  */
 
 public class ManualActivity extends AppCompatActivity {
 
-
+    private FirebaseAnalytics mFirebaseAnalytics;
     Button sButtonTop;
 
     @Override
@@ -36,4 +38,16 @@ public class ManualActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setAnalytics();
+    }
+
+    private void setAnalytics(){
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "2");
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "MANUAL");
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+    }
 }

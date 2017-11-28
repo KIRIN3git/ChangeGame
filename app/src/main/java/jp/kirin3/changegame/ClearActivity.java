@@ -9,12 +9,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
+
 /**
  * Created by etisu on 2017/11/12.
  */
 
 public class ClearActivity extends AppCompatActivity {
 
+    private FirebaseAnalytics mFirebaseAnalytics;
     static int sStarNum;
     static float sGameTime;
     static float sVestGameTime;
@@ -81,6 +84,20 @@ public class ClearActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        setAnalytics();
+    }
+
+    private void setAnalytics(){
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "4");
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "CLEAR");
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
     }
 
     void SaveVestTime(){

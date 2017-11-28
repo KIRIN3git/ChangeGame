@@ -81,9 +81,11 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+
         // Obtain the FirebaseAnalytics instance.
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
+        // addMob設定
         MobileAds.initialize(this,getResources().getString(R.string.admob_app_id) );
 
         mAdView = (AdView) findViewById(R.id.adView);
@@ -193,7 +195,17 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        setAnalytics();
     }
+
+    private void setAnalytics(){
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "1");
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "MAIN");
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+    }
+
     // 端末のサイズを取得(Pointクラス px)
     private Point getRealSize() {
 

@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "789500089894",
-    "firebase_url": "https://changegame-eecf9.firebaseio.com",
-    "project_id": "changegame-eecf9",
-    "storage_bucket": "changegame-eecf9.appspot.com"
+    "project_number": "1088096638395",
+    "firebase_url": "https://changegame-e6f98.firebaseio.com",
+    "project_id": "changegame-e6f98",
+    "storage_bucket": "changegame-e6f98.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:789500089894:android:5708d717c1d51047",
+        "mobilesdk_app_id": "1:1088096638395:android:d9d6a0f44794a800",
         "android_client_info": {
           "package_name": "jp.kirin3.changegame"
         }
       },
       "oauth_client": [
         {
-          "client_id": "789500089894-fn3dvo66iu3t33dbv9tvl9d0odfoomt6.apps.googleusercontent.com",
+          "client_id": "1088096638395-h9qcigpndvvhv5lrargudqtchu4p01or.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "jp.kirin3.changegame",
@@ -23,13 +23,13 @@
           }
         },
         {
-          "client_id": "789500089894-bacgo7itgcd68tjpn91tpephg3f976ai.apps.googleusercontent.com",
+          "client_id": "1088096638395-run5gcsa9bbpc8138ek20ikj81a0jkct.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDaNzHuT5EwUASPkbD-GldLl8qvhHLP0Vs"
+          "current_key": "AIzaSyC2VrWfyNMenDUj7apCwSdebiGUjT_we9o"
         }
       ],
       "services": {
@@ -40,7 +40,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "789500089894-bacgo7itgcd68tjpn91tpephg3f976ai.apps.googleusercontent.com",
+              "client_id": "1088096638395-run5gcsa9bbpc8138ek20ikj81a0jkct.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
