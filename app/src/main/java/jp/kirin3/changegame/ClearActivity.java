@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
 /**
@@ -17,6 +19,7 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 
 public class ClearActivity extends AppCompatActivity {
 
+    private AdView mAdView;
     private FirebaseAnalytics mFirebaseAnalytics;
     static int sStarNum;
     static float sGameTime;
@@ -84,6 +87,15 @@ public class ClearActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+        mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
+
+        // Obtain the FirebaseAnalytics instance.
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
     }
 
     @Override
@@ -97,6 +109,7 @@ public class ClearActivity extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "4");
         bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "CLEAR");
+        bundle.putString(FirebaseAnalytics.Param.ITEM_CATEGORY, String.valueOf(sStarNum));
         mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
     }
 

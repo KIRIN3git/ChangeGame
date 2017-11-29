@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
 /**
@@ -14,6 +16,7 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 
 public class ManualActivity extends AppCompatActivity {
 
+    private AdView mAdView;
     private FirebaseAnalytics mFirebaseAnalytics;
     Button sButtonTop;
 
@@ -36,6 +39,14 @@ public class ManualActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+        mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
+        // Obtain the FirebaseAnalytics instance.
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
     }
 
     @Override

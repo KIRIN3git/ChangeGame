@@ -165,6 +165,10 @@ public class GameActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+        // Obtain the FirebaseAnalytics instance.
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 	}
 
 

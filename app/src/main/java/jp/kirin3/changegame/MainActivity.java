@@ -20,6 +20,9 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.lang.reflect.Method;
 
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
+
 public class MainActivity extends AppCompatActivity {
 
     private FirebaseAnalytics mFirebaseAnalytics;
@@ -91,6 +94,10 @@ public class MainActivity extends AppCompatActivity {
         mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+
+        // Clashlytics初期化
+        Fabric.with(this, new Crashlytics());
+
 
     }
 
