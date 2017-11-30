@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -29,6 +30,7 @@ import java.util.TimerTask;
 
 public class GameActivity extends AppCompatActivity {
 
+    private FirebaseAnalytics mFirebaseAnalytics;
     private AdView mAdView;
 
     static Context mContext;
@@ -163,7 +165,12 @@ public class GameActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+        // Obtain the FirebaseAnalytics instance.
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 	}
+
 
 	// 停止時
 	@Override
@@ -215,8 +222,17 @@ public class GameActivity extends AppCompatActivity {
         answer();
 
         mainGame();
+
+        setAnalytics();
     }
 
+    private void setAnalytics(){
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "3");
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "GAME");
+        bundle.putString(FirebaseAnalytics.Param.ITEM_CATEGORY, String.valueOf(sStarNum));
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+    }
 
     public void UpdateText() {
 		//支払金額
