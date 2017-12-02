@@ -17,36 +17,39 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="top"
-            android:layout_margin="5dp"
+            android:layout_margin="10dp"
             android:layout_gravity="top"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:textSize="20sp"
+                android:layout_margin="10dp"
                 android:layout_marginBottom="3dp"
+                android:textStyle="bold"
+                android:layout_gravity="center"
                 android:text="@string/manual1"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
+                android:textColor="@color/centerRed"
+                android:textStyle="bold"
                 android:text="@string/manual2"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:textColor="@color/orenge"
-                android:text="@string/manual3"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:text="@string/manual4"/>
+
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="40dp"
+                android:layout_gravity="top"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/manual"/>
 
             <TextView
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -54,39 +57,6 @@
                 android:layout_marginBottom="3dp"
                 android:text="@string/rule1"/>
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="top"
-                android:adjustViewBounds="true"
-                android:scaleType="fitXY"
-                android:src="@drawable/manual"/>
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:textSize="20sp"
-                android:text="@string/rule2"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/blue"
-                android:text="@string/rule3"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:textColor="@color/centerRed"
-                android:text="@string/rule4"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:text="@string/rule5"/>
             <Button
                 android:textSize="20sp"
                 android:id="@+id/buttonTop"
