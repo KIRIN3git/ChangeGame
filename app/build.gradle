@@ -6,7 +6,9 @@ android {
     buildToolsVersion "26.0.1"
     defaultConfig {
         applicationId "jp.kirin3.changegame"
+        //Android 4.2
         minSdkVersion 17
+        //Android 8.0
         targetSdkVersion 26
         versionCode 1
         versionName "1.0.0"

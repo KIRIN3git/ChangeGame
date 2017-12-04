@@ -418,6 +418,12 @@
                 android:layout_height="0dp"
                 android:layout_weight="0.9"
                 android:orientation="horizontal">
+                <ProgressBar android:id="@+id/ProgressBarHorizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:progressDrawable="@drawable/progress"
+                    style="?android:attr/progressBarStyleHorizontal">
+                </ProgressBar>
 
                 <Button
                     android:id="@+id/buttonAnswer"
@@ -425,13 +431,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="@string/shiharai2" />
-
-                <ProgressBar android:id="@+id/ProgressBarHorizontal"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:progressDrawable="@drawable/progress"
-                    style="?android:attr/progressBarStyleHorizontal">
-                </ProgressBar>
             </FrameLayout>
 
             <LinearLayout
