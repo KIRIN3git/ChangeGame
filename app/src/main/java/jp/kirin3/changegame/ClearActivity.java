@@ -96,20 +96,22 @@ public class ClearActivity extends AppCompatActivity {
 
         // Obtain the FirebaseAnalytics instance.
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
+        setAnalytics();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        setAnalytics();
+
     }
 
     private void setAnalytics(){
         Bundle bundle = new Bundle();
         bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "4");
         bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "CLEAR");
-        bundle.putString(FirebaseAnalytics.Param.ITEM_CATEGORY, String.valueOf(sStarNum));
+        bundle.putString("clear_star", String.valueOf(sStarNum));
         mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
     }
 

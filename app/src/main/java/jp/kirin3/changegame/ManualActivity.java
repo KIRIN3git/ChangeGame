@@ -47,12 +47,14 @@ public class ManualActivity extends AppCompatActivity {
 
         // Obtain the FirebaseAnalytics instance.
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
+        setAnalytics();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        setAnalytics();
+
     }
 
     private void setAnalytics(){

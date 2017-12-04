@@ -45,20 +45,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/forestGreen"
+            android:textStyle="bold"
             android:text="@string/vest_time_update" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="25dp"
             android:orientation="horizontal">
             <TextView
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/vest_time" />
             <TextView
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:layout_marginLeft="3dp"
                 android:id="@+id/textVestGameTime"
                 android:layout_width="wrap_content"
@@ -79,12 +80,12 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/time2" />
             <TextView
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:layout_marginLeft="3dp"
                 android:id="@+id/textGameTime"
                 android:layout_width="wrap_content"
@@ -101,7 +102,7 @@
         <Button
             android:textSize="20sp"
             android:id="@+id/buttonTop"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="25dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/go_to_top" />
@@ -110,6 +111,7 @@
     </LinearLayout>
 
     <RelativeLayout
+        android:visibility = "visible"
         xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">

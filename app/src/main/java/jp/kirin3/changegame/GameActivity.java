@@ -169,6 +169,8 @@ public class GameActivity extends AppCompatActivity {
 
         // Obtain the FirebaseAnalytics instance.
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
+        setAnalytics();
 	}
 
 
@@ -223,14 +225,14 @@ public class GameActivity extends AppCompatActivity {
 
         mainGame();
 
-        setAnalytics();
+
     }
 
     private void setAnalytics(){
         Bundle bundle = new Bundle();
         bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "3");
         bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "GAME");
-        bundle.putString(FirebaseAnalytics.Param.ITEM_CATEGORY, String.valueOf(sStarNum));
+        bundle.putString("game_star", String.valueOf(sStarNum));
         mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
     }
 

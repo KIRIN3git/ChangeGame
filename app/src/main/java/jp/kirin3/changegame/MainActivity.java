@@ -85,8 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        // Obtain the FirebaseAnalytics instance.
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
 
         // addMob設定
         MobileAds.initialize(this,getResources().getString(R.string.admob_app_id) );
@@ -94,6 +93,11 @@ public class MainActivity extends AppCompatActivity {
         mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+
+        // Obtain the FirebaseAnalytics instance.
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
+        setAnalytics();
 
         // Clashlytics初期化
         Fabric.with(this, new Crashlytics());
@@ -202,8 +206,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        setAnalytics();
     }
 
     private void setAnalytics(){
