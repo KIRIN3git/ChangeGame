@@ -47,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
     TextView textGameVestTimeSec5;
 
     Button sButtonManual;
+    Button sButtonRanking;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +73,8 @@ public class MainActivity extends AppCompatActivity {
         textGameVestTimeSec5 = (TextView) findViewById(R.id.textGameVestTimeSec5);
 
         sButtonManual = (Button)findViewById(R.id.buttonManial);
+		sButtonRanking = (Button)findViewById(R.id.buttonRanking);
+
 
         // ・ボタン設定
         sButtonManual.setOnClickListener(new View.OnClickListener(){
@@ -83,6 +87,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+		sButtonRanking.setOnClickListener(new View.OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				// インテントのインスタンス生成
+				Intent intent = new Intent(MainActivity.this, RankingActivity.class);
+				// ゲーム画面の起動
+				startActivity(intent);
+			}
+		});
 
 
 
