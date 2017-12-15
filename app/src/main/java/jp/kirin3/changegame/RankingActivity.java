@@ -14,6 +14,8 @@ import android.widget.TabHost;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 /**
  * Created by etisu on 2017/11/12.
@@ -65,7 +67,6 @@ public class RankingActivity extends FragmentActivity implements TabHost.OnTabCh
 		tab4.setContent(new DummyTabFactory(this));
 		mTabHost.addTab(tab4);
 
-
 		// Tab5 設定
 		TabHost.TabSpec tab5 = mTabHost.newTabSpec("tab5");
 		tab5.setIndicator("★５");
@@ -80,6 +81,7 @@ public class RankingActivity extends FragmentActivity implements TabHost.OnTabCh
         onTabChanged("tab1");
 
 
+        setDatabase();
 
         //////////////// Firebase ////////////////
         mAdView = (AdView) findViewById(R.id.adView);
@@ -91,6 +93,17 @@ public class RankingActivity extends FragmentActivity implements TabHost.OnTabCh
 
         setAnalytics();
     }
+
+    public void setDatabase(){
+		DatabaseReference mDatabase;
+		mDatabase = FirebaseDatabase.getInstance().getReference();
+
+		mDatabase.child("ranking").child("data").child("name").setValue("aaa");
+
+
+
+	}
+
 
     /*
 	 * タブの選択が変わったときに呼び出される
