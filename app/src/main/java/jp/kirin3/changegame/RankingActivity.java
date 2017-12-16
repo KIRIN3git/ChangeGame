@@ -17,6 +17,8 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.UUID;
+
 /**
  * Created by etisu on 2017/11/12.
  */
@@ -97,13 +99,12 @@ public class RankingActivity extends FragmentActivity implements TabHost.OnTabCh
     public void setDatabase(){
 		DatabaseReference mDatabase;
 		mDatabase = FirebaseDatabase.getInstance().getReference();
+        String id = UUID.randomUUID().toString();
 
-		mDatabase.child("ranking").child("data").child("name").setValue("aaa");
-
-
-
+        mDatabase.child("star1").child("user_id").setValue(id);
+        mDatabase.child("star1").child(id).child("name").setValue("name1");
+        mDatabase.child("star1").child(id).child("time").setValue(2.4);
 	}
-
 
     /*
 	 * タブの選択が変わったときに呼び出される
