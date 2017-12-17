@@ -14,8 +14,13 @@ import android.widget.TabHost;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.UUID;
 
@@ -84,6 +89,7 @@ public class RankingActivity extends FragmentActivity implements TabHost.OnTabCh
 
 
         setDatabase();
+        getDatabase();
 
         //////////////// Firebase ////////////////
         mAdView = (AdView) findViewById(R.id.adView);
@@ -96,15 +102,81 @@ public class RankingActivity extends FragmentActivity implements TabHost.OnTabCh
         setAnalytics();
     }
 
+
+    public static class Post {
+
+        public String author;
+        public String title;
+
+        public Post() {
+
+        }
+        public Post(String _author, String _title) {
+            author = _author;
+            title = _title;
+        }
+    }
+
     public void setDatabase(){
-		DatabaseReference mDatabase;
-		mDatabase = FirebaseDatabase.getInstance().getReference();
+		final DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
         String id = UUID.randomUUID().toString();
 
-        mDatabase.child("star1").child("user_id").setValue(id);
-        mDatabase.child("star1").child(id).child("name").setValue("name1");
-        mDatabase.child("star1").child(id).child("time").setValue(2.4);
-	}
+//        ref.child("star1").child("user_id").setValue(id);
+//        ref.child("star1").child(id).child("name").setValue("name1");
+//        ref.child("star1").child(id).child("time").setValue(3.4);
+
+        Post post = new Post( "author2","title2" );
+
+        ref.child("posts").child("post").setValue(2);
+        ref.child("posts").child("2").setValue(post);
+//        ref.child("posts").child(id).child("author").setValue("name1");
+//        ref.child("posts").child(id).child("title").setValue("name2");
+    }
+
+    public void getDatabase(){
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+        DatabaseReference ref = database.getReference("posts/1");
+
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot){
+                Post post = snapshot.getValue(Post.class);
+                Log.w( "DEBUG_DATA", "ccc" + post.author);
+                Log.w( "DEBUG_DATA", "ccc" + post.title);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w( "DEBUG_DATA", "aaa");
+            }
+        });
+/*
+        DatabaseReference ref2 = database.getReference("posts");
+
+        ref2.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
+                Post newPost = dataSnapshot.getValue(Post.class);
+                Log.w( "DEBUG_DATA", "Author: " + newPost.author);
+                Log.w( "DEBUG_DATA", "Title: " + newPost.title);
+                Log.w( "DEBUG_DATA", "Previous Post ID: " + prevChildKey);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {}
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {}
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String prevChildKey) {}
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
+*/
+    }
 
     /*
 	 * タブの選択が変わったときに呼び出される
