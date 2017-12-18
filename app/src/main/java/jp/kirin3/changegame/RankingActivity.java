@@ -106,14 +106,14 @@ public class RankingActivity extends FragmentActivity implements TabHost.OnTabCh
     public static class Post {
 
         public String author;
-        public String title;
+        public Integer price;
 
         public Post() {
 
         }
-        public Post(String _author, String _title) {
+        public Post(String _author, Integer _price) {
             author = _author;
-            title = _title;
+			price = _price;
         }
     }
 
@@ -125,25 +125,23 @@ public class RankingActivity extends FragmentActivity implements TabHost.OnTabCh
 //        ref.child("star1").child(id).child("name").setValue("name1");
 //        ref.child("star1").child(id).child("time").setValue(3.4);
 
-        Post post = new Post( "author2","title2" );
+        Post post = new Post( "author3",33 );
 
-        ref.child("posts").child("post").setValue(2);
-        ref.child("posts").child("2").setValue(post);
-//        ref.child("posts").child(id).child("author").setValue("name1");
-//        ref.child("posts").child(id).child("title").setValue("name2");
+//        ref.child("posts").child("post").setValue(5);
+        ref.child("posts").child("6").setValue(post);
     }
 
     public void getDatabase(){
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-
-        DatabaseReference ref = database.getReference("posts/1");
+/*
+        DatabaseReference ref = database.getReference("posts/3");
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot){
                 Post post = snapshot.getValue(Post.class);
                 Log.w( "DEBUG_DATA", "ccc" + post.author);
-                Log.w( "DEBUG_DATA", "ccc" + post.title);
+                Log.w( "DEBUG_DATA", "ccc" + post.price);
             }
 
             @Override
@@ -151,6 +149,67 @@ public class RankingActivity extends FragmentActivity implements TabHost.OnTabCh
                 Log.w( "DEBUG_DATA", "aaa");
             }
         });
+*/
+
+		final DatabaseReference ref = database.getReference("posts/post");
+
+		ref.addValueEventListener(new ValueEventListener() {
+			@Override
+			public void onDataChange(DataSnapshot snapshot){
+
+				String post = snapshot.getValue(String.class);
+				Query query = ref.orderByChild("price");
+
+				query.addValueEventListener(new ValueEventListener() {
+					@Override
+					public void onDataChange(DataSnapshot dataSnapshot) {
+						DataSnapshot firstChild = dataSnapshot.getChildren().iterator().next();
+						Log.w( "AAAAA", "firstChild " + firstChild.getKey());
+					}
+
+					@Override
+					public void onCancelled(DatabaseError databaseError) {
+
+					}
+				});
+
+			}
+
+			@Override
+			public void onCancelled(DatabaseError databaseError) {
+				Log.w( "DEBUG_DATA", "aaa");
+			}
+		});
+/*
+		DatabaseReference ref2 = database.getReference();
+		ref2.child("posts").addChildEventListener(new ChildEventListener() {
+			@Override
+			public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+//				Post post = dataSnapshot.getValue(Post.class);
+				Log.w( "DEBUG_DATA", "key " + dataSnapshot.getKey() );
+			}
+
+			@Override
+			public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+			}
+
+			@Override
+			public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+			}
+
+			@Override
+			public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+			}
+
+			@Override
+			public void onCancelled(DatabaseError databaseError) {
+				Log.w( "DEBUG_DATA", "ERRORRRRRRRRR");
+			}
+		});
+*/
 /*
         DatabaseReference ref2 = database.getReference("posts");
 
