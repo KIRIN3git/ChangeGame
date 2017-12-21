@@ -26,6 +26,7 @@ public class ClearActivity extends AppCompatActivity {
     static float sVestGameTime;
     static boolean sVestGameTimeFlg;
     static SharedPreferences sSharedData;
+    static DataMng sDataMng;
     final String sClearStar[] = { "","ClearStar1","ClearStar2","ClearStar3","ClearStar4","ClearStar5" };
     final String sClearGameTime[] = { "","VestGameTime1","VestGameTime2","VestGameTime3","VestGameTime4","VestGameTime5" };
 
@@ -41,6 +42,8 @@ public class ClearActivity extends AppCompatActivity {
 
 
         setContentView(R.layout.activity_clear);
+
+		sDataMng = new DataMng(this );
 
 		sVestGameTimeFlg = false;
 
@@ -127,6 +130,9 @@ public class ClearActivity extends AppCompatActivity {
             editor.putFloat(sClearGameTime[sStarNum], sGameTime);
             editor.apply();
             sVestGameTime = sGameTime;
+
+            //
+
         }
     }
 
