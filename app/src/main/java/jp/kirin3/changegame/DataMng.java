@@ -23,6 +23,7 @@ public class DataMng{
 
 	static Context mContext;
 
+	final String sUserId = "UserId";
 	final String sUserName = "UserName";
 	final String sClearStar[] = { "","ClearStar1","ClearStar2","ClearStar3","ClearStar4","ClearStar5" };
 	final String sClearGameTime[] = { "","VestGameTime1","VestGameTime2","VestGameTime3","VestGameTime4","VestGameTime5" };
@@ -33,6 +34,21 @@ public class DataMng{
 		mContext = context;
 		sSharedData = context.getSharedPreferences("DataSave", Context.MODE_PRIVATE);
     }
+
+
+	public String ReadUserId() {
+
+		String userId = sSharedData.getString(sUserId, "");
+
+		return userId;
+	}
+
+	public void WriteUserId( String userId ) {
+
+		SharedPreferences.Editor editor = sSharedData.edit();
+		editor.putString(userId, "");
+		editor.apply();
+	}
 
 	public String ReadUserName() {
 
