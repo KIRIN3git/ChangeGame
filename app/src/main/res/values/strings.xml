@@ -33,8 +33,7 @@
     <string name="clear">CLEAR!</string>
     <string name="vest_time_update">ベストタイム更新！</string>
     <string name="vest_time">ベストタイム:</string>
-
-
+    <string name="user_name">名無しさん</string>
     <string name="manual1">至高の支払い方法とは</string>
     <string name="manual2">支払いでお釣りが返ってきたときに、財布の中身がなるべく大きい硬貨になり、小銭がたまらないようにする支払い方法です。</string>
     <string name="manual3">支払い方法です。</string>
