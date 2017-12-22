@@ -28,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAnalytics mFirebaseAnalytics;
     private AdView mAdView;
 
+    static DataMng sDataMng;
+
     TextView textGameStart1;
     TextView textGameStart2;
     TextView textGameStart3;
@@ -53,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+		sDataMng = new DataMng(this );
 
         textGameStart1 = (TextView) findViewById(R.id.textGameStart1);
         textGameStart2 = (TextView) findViewById(R.id.textGameStart2);
@@ -122,13 +126,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        SharedPreferences data = getSharedPreferences("DataSave", Context.MODE_PRIVATE);
 
-        int clearStart1 = data.getInt("ClearStar1",0 );
+        int clearStart1 = sDataMng.ReadStar(1 );
         if( clearStart1 == 1 ){
             textGameStart1.setTextColor(getResources().getColor(R.color.orenge));
-            float vestGameTime1 = data.getFloat("VestGameTime1",0);
-
+            float vestGameTime1 = sDataMng.ReadVestTime(1 );
             textGameVestTime1.setText(String.valueOf(vestGameTime1));
             textGameVestTime1.setVisibility(View.VISIBLE);
             textGameVestTimeSec1.setVisibility(View.VISIBLE);
@@ -144,10 +146,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        int clearStart2 = data.getInt("ClearStar2",0 );
+        int clearStart2 = sDataMng.ReadStar(2 );
         if( clearStart2 == 1 ){
             textGameStart2.setTextColor(getResources().getColor(R.color.orenge));
-            float vestGameTime2 = data.getFloat("VestGameTime2",0);
+            float vestGameTime2 = sDataMng.ReadVestTime(2 );
             textGameVestTime2.setText(String.valueOf(vestGameTime2));
             textGameVestTime2.setVisibility(View.VISIBLE);
             textGameVestTimeSec2.setVisibility(View.VISIBLE);
@@ -163,10 +165,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        int clearStart3 = data.getInt("ClearStar3",0 );
+        int clearStart3 = sDataMng.ReadStar(3 );
         if( clearStart3 == 1 ){
             textGameStart3.setTextColor(getResources().getColor(R.color.orenge));
-            float vestGameTime3 = data.getFloat("VestGameTime3",0);
+            float vestGameTime3 = sDataMng.ReadVestTime(3 );
             textGameVestTime3.setText(String.valueOf(vestGameTime3));
             textGameVestTime3.setVisibility(View.VISIBLE);
             textGameVestTimeSec3.setVisibility(View.VISIBLE);
@@ -182,10 +184,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        int clearStart4 = data.getInt("ClearStar4",0 );
+        int clearStart4 = sDataMng.ReadStar(4 );
         if( clearStart4 == 1 ){
             textGameStart4.setTextColor(getResources().getColor(R.color.orenge));
-            float vestGameTime4 = data.getFloat("VestGameTime4",0);
+            float vestGameTime4 = sDataMng.ReadVestTime(4 );
             textGameVestTime4.setText(String.valueOf(vestGameTime4));
             textGameVestTime4.setVisibility(View.VISIBLE);
             textGameVestTimeSec4.setVisibility(View.VISIBLE);
@@ -201,10 +203,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        int clearStart5 = data.getInt("ClearStar5",0 );
+        int clearStart5 = sDataMng.ReadStar(5 );
         if( clearStart5 == 1 ){
             textGameStart5.setTextColor(getResources().getColor(R.color.orenge));
-            float vestGameTime5 = data.getFloat("VestGameTime5",0);
+            float vestGameTime5 = sDataMng.ReadVestTime(5 );
             textGameVestTime5.setText(String.valueOf(vestGameTime5));
             textGameVestTime5.setVisibility(View.VISIBLE);
             textGameVestTimeSec5.setVisibility(View.VISIBLE);

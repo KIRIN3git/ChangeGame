@@ -25,10 +25,7 @@ public class ClearActivity extends AppCompatActivity {
     static float sGameTime;
     static float sVestGameTime;
     static boolean sVestGameTimeFlg;
-    static SharedPreferences sSharedData;
     static DataMng sDataMng;
-    final String sClearStar[] = { "","ClearStar1","ClearStar2","ClearStar3","ClearStar4","ClearStar5" };
-    final String sClearGameTime[] = { "","VestGameTime1","VestGameTime2","VestGameTime3","VestGameTime4","VestGameTime5" };
 
     TextView sTextStar;
     TextView sTextVestGameTimeMsg;
@@ -40,12 +37,9 @@ public class ClearActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         setContentView(R.layout.activity_clear);
 
 		sDataMng = new DataMng(this );
-
-		sVestGameTimeFlg = false;
 
         sTextStar = (TextView)findViewById(R.id.textStar);
         sTextVestGameTimeMsg = (TextView)findViewById(R.id.textVestGameTimeMsg);
@@ -53,20 +47,18 @@ public class ClearActivity extends AppCompatActivity {
         sTextGameTime = (TextView)findViewById(R.id.textGameTime);
         sButtonTop = (Button)findViewById(R.id.buttonTop);
 
-
-        sSharedData = getSharedPreferences("DataSave", Context.MODE_PRIVATE);
-
         Bundle extras = getIntent().getExtras();
         sStarNum = extras.getInt("STAR");
         sGameTime = extras.getFloat("GAME_TIME");
 
-        // ベストタイムの取得と保存
-        SaveVestTime();
+		// クリア難易度を保存
+		sDataMng.WriteStar(sStarNum);
+		// ベストタイムの更新
+		sVestGameTimeFlg = sDataMng.UpdateVestTime(sStarNum,sGameTime);
+		// ベストタイムの取得
+		sVestGameTime = sDataMng.ReadVestTime(sStarNum);
 
-        // クリア難易度を保存
-        SaveStar();
-
-        // ・テキスト設定
+		// ・テキスト設定
         //難易度
         String strStar = "";
         for( int i = 0; i < sStarNum; i++ ){
@@ -76,6 +68,7 @@ public class ClearActivity extends AppCompatActivity {
 
         sTextVestGameTime.setText(String.valueOf(sVestGameTime));
         sTextGameTime.setText(String.valueOf(sGameTime));
+
         if( sVestGameTimeFlg ){
             sTextVestGameTimeMsg.setVisibility(View.VISIBLE);
         }
@@ -91,11 +84,10 @@ public class ClearActivity extends AppCompatActivity {
             }
         });
 
-
+        // Firebase
         mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
-
 
         // Obtain the FirebaseAnalytics instance.
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
@@ -106,8 +98,6 @@ public class ClearActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
-
     }
 
     private void setAnalytics(){
@@ -118,29 +108,4 @@ public class ClearActivity extends AppCompatActivity {
         mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
     }
 
-    void SaveVestTime(){
-        if( sStarNum < 1 ) return;
-
-        sVestGameTime = sSharedData.getFloat(sClearGameTime[sStarNum],0 );
-
-        // 新記録
-        if( sVestGameTime < 1 || sVestGameTime > sGameTime ){
-            sVestGameTimeFlg = true;
-            SharedPreferences.Editor editor = sSharedData.edit();
-            editor.putFloat(sClearGameTime[sStarNum], sGameTime);
-            editor.apply();
-            sVestGameTime = sGameTime;
-
-            //
-
-        }
-    }
-
-    void SaveStar(){
-        if( sStarNum < 1 ) return;
-
-        SharedPreferences.Editor editor = sSharedData.edit();
-        editor.putInt(sClearStar[sStarNum], 1);
-        editor.apply();
-    }
 }
