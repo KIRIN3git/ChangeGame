@@ -12,8 +12,12 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.UUID;
 
 
 /**
@@ -25,16 +29,20 @@ public class DataMng{
 
 	final String sUserId = "UserId";
 	final String sUserName = "UserName";
+	final String sFbStar[] = { "","Star1","Star2","Star3","Star4","Star5" };
 	final String sClearStar[] = { "","ClearStar1","ClearStar2","ClearStar3","ClearStar4","ClearStar5" };
 	final String sClearGameTime[] = { "","VestGameTime1","VestGameTime2","VestGameTime3","VestGameTime4","VestGameTime5" };
 
 	static SharedPreferences sSharedData;
 
+	DatabaseReference sRef;
+
     public DataMng(Context context) {
 		mContext = context;
 		sSharedData = context.getSharedPreferences("DataSave", Context.MODE_PRIVATE);
-    }
 
+		sRef = FirebaseDatabase.getInstance().getReference();
+    }
 
 	public String ReadUserId() {
 
@@ -46,8 +54,14 @@ public class DataMng{
 	public void WriteUserId( String userId ) {
 
 		SharedPreferences.Editor editor = sSharedData.edit();
-		editor.putString(userId, "");
+		editor.putString(sUserId, userId);
 		editor.apply();
+	}
+
+	public String CreateUserId() {
+		String id = UUID.randomUUID().toString();
+		WriteUserId(id);
+		return id;
 	}
 
 	public String ReadUserName() {
@@ -60,7 +74,7 @@ public class DataMng{
 	public void WriteUserName( String userName ) {
 
 		SharedPreferences.Editor editor = sSharedData.edit();
-		editor.putString(userName, "");
+		editor.putString(sUserName, userName);
 		editor.apply();
 	}
 
@@ -108,12 +122,7 @@ public class DataMng{
 	public boolean UpdateVestTime( int starNum,float time ){
 		if (starNum < 1 || starNum > sClearStar.length ) return false;
 
-		Log.w( "AAAAA", "starNum " + starNum);
-		Log.w( "AAAAA", "time " + time);
-
 		float vestGameTime = ReadVestTime(starNum);
-
-		Log.w( "AAAAA", "vestGameTime " + vestGameTime);
 
 		// 記録更新
 		if( vestGameTime == 0.0 || time < vestGameTime ){
@@ -121,6 +130,32 @@ public class DataMng{
 			return true;
 		}
 		return false;
+	}
+
+	public static class User {
+		public String name;
+		public Float time;
+		public String date;
+
+		public User() {
+
+		}
+		public User(String _name, Float _time, String _date) {
+			name = _name;
+			time = _time;
+			if (_date == null) {
+
+			}
+			else date = _date;
+		}
+	}
+
+
+	public void SaveFbStarRecode( int starNum,String userId,String userName,float time ){
+
+
+		User user = new User( userName,time,null );
+		sRef.child(sFbStar[starNum]).child(userId).setValue(user);
 	}
 
 }

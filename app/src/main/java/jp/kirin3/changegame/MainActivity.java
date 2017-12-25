@@ -1,15 +1,17 @@
 package jp.kirin3.changegame;
 
-import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -48,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
     TextView textGameVestTimeSec4;
     TextView textGameVestTimeSec5;
 
+    TextView textUserName;
+
     Button sButtonManual;
     Button sButtonRanking;
 
@@ -76,6 +80,8 @@ public class MainActivity extends AppCompatActivity {
         textGameVestTimeSec4 = (TextView) findViewById(R.id.textGameVestTimeSec4);
         textGameVestTimeSec5 = (TextView) findViewById(R.id.textGameVestTimeSec5);
 
+        textUserName = (TextView) findViewById(R.id.textUserName);
+
         sButtonManual = (Button)findViewById(R.id.buttonManial);
 		sButtonRanking = (Button)findViewById(R.id.buttonRanking);
 
@@ -100,6 +106,9 @@ public class MainActivity extends AppCompatActivity {
 				startActivity(intent);
 			}
 		});
+
+		// ・テキスト設定
+		setUserInfo();
 
 
 
@@ -275,5 +284,51 @@ public class MainActivity extends AppCompatActivity {
 
         CommonMng.real = real;
     }
+
+    /*
+    ユーザー情報の設定
+     */
+    public void setUserInfo() {
+
+		String userId = sDataMng.ReadUserId();
+		if( userId == "" ) userId = sDataMng.CreateUserId();
+
+		textUserName.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				//テキスト入力を受け付けるビューを作成します。
+				final EditText editView = new EditText(MainActivity.this);
+				new AlertDialog.Builder(MainActivity.this)
+						.setIcon(android.R.drawable.ic_dialog_info)
+						.setTitle("テキスト入力ダイアログ")
+						//setViewにてビューを設定します。
+						.setView(editView)
+						.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int whichButton) {
+								sDataMng.WriteUserName(editView.getText().toString());
+								textUserName.setText(editView.getText().toString());
+							}
+						})
+						.setNegativeButton("キャンセル", new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int whichButton) {
+							}
+						})
+						.show();
+			}
+		});
+
+//		sDataMng.WriteUserName("test");
+//		Log.w( "AAAAA", "aaa" + sDataMng.ReadUserName());
+
+		String userName = sDataMng.ReadUserName();
+		if( userName != "" ) {
+			textUserName.setText(userName);
+		}
+		/*
+		else{
+			textUserName.setText(userId);
+		}
+		*/
+	}
 
 }

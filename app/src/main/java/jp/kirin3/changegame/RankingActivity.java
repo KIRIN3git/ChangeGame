@@ -294,9 +294,6 @@ public class RankingActivity extends FragmentActivity implements TabHost.OnTabCh
 			}
             mLastTabId = tabId;
 
-
-
-
             fragmentTransaction.commit();
         }
     }
