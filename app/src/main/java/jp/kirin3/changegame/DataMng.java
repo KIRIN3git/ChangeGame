@@ -12,12 +12,19 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.UUID;
+
+import static jp.kirin3.changegame.CommonMng.GetDateString;
 
 
 /**
@@ -29,9 +36,11 @@ public class DataMng{
 
 	final String sUserId = "UserId";
 	final String sUserName = "UserName";
-	final String sFbStar[] = { "","Star1","Star2","Star3","Star4","Star5" };
+	final String sFbStar[] = { "","star1","star2","star3","star4","star5" };
 	final String sClearStar[] = { "","ClearStar1","ClearStar2","ClearStar3","ClearStar4","ClearStar5" };
 	final String sClearGameTime[] = { "","VestGameTime1","VestGameTime2","VestGameTime3","VestGameTime4","VestGameTime5" };
+
+	User user;
 
 	static SharedPreferences sSharedData;
 
@@ -134,28 +143,66 @@ public class DataMng{
 
 	public static class User {
 		public String name;
-		public Float time;
+		public Double time;
 		public String date;
+
 
 		public User() {
 
 		}
 		public User(String _name, Float _time, String _date) {
 			name = _name;
-			time = _time;
-			if (_date == null) {
+			BigDecimal bd = new BigDecimal(_time);
+			bd = bd.setScale(1, BigDecimal.ROUND_HALF_UP);
+			time = bd.doubleValue();
 
+			if (_date == null) {
+				date = GetDateString(1);
 			}
 			else date = _date;
 		}
 	}
 
-
 	public void SaveFbStarRecode( int starNum,String userId,String userName,float time ){
-
-
-		User user = new User( userName,time,null );
+		User user = new User( userName, time,null );
 		sRef.child(sFbStar[starNum]).child(userId).setValue(user);
+	}
+
+	public User GetFbStarRecode( int starNum ){
+		final FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+		DatabaseReference ref = database.getReference(sFbStar[starNum]);
+		ref.orderByChild("user_id").addChildEventListener(new ChildEventListener() {
+			@Override
+			public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
+				User user = dataSnapshot.getValue(User.class);
+				Log.w( "DEBUG_DATA", "prevChildKey " + prevChildKey );
+				Log.w( "DEBUG_DATA", "dataSnapshot.getKey " + dataSnapshot.getKey() );
+				Log.w( "DEBUG_DATA", "user.name " + user.name);
+				Log.w( "DEBUG_DATA", "user.time " + user.time);
+				Log.w( "DEBUG_DATA", "user.date " + user.date);
+
+				DataMng.this.user = user;
+			}
+
+			@Override
+			public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+			}
+
+			@Override
+			public void onChildRemoved(DataSnapshot dataSnapshot) {
+			}
+
+			@Override
+			public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+			}
+
+			@Override
+			public void onCancelled(DatabaseError databaseError) {
+			}
+		});
+
+		return user;
 	}
 
 }

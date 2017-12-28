@@ -41,10 +41,14 @@ public class RankingActivity extends FragmentActivity implements TabHost.OnTabCh
     // Last selected tabId
     private String mLastTabId;
 
+	static DataMng sDataMng;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+		sDataMng = new DataMng(this );
 
         setContentView(R.layout.activity_ranking);
 
@@ -89,9 +93,21 @@ public class RankingActivity extends FragmentActivity implements TabHost.OnTabCh
         // 初期タブ選択
         onTabChanged("tab1");
 
+        //setDatabase();
+		String userId = sDataMng.ReadUserId();
+		if( userId == null ) userId = sDataMng.CreateUserId();
 
-        setDatabase();
-        getDatabase();
+		String userName = sDataMng.ReadUserName();
+		if( userName == null ) userName = "名無しさん";
+		float time = sDataMng.ReadVestTime(1);
+		Log.w( "DEBUG_DATA", "userId " + userId);
+		Log.w( "DEBUG_DATA", "userName " + userName);
+		Log.w( "DEBUG_DATA", "time " + time);
+		sDataMng.SaveFbStarRecode(1,userId,userName,time );
+		sDataMng.GetFbStarRecode(1 );
+
+
+//		getDatabase();
 
         //////////////// Firebase ////////////////
         mAdView = (AdView) findViewById(R.id.adView);
@@ -135,7 +151,6 @@ public class RankingActivity extends FragmentActivity implements TabHost.OnTabCh
     public void setDatabase(){
 		final DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
         String id = UUID.randomUUID().toString();
-
 
 		User user = new User( "author11",60.3 );
 		ref.child("star1").child(id).setValue(user);
