@@ -17,6 +17,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -39,6 +40,13 @@ public class DataMng{
 	final String sFbStar[] = { "","star1","star2","star3","star4","star5" };
 	final String sClearStar[] = { "","ClearStar1","ClearStar2","ClearStar3","ClearStar4","ClearStar5" };
 	final String sClearGameTime[] = { "","VestGameTime1","VestGameTime2","VestGameTime3","VestGameTime4","VestGameTime5" };
+
+	final String sTarminal = "tarminal";
+
+	// リストデータ配列
+	public static ArrayList<User> Users = new ArrayList<User>();
+
+	private
 
 	User user;
 
@@ -160,11 +168,16 @@ public class DataMng{
 				date = GetDateString(1);
 			}
 			else date = _date;
+
+		}
+
+		public String getName(){
+			return name;
 		}
 	}
 
-	public void SaveFbStarRecode( int starNum,String userId,String userName,float time ){
-		User user = new User( userName, time,null );
+	public void SaveFbStarRecode( int starNum,String userId,String userName,float time,String date ){
+		User user = new User( userName,time,date );
 		sRef.child(sFbStar[starNum]).child(userId).setValue(user);
 	}
 
@@ -172,33 +185,73 @@ public class DataMng{
 		final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
 		DatabaseReference ref = database.getReference(sFbStar[starNum]);
-		ref.orderByChild("user_id").addChildEventListener(new ChildEventListener() {
+		ref.orderByChild("user_id").limitToFirst(10).addChildEventListener(new ChildEventListener() {
 			@Override
 			public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
 				User user = dataSnapshot.getValue(User.class);
+
+				Log.w( "DEBUG_DATA", "aaaaaaaaaaaaaaaaaaaaaaaaaaaa DataSnapshot " );
+
 				Log.w( "DEBUG_DATA", "prevChildKey " + prevChildKey );
 				Log.w( "DEBUG_DATA", "dataSnapshot.getKey " + dataSnapshot.getKey() );
 				Log.w( "DEBUG_DATA", "user.name " + user.name);
 				Log.w( "DEBUG_DATA", "user.time " + user.time);
 				Log.w( "DEBUG_DATA", "user.date " + user.date);
 
-				DataMng.this.user = user;
+				Users.add( user );
+
+				if( user.name.equals(sTarminal)){
+
+				}
+//				DataMng.this.user = user;
 			}
 
 			@Override
 			public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+				Log.w( "DEBUG_DATA", "aaa onChildChanged " );
 			}
 
 			@Override
 			public void onChildRemoved(DataSnapshot dataSnapshot) {
+				Log.w( "DEBUG_DATA", "aaa onChildRemoved " );
 			}
 
 			@Override
 			public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+				Log.w( "DEBUG_DATA", "aaa onChildMoved " );
 			}
 
 			@Override
 			public void onCancelled(DatabaseError databaseError) {
+				Log.w( "DEBUG_DATA", "aaa onCancelled " );
+			}
+		});
+
+		return user;
+	}
+
+
+	public User GetFbStarRecode2( int starNum ){
+		final FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+		DatabaseReference ref = database.getReference(sFbStar[starNum]);
+		ref.orderByChild("user_id").addListenerForSingleValueEvent(new ValueEventListener() {
+			@Override
+			public void onDataChange(DataSnapshot dataSnapshot) {
+
+				Log.w( "DEBUG_DATA", "bbbbbbbbb onDataChange " );
+
+				// Get user value
+				User user = dataSnapshot.getValue(User.class);
+				Log.w( "DEBUG_DATA", "user.name " + user.name);
+				Log.w( "DEBUG_DATA", "user.time " + user.time);
+				Log.w( "DEBUG_DATA", "user.date " + user.date);
+				// ...
+			}
+
+			@Override
+			public void onCancelled(DatabaseError databaseError) {
+				Log.w("DEBUG_DATA", "bbb getUser:onCancelled", databaseError.toException());
 			}
 		});
 

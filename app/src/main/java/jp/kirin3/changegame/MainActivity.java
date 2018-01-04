@@ -135,7 +135,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-
         int clearStart1 = sDataMng.ReadStar(1 );
         if( clearStart1 == 1 ){
             textGameStart1.setTextColor(getResources().getColor(R.color.orenge));

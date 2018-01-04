@@ -43,7 +43,6 @@ public class RankingActivity extends FragmentActivity implements TabHost.OnTabCh
 
 	static DataMng sDataMng;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +50,6 @@ public class RankingActivity extends FragmentActivity implements TabHost.OnTabCh
 		sDataMng = new DataMng(this );
 
         setContentView(R.layout.activity_ranking);
-
 
         mTabHost = (TabHost) findViewById(android.R.id.tabhost);
         mTabHost.setup();
@@ -100,12 +98,21 @@ public class RankingActivity extends FragmentActivity implements TabHost.OnTabCh
 		String userName = sDataMng.ReadUserName();
 		if( userName == null ) userName = "名無しさん";
 		float time = sDataMng.ReadVestTime(1);
+		String date = null;
+
+		// ターミナル登録 ☆
+		/*
+		userId = "tarminal";
+		userName = "ターミナル";
+		time = 99999.9F;
+		date = "1999-01-01 00:00:00";
+		*/
+
 		Log.w( "DEBUG_DATA", "userId " + userId);
 		Log.w( "DEBUG_DATA", "userName " + userName);
 		Log.w( "DEBUG_DATA", "time " + time);
-		sDataMng.SaveFbStarRecode(1,userId,userName,time );
+		sDataMng.SaveFbStarRecode(1,userId,userName,time,date );
 		sDataMng.GetFbStarRecode(1 );
-
 
 //		getDatabase();
 
