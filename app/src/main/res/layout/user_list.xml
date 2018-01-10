@@ -3,7 +3,7 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:gravity="center"
-              android:orientation="horizontal">
+              android:orientation="vertical">
 
     <LinearLayout
         android:baselineAligned="false"
@@ -27,24 +27,24 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:visibility="gone"
                     android:id="@+id/rankImg"
-                    android:layout_marginLeft="10dp"
+                    android:visibility="gone"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:layout_gravity="left"/>
+                    android:layout_gravity="center"
+                    android:src="@drawable/rank1"/>
 
                 <TextView
-                    android:visibility="gone"
                     android:id="@+id/userRank"
                     android:layout_width="match_parent"
-                    android:textSize="20sp"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:layout_gravity="left"
                     android:gravity="center"
                     android:text="10"
-                    android:textStyle="bold"/>
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:visibility="gone"/>
             </LinearLayout>
 
             <TextView
@@ -83,4 +83,6 @@
                 android:textStyle="bold"/>
         </LinearLayout>
     </LinearLayout>
+
+
 </LinearLayout>
