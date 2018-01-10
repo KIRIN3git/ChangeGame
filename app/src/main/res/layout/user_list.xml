@@ -6,20 +6,81 @@
               android:orientation="horizontal">
 
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="left"
-        android:layout_weight="1"
-        android:gravity="center|left"
-        android:orientation="horizontal">
+        android:baselineAligned="false"
+        android:id="@+id/busloc_list_low_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/stop_code"
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textStyle="bold"/>
+            android:layout_height="match_parent"
+            android:layout_gravity="left"
+            android:layout_weight="1"
+            android:gravity="center|left"
+            android:orientation="horizontal">
 
+            <LinearLayout
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:visibility="gone"
+                    android:id="@+id/rankImg"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="left"/>
+
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/userRank"
+                    android:layout_width="match_parent"
+                    android:textSize="20sp"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_gravity="left"
+                    android:gravity="center"
+                    android:text="10"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/userName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_gravity="left"
+                android:text="たかだ"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:layout_marginRight="16dp"
+            android:gravity="center|right"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/userTime"
+                android:text="3.2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_gravity="right"
+                android:textStyle="bold"/>
+            <TextView
+                android:text="s"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_gravity="right"
+                android:textStyle="bold"/>
+        </LinearLayout>
     </LinearLayout>
-
 </LinearLayout>

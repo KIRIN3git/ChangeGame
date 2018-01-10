@@ -8,7 +8,7 @@
         android:layout_height="wrap_content"
         android:text="TAB1の内容（フラグメント）"/>
     <ListView
-        android:id="@+id/listView"
+        android:id="@+id/userListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="#000000"

@@ -5,11 +5,16 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.firebase.database.ChildEventListener;
@@ -54,12 +59,23 @@ public class DataMng{
 
 	DatabaseReference sRef;
 
-    public DataMng(Context context) {
+	static ListView sListView;
+
+	public DataMng(Context context) {
 		mContext = context;
 		sSharedData = context.getSharedPreferences("DataSave", Context.MODE_PRIVATE);
 
 		sRef = FirebaseDatabase.getInstance().getReference();
     }
+
+	public DataMng(Context context,ListView listView) {
+		mContext = context;
+		sSharedData = context.getSharedPreferences("DataSave", Context.MODE_PRIVATE);
+
+		sRef = FirebaseDatabase.getInstance().getReference();
+
+		sListView = listView;
+	}
 
 	public String ReadUserId() {
 
@@ -151,7 +167,7 @@ public class DataMng{
 
 	public static class User {
 		public String name;
-		public Double time;
+		public Float time;
 		public String date;
 
 
@@ -162,7 +178,7 @@ public class DataMng{
 			name = _name;
 			BigDecimal bd = new BigDecimal(_time);
 			bd = bd.setScale(1, BigDecimal.ROUND_HALF_UP);
-			time = bd.doubleValue();
+			time = bd.floatValue();
 
 			if (_date == null) {
 				date = GetDateString(1);
@@ -173,6 +189,12 @@ public class DataMng{
 
 		public String getName(){
 			return name;
+		}
+		public Float getTime(){
+			return time;
+		}
+		public String getDate(){
+			return date;
 		}
 	}
 
@@ -200,10 +222,12 @@ public class DataMng{
 
 				Users.add( user );
 
-				if( user.name.equals(sTarminal)){
-
+				if( dataSnapshot.getKey().equals(sTarminal)){
+					UserAdapter adapter = new UserAdapter(mContext, 0, Users);
+					sListView.setAdapter(adapter);
+//					Tab1Fragment.setAdapter();
 				}
-//				DataMng.this.user = user;
+				//				DataMng.this.user = user;
 			}
 
 			@Override
@@ -258,4 +282,49 @@ public class DataMng{
 		return user;
 	}
 
+
+	public class UserAdapter extends ArrayAdapter<User> {
+
+		private LayoutInflater layoutInflater;
+		public UserAdapter(Context c, int id, ArrayList<User> users) {
+			super(c, id, users);
+			this.layoutInflater = (LayoutInflater) c.getSystemService(
+					Context.LAYOUT_INFLATER_SERVICE
+			);
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+
+			if (convertView == null) {
+				convertView = layoutInflater.inflate(
+						R.layout.user_list,
+						parent,
+						false
+				);
+			}
+
+			TextView TextUserRank = (TextView) convertView.findViewById(R.id.userRank);
+			ImageView ImageUserRank = (ImageView) convertView.findViewById(R.id.rankImg);
+
+			int ranking = position + 1;
+			User user = (User) getItem(position);
+			// ランキング1,2,3は画像を表示
+			if( ranking == 1 || ranking == 2 || ranking == 3 ){
+				ImageUserRank.setVisibility(View.VISIBLE);
+				if( ranking == 1 ) ImageUserRank.setImageResource(R.drawable.rank1);
+				if( ranking == 2 ) ImageUserRank.setImageResource(R.drawable.rank2);
+				if( ranking == 3 ) ImageUserRank.setImageResource(R.drawable.rank3);
+			}
+			else{
+				TextUserRank.setVisibility(View.VISIBLE);
+				((TextView) convertView.findViewById(R.id.userRank)).setText(String.valueOf(ranking));
+			}
+
+			((TextView) convertView.findViewById(R.id.userName)).setText(user.getName());
+			((TextView) convertView.findViewById(R.id.userTime)).setText(user.getTime().toString());
+
+			return convertView;
+		}
+	}
 }

@@ -10,8 +10,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 public class Tab1Fragment extends Fragment {
+
+
+	static ListView userListView;
+	static DataMng sDataMng;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -19,6 +24,7 @@ public class Tab1Fragment extends Fragment {
 		super.onCreate(savedInstanceState);
 		int si = getArguments().getInt("STAR_NUM");
 		Log.i("MyFragment : ", "渡された値 = " + Integer.toString(si));
+
 	}
 
 	@Override
@@ -27,9 +33,19 @@ public class Tab1Fragment extends Fragment {
 			ViewGroup container,
 			Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.tab1_fragment, container, false);
+
+		userListView = (ListView) v.findViewById(R.id.userListView);
+		sDataMng = new DataMng(getContext(),userListView );
+
 		return v;
 	}
 
+	static public void setAdapter(){
 
+	//	DataMng.UserAdapter adapter = new DataMng.UserAdapter(this, 0, users);
 
+	//	userListView.setAdapter(adapter);
+
+		return;
+	}
 }

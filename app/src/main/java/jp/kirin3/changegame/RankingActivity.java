@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TabHost;
 
 import com.google.android.gms.ads.AdRequest;
@@ -43,9 +44,13 @@ public class RankingActivity extends FragmentActivity implements TabHost.OnTabCh
 
 	static DataMng sDataMng;
 
+	ListView UserListView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
 
 		sDataMng = new DataMng(this );
 
