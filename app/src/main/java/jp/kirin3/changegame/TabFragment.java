@@ -12,11 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-public class Tab1Fragment extends Fragment {
+public class TabFragment extends Fragment {
 
 
 	static ListView userListView;
 	static DataMng sDataMng;
+	static int sStarNum;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -24,6 +25,7 @@ public class Tab1Fragment extends Fragment {
 		super.onCreate(savedInstanceState);
 		int si = getArguments().getInt("STAR_NUM");
 		Log.i("MyFragment : ", "渡された値 = " + Integer.toString(si));
+		sStarNum = si;
 
 	}
 
@@ -36,6 +38,11 @@ public class Tab1Fragment extends Fragment {
 
 		userListView = (ListView) v.findViewById(R.id.userListView);
 		sDataMng = new DataMng(getContext(),userListView );
+
+		Log.w( "DEBUG_DATA", "11111111111111122222222222222" );
+
+		sDataMng.Users.clear();
+		sDataMng.GetFbStarRecode(sStarNum );
 
 		return v;
 	}

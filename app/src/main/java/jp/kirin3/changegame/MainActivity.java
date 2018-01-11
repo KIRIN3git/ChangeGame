@@ -135,6 +135,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+        // ・ユーザーID,ユーザー名設定
+		if( sDataMng.ReadUserId() == "" )  sDataMng.CreateUserId();
+		if( sDataMng.ReadUserName() == "" )  sDataMng.WriteUserName(null);
+
+        // ・☆クリック時処理
         int clearStart1 = sDataMng.ReadStar(1 );
         if( clearStart1 == 1 ){
             textGameStart1.setTextColor(getResources().getColor(R.color.orenge));
@@ -304,8 +309,13 @@ public class MainActivity extends AppCompatActivity {
 						.setView(editView)
 						.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int whichButton) {
-								sDataMng.WriteUserName(editView.getText().toString());
-								textUserName.setText(editView.getText().toString());
+								if (editView.getText().length() > 0) {
+									String userName = editView.getText().toString();
+									sDataMng.WriteUserName(userName);
+									textUserName.setText(userName);
+									// 全Fbのユーザー名変更
+									sDataMng.SaveFbAllUserName(userName);
+								}
 							}
 						})
 						.setNegativeButton("キャンセル", new DialogInterface.OnClickListener() {
@@ -319,10 +329,9 @@ public class MainActivity extends AppCompatActivity {
 //		sDataMng.WriteUserName("test");
 //		Log.w( "AAAAA", "aaa" + sDataMng.ReadUserName());
 
-		String userName = sDataMng.ReadUserName();
-		if( userName != "" ) {
-			textUserName.setText(userName);
-		}
+		if( sDataMng.ReadUserName() != "" )  textUserName.setText(sDataMng.ReadUserName());
+		else textUserName.setText(sDataMng.ReadUserId());
+
 		/*
 		else{
 			textUserName.setText(userId);

@@ -97,29 +97,22 @@ public class RankingActivity extends FragmentActivity implements TabHost.OnTabCh
         onTabChanged("tab1");
 
         //setDatabase();
+
+		// ユーザID取得
 		String userId = sDataMng.ReadUserId();
+		// 無い場合は作成
 		if( userId == null ) userId = sDataMng.CreateUserId();
 
+		// ランダムID登録 ☆
+		//String userId = sDataMng.CreateUserId();
+/*
 		String userName = sDataMng.ReadUserName();
 		if( userName == null ) userName = "名無しさん";
 		float time = sDataMng.ReadVestTime(1);
 		String date = null;
 
-		// ターミナル登録 ☆
-		/*
-		userId = "tarminal";
-		userName = "ターミナル";
-		time = 99999.9F;
-		date = "1999-01-01 00:00:00";
-		*/
-
-		Log.w( "DEBUG_DATA", "userId " + userId);
-		Log.w( "DEBUG_DATA", "userName " + userName);
-		Log.w( "DEBUG_DATA", "time " + time);
-		sDataMng.SaveFbStarRecode(1,userId,userName,time,date );
-		sDataMng.GetFbStarRecode(1 );
-
-//		getDatabase();
+		sDataMng.SaveFbStarRecode(3,userId,userName,time,date );
+*/
 
         //////////////// Firebase ////////////////
         mAdView = (AdView) findViewById(R.id.adView);
@@ -288,7 +281,7 @@ public class RankingActivity extends FragmentActivity implements TabHost.OnTabCh
 
         if(mLastTabId != tabId){
 
-			Tab1Fragment fragment = new Tab1Fragment();
+			TabFragment fragment = new TabFragment();
 			Bundle bundle = new Bundle();
 
             FragmentTransaction fragmentTransaction

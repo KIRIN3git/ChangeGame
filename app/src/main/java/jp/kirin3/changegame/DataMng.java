@@ -1,19 +1,13 @@
 package jp.kirin3.changegame;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -22,12 +16,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
 import java.util.UUID;
 
 import static jp.kirin3.changegame.CommonMng.GetDateString;
@@ -48,12 +39,15 @@ public class DataMng{
 
 	final String sTarminal = "tarminal";
 
+	final String DEFAULT_USER_NAME = "名無しさん";
+
 	// リストデータ配列
 	public static ArrayList<User> Users = new ArrayList<User>();
 
 	private
 
 	User user;
+	private int rankNo;
 
 	static SharedPreferences sSharedData;
 
@@ -66,6 +60,8 @@ public class DataMng{
 		sSharedData = context.getSharedPreferences("DataSave", Context.MODE_PRIVATE);
 
 		sRef = FirebaseDatabase.getInstance().getReference();
+
+		rankNo = 0;
     }
 
 	public DataMng(Context context,ListView listView) {
@@ -75,6 +71,8 @@ public class DataMng{
 		sRef = FirebaseDatabase.getInstance().getReference();
 
 		sListView = listView;
+
+		rankNo = 0;
 	}
 
 	public String ReadUserId() {
@@ -107,7 +105,8 @@ public class DataMng{
 	public void WriteUserName( String userName ) {
 
 		SharedPreferences.Editor editor = sSharedData.edit();
-		editor.putString(sUserName, userName);
+		if( userName != null ) editor.putString(sUserName, userName);
+		else editor.putString(sUserName, DEFAULT_USER_NAME);
 		editor.apply();
 	}
 
@@ -166,8 +165,9 @@ public class DataMng{
 	}
 
 	public static class User {
+		public int rankingNo;
 		public String name;
-		public Float time;
+		public Double time; //float型だと誤差がでるので、DoubleでFBに保存
 		public String date;
 
 
@@ -178,7 +178,10 @@ public class DataMng{
 			name = _name;
 			BigDecimal bd = new BigDecimal(_time);
 			bd = bd.setScale(1, BigDecimal.ROUND_HALF_UP);
-			time = bd.floatValue();
+			time = bd.doubleValue();
+
+
+			Log.w( "DEBUG_DATA1", "time f = " + time );
 
 			if (_date == null) {
 				date = GetDateString(1);
@@ -186,12 +189,18 @@ public class DataMng{
 			else date = _date;
 
 		}
+		public void setRankingNo( int _rankingNo ){
+			rankingNo = _rankingNo;
+		}
 
+		public Integer getRankingNo(){
+			return rankingNo;
+		}
 		public String getName(){
 			return name;
 		}
-		public Float getTime(){
-			return time;
+		public Double getTime(){
+			return (double)time;
 		}
 		public String getDate(){
 			return date;
@@ -203,29 +212,38 @@ public class DataMng{
 		sRef.child(sFbStar[starNum]).child(userId).setValue(user);
 	}
 
+
+	/**
+	 * Firebaseリアルタイムデータベースから値を取得
+	 *
+	 * @param starNum : 難易度☆の数
+	 */
 	public User GetFbStarRecode( int starNum ){
 		final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-		DatabaseReference ref = database.getReference(sFbStar[starNum]);
-		ref.orderByChild("user_id").limitToFirst(10).addChildEventListener(new ChildEventListener() {
+		final DatabaseReference ref = database.getReference(sFbStar[starNum]);
+		ref.orderByChild("time").limitToFirst(100).addChildEventListener(new ChildEventListener() {
 			@Override
 			public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
 				User user = dataSnapshot.getValue(User.class);
+				rankNo++;
+				user.setRankingNo(rankNo);
+				Log.w( "DEBUG_DATA2", "rankNo = " + rankNo );
 
 				Log.w( "DEBUG_DATA", "aaaaaaaaaaaaaaaaaaaaaaaaaaaa DataSnapshot " );
-
 				Log.w( "DEBUG_DATA", "prevChildKey " + prevChildKey );
 				Log.w( "DEBUG_DATA", "dataSnapshot.getKey " + dataSnapshot.getKey() );
 				Log.w( "DEBUG_DATA", "user.name " + user.name);
 				Log.w( "DEBUG_DATA", "user.time " + user.time);
 				Log.w( "DEBUG_DATA", "user.date " + user.date);
 
-				Users.add( user );
-
 				if( dataSnapshot.getKey().equals(sTarminal)){
 					UserAdapter adapter = new UserAdapter(mContext, 0, Users);
 					sListView.setAdapter(adapter);
 //					Tab1Fragment.setAdapter();
+				}
+				else {
+					Users.add(user);
 				}
 				//				DataMng.this.user = user;
 			}
@@ -254,35 +272,42 @@ public class DataMng{
 		return user;
 	}
 
+	/*
+	 * FireBaseに保存してある全ての記録の名前を変更
+	 * @param name : ユーザー名
+	 */
+	public void SaveFbAllUserName( String name ){
+		String userId = ReadUserId();
+		float vestTime;
+		vestTime = ReadVestTime(1);
+		if( vestTime > 0.1 ) SaveFbStarRecode( 1,userId,name,vestTime,null );
+		vestTime = ReadVestTime(2);
+		if( vestTime > 0.1 ) SaveFbStarRecode( 2,userId,name,vestTime,null );
+		vestTime = ReadVestTime(3);
+		if( vestTime > 0.1 ) SaveFbStarRecode( 3,userId,name,vestTime,null );
+		vestTime = ReadVestTime(4);
+		if( vestTime > 0.1 ) SaveFbStarRecode( 4,userId,name,vestTime,null );
+		vestTime = ReadVestTime(5);
+		if( vestTime > 0.1 ) SaveFbStarRecode( 5,userId,name,vestTime,null );
 
-	public User GetFbStarRecode2( int starNum ){
-		final FirebaseDatabase database = FirebaseDatabase.getInstance();
-
-		DatabaseReference ref = database.getReference(sFbStar[starNum]);
-		ref.orderByChild("user_id").addListenerForSingleValueEvent(new ValueEventListener() {
-			@Override
-			public void onDataChange(DataSnapshot dataSnapshot) {
-
-				Log.w( "DEBUG_DATA", "bbbbbbbbb onDataChange " );
-
-				// Get user value
-				User user = dataSnapshot.getValue(User.class);
-				Log.w( "DEBUG_DATA", "user.name " + user.name);
-				Log.w( "DEBUG_DATA", "user.time " + user.time);
-				Log.w( "DEBUG_DATA", "user.date " + user.date);
-				// ...
-			}
-
-			@Override
-			public void onCancelled(DatabaseError databaseError) {
-				Log.w("DEBUG_DATA", "bbb getUser:onCancelled", databaseError.toException());
-			}
-		});
-
-		return user;
 	}
 
+	public void SaveAllTerminal(){
+		String userId = "tarminal";
+		String userName = "ターミナル";
+		Float time = 99999.9F;
+		String date = "1999-01-01 00:00:00";
 
+		SaveFbStarRecode(1,userId,userName,time,date );
+		SaveFbStarRecode(2,userId,userName,time,date );
+		SaveFbStarRecode(3,userId,userName,time,date );
+		SaveFbStarRecode(4,userId,userName,time,date );
+		SaveFbStarRecode(5,userId,userName,time,date );
+	}
+
+	/**
+	 * ユーザーリストアダプター
+	 */
 	public class UserAdapter extends ArrayAdapter<User> {
 
 		private LayoutInflater layoutInflater;
@@ -307,18 +332,19 @@ public class DataMng{
 			TextView TextUserRank = (TextView) convertView.findViewById(R.id.userRank);
 			ImageView ImageUserRank = (ImageView) convertView.findViewById(R.id.rankImg);
 
-			int ranking = position + 1;
 			User user = (User) getItem(position);
 			// ランキング1,2,3は画像を表示
-			if( ranking == 1 || ranking == 2 || ranking == 3 ){
+			if( user.getRankingNo() == 1 || user.getRankingNo() == 2 || user.getRankingNo() == 3 ){
 				ImageUserRank.setVisibility(View.VISIBLE);
-				if( ranking == 1 ) ImageUserRank.setImageResource(R.drawable.rank1);
-				if( ranking == 2 ) ImageUserRank.setImageResource(R.drawable.rank2);
-				if( ranking == 3 ) ImageUserRank.setImageResource(R.drawable.rank3);
+				TextUserRank.setVisibility(View.GONE);
+				if( user.getRankingNo() == 1 ) ImageUserRank.setImageResource(R.drawable.rank1);
+				if( user.getRankingNo() == 2 ) ImageUserRank.setImageResource(R.drawable.rank2);
+				if( user.getRankingNo() == 3 ) ImageUserRank.setImageResource(R.drawable.rank3);
 			}
 			else{
+				ImageUserRank.setVisibility(View.GONE);
 				TextUserRank.setVisibility(View.VISIBLE);
-				((TextView) convertView.findViewById(R.id.userRank)).setText(String.valueOf(ranking));
+				((TextView) convertView.findViewById(R.id.userRank)).setText(String.valueOf(user.getRankingNo()));
 			}
 
 			((TextView) convertView.findViewById(R.id.userName)).setText(user.getName());

@@ -69,8 +69,27 @@ public class ClearActivity extends AppCompatActivity {
         sTextVestGameTime.setText(String.valueOf(sVestGameTime));
         sTextGameTime.setText(String.valueOf(sGameTime));
 
+        // ベストタイム更新時
         if( sVestGameTimeFlg ){
-            sTextVestGameTimeMsg.setVisibility(View.VISIBLE);
+            // ベストタイムメッセージ表示
+        	sTextVestGameTimeMsg.setVisibility(View.VISIBLE);
+
+            // ----------- ベストタイムをFBに記録 -----------
+			DataMng sDataMng = new DataMng(this );
+
+			// ユーザID取得
+			String userId = sDataMng.ReadUserId();
+			// 無い場合は作成
+			if( userId == null ) userId = sDataMng.CreateUserId();
+
+			// ユーザー名
+			String userName = sDataMng.ReadUserName();
+			if( userName == null ) userName = userId; // 名前がない場合はUserId
+			float time = sDataMng.ReadVestTime(sStarNum);
+			String date = null;
+
+			sDataMng.SaveFbStarRecode(sStarNum,userId,userName,time,date );
+			// -----------------------------------------------
         }
 
         // ・ボタン設定

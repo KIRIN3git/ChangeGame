@@ -3,14 +3,11 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TAB1の内容（フラグメント）"/>
     <ListView
         android:id="@+id/userListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="60dp"
         android:divider="#000000"
         android:dividerHeight="1dp"/>
 </LinearLayout>
