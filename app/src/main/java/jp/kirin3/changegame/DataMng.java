@@ -355,7 +355,7 @@ public class DataMng{
 			((TextView) convertView.findViewById(R.id.userName)).setText(user.getName());
 			((TextView) convertView.findViewById(R.id.userTime)).setText(user.getTime().toString() + "s");
 
-			if( sUserId.equals(useraaa))
+//			if( sUserId.equals(useraaa))
 
 			return convertView;
 		}
