@@ -6,6 +6,8 @@
     <color name="centerRed">#FF0C41</color>
 
     <color name="blue">#0044ff</color>
+    <color name="blue2">#0040FF</color>
+    <color name="blue3">#0101DF</color>
     <color name="orenge">#ffa500</color>
     <color name="pink">#FFC0CB</color>
     <color name="black">#000000</color>

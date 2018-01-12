@@ -31,13 +31,13 @@ public class DataMng{
 
 	static Context mContext;
 
-	final String sUserId = "UserId";
-	final String sUserName = "UserName";
-	final String sFbStar[] = { "","star1","star2","star3","star4","star5" };
-	final String sClearStar[] = { "","ClearStar1","ClearStar2","ClearStar3","ClearStar4","ClearStar5" };
-	final String sClearGameTime[] = { "","VestGameTime1","VestGameTime2","VestGameTime3","VestGameTime4","VestGameTime5" };
+	final String USER_ID = "UserId";
+	final String USER_NAME = "UserName";
+	final String FB_START[] = { "","star1","star2","star3","star4","star5" };
+	final String CLEAR_NAME[] = { "","ClearStar1","ClearStar2","ClearStar3","ClearStar4","ClearStar5" };
+	final String CLEAR_GAME_TIME[] = { "","VestGameTime1","VestGameTime2","VestGameTime3","VestGameTime4","VestGameTime5" };
 
-	final String sTarminal = "tarminal";
+	final String TARMINAL = "tarminal";
 
 	final String DEFAULT_USER_NAME = "名無しさん";
 
@@ -48,6 +48,8 @@ public class DataMng{
 
 	User user;
 	private int rankNo;
+	// ユーザーのID
+	//public static String sUserId;
 
 	static SharedPreferences sSharedData;
 
@@ -77,7 +79,7 @@ public class DataMng{
 
 	public String ReadUserId() {
 
-		String userId = sSharedData.getString(sUserId, "");
+		String userId = sSharedData.getString(USER_ID, "");
 
 		return userId;
 	}
@@ -85,7 +87,7 @@ public class DataMng{
 	public void WriteUserId( String userId ) {
 
 		SharedPreferences.Editor editor = sSharedData.edit();
-		editor.putString(sUserId, userId);
+		editor.putString(USER_ID, userId);
 		editor.apply();
 	}
 
@@ -97,7 +99,7 @@ public class DataMng{
 
 	public String ReadUserName() {
 
-		String userName = sSharedData.getString(sUserName, "");
+		String userName = sSharedData.getString(USER_NAME, "");
 
 		return userName;
 	}
@@ -105,43 +107,43 @@ public class DataMng{
 	public void WriteUserName( String userName ) {
 
 		SharedPreferences.Editor editor = sSharedData.edit();
-		if( userName != null ) editor.putString(sUserName, userName);
-		else editor.putString(sUserName, DEFAULT_USER_NAME);
+		if( userName != null ) editor.putString(USER_NAME, userName);
+		else editor.putString(USER_NAME, DEFAULT_USER_NAME);
 		editor.apply();
 	}
 
 	public Float ReadVestTime( int starNum) {
-		if (starNum < 1 || starNum > sClearStar.length ) return 0.0F;
+		if (starNum < 1 || starNum > CLEAR_NAME.length ) return 0.0F;
 
 		float vestTime;
-		vestTime = sSharedData.getFloat(sClearGameTime[starNum], 0);
+		vestTime = sSharedData.getFloat(CLEAR_GAME_TIME[starNum], 0);
 
 		return vestTime;
 	}
 
 	public void WriteVestTime( int starNum,float vestTime ) {
-		if (starNum < 1 || starNum > sClearStar.length ) return;
+		if (starNum < 1 || starNum > CLEAR_NAME.length ) return;
 
 		SharedPreferences.Editor editor = sSharedData.edit();
-		editor.putFloat(sClearGameTime[starNum], vestTime);
+		editor.putFloat(CLEAR_GAME_TIME[starNum], vestTime);
 		editor.apply();
 	}
 
 	// 0:未クリア,1:クリア済み
 	public Integer ReadStar( int starNum) {
-		if (starNum < 1 || starNum > sClearStar.length ) return 0;
+		if (starNum < 1 || starNum > CLEAR_NAME.length ) return 0;
 
 		int ok;
-		ok = sSharedData.getInt(sClearStar[starNum], 0);
+		ok = sSharedData.getInt(CLEAR_NAME[starNum], 0);
 
 		return ok;
 	}
 
 	public void WriteStar( int starNum ) {
-		if (starNum < 1 || starNum > sClearStar.length ) return;
+		if (starNum < 1 || starNum > CLEAR_NAME.length ) return;
 
 		SharedPreferences.Editor editor = sSharedData.edit();
-		editor.putInt(sClearStar[starNum], 1);
+		editor.putInt(CLEAR_NAME[starNum], 1);
 		editor.apply();
 
 		return;
@@ -152,7 +154,7 @@ public class DataMng{
 	  0:更新ならず,1:更新
 	 */
 	public boolean UpdateVestTime( int starNum,float time ){
-		if (starNum < 1 || starNum > sClearStar.length ) return false;
+		if (starNum < 1 || starNum > CLEAR_NAME.length ) return false;
 
 		float vestGameTime = ReadVestTime(starNum);
 
@@ -209,7 +211,7 @@ public class DataMng{
 
 	public void SaveFbStarRecode( int starNum,String userId,String userName,float time,String date ){
 		User user = new User( userName,time,date );
-		sRef.child(sFbStar[starNum]).child(userId).setValue(user);
+		sRef.child(FB_START[starNum]).child(userId).setValue(user);
 	}
 
 
@@ -221,8 +223,8 @@ public class DataMng{
 	public User GetFbStarRecode( int starNum ){
 		final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-		final DatabaseReference ref = database.getReference(sFbStar[starNum]);
-		ref.orderByChild("time").limitToFirst(100).addChildEventListener(new ChildEventListener() {
+		final DatabaseReference ref = database.getReference(FB_START[starNum]);
+		ref.orderByChild("time").limitToFirst(101).addChildEventListener(new ChildEventListener() {
 			@Override
 			public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
 				User user = dataSnapshot.getValue(User.class);
@@ -237,8 +239,9 @@ public class DataMng{
 				Log.w( "DEBUG_DATA", "user.time " + user.time);
 				Log.w( "DEBUG_DATA", "user.date " + user.date);
 
-				if( dataSnapshot.getKey().equals(sTarminal)){
-					UserAdapter adapter = new UserAdapter(mContext, 0, Users);
+				if( dataSnapshot.getKey().equals(TARMINAL)){
+
+					UserAdapter adapter = new UserAdapter(mContext, 0, Users,ReadUserId());
 					sListView.setAdapter(adapter);
 //					Tab1Fragment.setAdapter();
 				}
@@ -311,8 +314,10 @@ public class DataMng{
 	public class UserAdapter extends ArrayAdapter<User> {
 
 		private LayoutInflater layoutInflater;
-		public UserAdapter(Context c, int id, ArrayList<User> users) {
+		String sUserId;
+		public UserAdapter(Context c, int id, ArrayList<User> users,String userid) {
 			super(c, id, users);
+			sUserId = userid;
 			this.layoutInflater = (LayoutInflater) c.getSystemService(
 					Context.LAYOUT_INFLATER_SERVICE
 			);
@@ -344,11 +349,13 @@ public class DataMng{
 			else{
 				ImageUserRank.setVisibility(View.GONE);
 				TextUserRank.setVisibility(View.VISIBLE);
-				((TextView) convertView.findViewById(R.id.userRank)).setText(String.valueOf(user.getRankingNo()));
+				((TextView) convertView.findViewById(R.id.userRank)).setText(String.valueOf(user.getRankingNo()) + "位");
 			}
 
 			((TextView) convertView.findViewById(R.id.userName)).setText(user.getName());
-			((TextView) convertView.findViewById(R.id.userTime)).setText(user.getTime().toString());
+			((TextView) convertView.findViewById(R.id.userTime)).setText(user.getTime().toString() + "s");
+
+			if( sUserId.equals(useraaa))
 
 			return convertView;
 		}

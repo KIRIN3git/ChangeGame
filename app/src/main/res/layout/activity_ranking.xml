@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center_horizontal"
-    android:background="@color/littleGray"
     tools:context="jp.kirin3.changegame.MainActivity">
 
     <TabHost
@@ -38,11 +37,6 @@
                 android:layout_weight="1"/>
         </LinearLayout>
     </TabHost>
-
-
-
-
-
 
     <RelativeLayout
         android:visibility = "visible"
