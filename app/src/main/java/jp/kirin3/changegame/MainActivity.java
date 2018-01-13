@@ -110,9 +110,6 @@ public class MainActivity extends AppCompatActivity {
 		// ・テキスト設定
 		setUserInfo();
 
-
-
-
         // addMob設定
         MobileAds.initialize(this,getResources().getString(R.string.admob_app_id) );
 
@@ -304,12 +301,12 @@ public class MainActivity extends AppCompatActivity {
 				final EditText editView = new EditText(MainActivity.this);
 				new AlertDialog.Builder(MainActivity.this)
 						.setIcon(android.R.drawable.ic_dialog_info)
-						.setTitle("テキスト入力ダイアログ")
+						.setTitle("名前を変更（制限８文字）")
 						//setViewにてビューを設定します。
 						.setView(editView)
 						.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int whichButton) {
-								if (editView.getText().length() > 0) {
+								if (editView.getText().length() > 0 && editView.getText().length() < 9) {
 									String userName = editView.getText().toString();
 									sDataMng.WriteUserName(userName);
 									textUserName.setText(userName);
@@ -330,7 +327,11 @@ public class MainActivity extends AppCompatActivity {
 //		Log.w( "AAAAA", "aaa" + sDataMng.ReadUserName());
 
 		if( sDataMng.ReadUserName() != "" )  textUserName.setText(sDataMng.ReadUserName());
-		else textUserName.setText(sDataMng.ReadUserId());
+		else{
+		    sDataMng.WriteUserName(null);
+		    textUserName.setText(sDataMng.ReadUserId());
+            textUserName.setText(sDataMng.DEFAULT_USER_NAME);
+        }
 
 		/*
 		else{

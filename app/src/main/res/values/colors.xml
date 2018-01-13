@@ -20,5 +20,7 @@
     <color name="pBlue">#d9fbff</color>
     <color name="pPurple">#ffe8ff</color>
     <color name="pPurple2">#ffe8ff</color>
+    <color name="pRed">#ffe8f8</color>
+
 
 </resources>

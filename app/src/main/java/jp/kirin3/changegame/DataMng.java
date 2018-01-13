@@ -2,12 +2,15 @@ package jp.kirin3.changegame;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -38,6 +41,9 @@ public class DataMng{
 	final String CLEAR_GAME_TIME[] = { "","VestGameTime1","VestGameTime2","VestGameTime3","VestGameTime4","VestGameTime5" };
 
 	final String TARMINAL = "tarminal";
+
+	// ランキングの最大表示数
+	final int OUTPUT_RANKING_NUM = 100;
 
 	final String DEFAULT_USER_NAME = "名無しさん";
 
@@ -171,12 +177,13 @@ public class DataMng{
 		public String name;
 		public Double time; //float型だと誤差がでるので、DoubleでFBに保存
 		public String date;
+		public String userId;
 
 
 		public User() {
 
 		}
-		public User(String _name, Float _time, String _date) {
+		public User(String _name, Float _time, String _date, String _userid) {
 			name = _name;
 			BigDecimal bd = new BigDecimal(_time);
 			bd = bd.setScale(1, BigDecimal.ROUND_HALF_UP);
@@ -189,6 +196,8 @@ public class DataMng{
 				date = GetDateString(1);
 			}
 			else date = _date;
+
+			userId = _userid;
 
 		}
 		public void setRankingNo( int _rankingNo ){
@@ -207,10 +216,13 @@ public class DataMng{
 		public String getDate(){
 			return date;
 		}
+		public String getUserId(){
+			return userId;
+		}
 	}
 
 	public void SaveFbStarRecode( int starNum,String userId,String userName,float time,String date ){
-		User user = new User( userName,time,date );
+		User user = new User( userName,time,date,userId );
 		sRef.child(FB_START[starNum]).child(userId).setValue(user);
 	}
 
@@ -224,7 +236,7 @@ public class DataMng{
 		final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
 		final DatabaseReference ref = database.getReference(FB_START[starNum]);
-		ref.orderByChild("time").limitToFirst(101).addChildEventListener(new ChildEventListener() {
+		ref.orderByChild("time").limitToFirst(OUTPUT_RANKING_NUM + 1).addChildEventListener(new ChildEventListener() {
 			@Override
 			public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
 				User user = dataSnapshot.getValue(User.class);
@@ -238,9 +250,9 @@ public class DataMng{
 				Log.w( "DEBUG_DATA", "user.name " + user.name);
 				Log.w( "DEBUG_DATA", "user.time " + user.time);
 				Log.w( "DEBUG_DATA", "user.date " + user.date);
+                Log.w( "DEBUG_DATA", "user.userid " + user.userId);
 
 				if( dataSnapshot.getKey().equals(TARMINAL)){
-
 					UserAdapter adapter = new UserAdapter(mContext, 0, Users,ReadUserId());
 					sListView.setAdapter(adapter);
 //					Tab1Fragment.setAdapter();
@@ -355,9 +367,16 @@ public class DataMng{
 			((TextView) convertView.findViewById(R.id.userName)).setText(user.getName());
 			((TextView) convertView.findViewById(R.id.userTime)).setText(user.getTime().toString() + "s");
 
-//			if( sUserId.equals(useraaa))
+			Log.w( "DEBUG_DATA", "user.getUserId() " + user.getUserId());
+            Log.w( "DEBUG_DATA", "ReadUserId() " + ReadUserId());
 
-			return convertView;
+            int color = mContext.getResources().getColor(R.color.pRed);
+
+			if( user.getUserId() != null && ReadUserId() != null && user.getUserId().equals(ReadUserId()) ){
+                ((LinearLayout) convertView.findViewById(R.id.user_list_layout)).setBackgroundColor(color);
+            }
+
+            return convertView;
 		}
 	}
 }
