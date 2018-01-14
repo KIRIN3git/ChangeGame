@@ -14,7 +14,6 @@ import android.widget.ListView;
 
 public class TabFragment extends Fragment {
 
-
 	static ListView userListView;
 	static DataMng sDataMng;
 	static int sStarNum;
@@ -23,10 +22,9 @@ public class TabFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		int si = getArguments().getInt("STAR_NUM");
-		Log.i("MyFragment : ", "渡された値 = " + Integer.toString(si));
-		sStarNum = si;
-
+		int sn = getArguments().getInt("STAR_NUM");
+		Log.i("MyFragment : ", "渡された値 = " + Integer.toString(sn));
+		sStarNum = sn;
 	}
 
 	@Override
@@ -39,20 +37,9 @@ public class TabFragment extends Fragment {
 		userListView = (ListView) v.findViewById(R.id.userListView);
 		sDataMng = new DataMng(getContext(),userListView );
 
-		Log.w( "DEBUG_DATA", "11111111111111122222222222222" );
-
 		sDataMng.Users.clear();
 		sDataMng.GetFbStarRecode(sStarNum );
 
 		return v;
-	}
-
-	static public void setAdapter(){
-
-	//	DataMng.UserAdapter adapter = new DataMng.UserAdapter(this, 0, users);
-
-	//	userListView.setAdapter(adapter);
-
-		return;
 	}
 }

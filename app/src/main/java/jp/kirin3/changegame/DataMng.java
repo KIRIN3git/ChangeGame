@@ -2,15 +2,11 @@ package jp.kirin3.changegame;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
-import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -44,7 +40,7 @@ public class DataMng{
 
 	// ランキングの最大表示数
 	final int OUTPUT_RANKING_NUM = 100;
-
+    // 標準のユーザー名
 	final String DEFAULT_USER_NAME = "名無しさん";
 
 	// リストデータ配列
@@ -54,8 +50,6 @@ public class DataMng{
 
 	User user;
 	private int rankNo;
-	// ユーザーのID
-	//public static String sUserId;
 
 	static SharedPreferences sSharedData;
 
@@ -179,7 +173,6 @@ public class DataMng{
 		public String date;
 		public String userId;
 
-
 		public User() {
 
 		}
@@ -188,9 +181,6 @@ public class DataMng{
 			BigDecimal bd = new BigDecimal(_time);
 			bd = bd.setScale(1, BigDecimal.ROUND_HALF_UP);
 			time = bd.doubleValue();
-
-
-			Log.w( "DEBUG_DATA1", "time f = " + time );
 
 			if (_date == null) {
 				date = GetDateString(1);
@@ -229,7 +219,8 @@ public class DataMng{
 
 	/**
 	 * Firebaseリアルタイムデータベースから値を取得
-	 *
+	 * ConstractにListViewを設定している場合は、表示も行う
+     *
 	 * @param starNum : 難易度☆の数
 	 */
 	public User GetFbStarRecode( int starNum ){
@@ -242,16 +233,16 @@ public class DataMng{
 				User user = dataSnapshot.getValue(User.class);
 				rankNo++;
 				user.setRankingNo(rankNo);
-				Log.w( "DEBUG_DATA2", "rankNo = " + rankNo );
-
-				Log.w( "DEBUG_DATA", "aaaaaaaaaaaaaaaaaaaaaaaaaaaa DataSnapshot " );
+				/*
 				Log.w( "DEBUG_DATA", "prevChildKey " + prevChildKey );
 				Log.w( "DEBUG_DATA", "dataSnapshot.getKey " + dataSnapshot.getKey() );
 				Log.w( "DEBUG_DATA", "user.name " + user.name);
 				Log.w( "DEBUG_DATA", "user.time " + user.time);
 				Log.w( "DEBUG_DATA", "user.date " + user.date);
                 Log.w( "DEBUG_DATA", "user.userid " + user.userId);
+                */
 
+                // 終端データを受け取ったら、アダプターに送信
 				if( dataSnapshot.getKey().equals(TARMINAL)){
 					UserAdapter adapter = new UserAdapter(mContext, 0, Users,ReadUserId());
 					sListView.setAdapter(adapter);
@@ -260,27 +251,22 @@ public class DataMng{
 				else {
 					Users.add(user);
 				}
-				//				DataMng.this.user = user;
 			}
 
 			@Override
 			public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-				Log.w( "DEBUG_DATA", "aaa onChildChanged " );
 			}
 
 			@Override
 			public void onChildRemoved(DataSnapshot dataSnapshot) {
-				Log.w( "DEBUG_DATA", "aaa onChildRemoved " );
 			}
 
 			@Override
 			public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-				Log.w( "DEBUG_DATA", "aaa onChildMoved " );
 			}
 
 			@Override
 			public void onCancelled(DatabaseError databaseError) {
-				Log.w( "DEBUG_DATA", "aaa onCancelled " );
 			}
 		});
 
@@ -367,14 +353,13 @@ public class DataMng{
 			((TextView) convertView.findViewById(R.id.userName)).setText(user.getName());
 			((TextView) convertView.findViewById(R.id.userTime)).setText(user.getTime().toString() + "s");
 
-			Log.w( "DEBUG_DATA", "user.getUserId() " + user.getUserId());
-            Log.w( "DEBUG_DATA", "ReadUserId() " + ReadUserId());
-
-            int color = mContext.getResources().getColor(R.color.pRed);
+            int colorRed = mContext.getResources().getColor(R.color.pRed);
+            int colorWhite = mContext.getResources().getColor(R.color.white);
 
 			if( user.getUserId() != null && ReadUserId() != null && user.getUserId().equals(ReadUserId()) ){
-                ((LinearLayout) convertView.findViewById(R.id.user_list_layout)).setBackgroundColor(color);
+                (convertView.findViewById(R.id.user_list_layout)).setBackgroundColor(colorRed);
             }
+            else ( convertView.findViewById(R.id.user_list_layout)).setBackgroundColor(colorWhite);
 
             return convertView;
 		}

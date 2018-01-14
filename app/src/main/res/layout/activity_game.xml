@@ -487,14 +487,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:src="@drawable/ok"
+        android:src="@drawable/mark_ok"
         android:visibility="gone" />
     <ImageView
         android:id="@+id/imageNg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:src="@drawable/ng"
+        android:src="@drawable/mark_ng"
         android:visibility="gone" />
 
     <!--
@@ -544,6 +544,20 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="@string/go_to_top"
+        android:background="@color/centerRed"
+        android:textColor="@color/white"
+        android:visibility="visible"
+        android:padding="10dp"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/buttonCheck"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="80dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/check_seikai"
         android:background="@color/centerRed"
         android:textColor="@color/white"
         android:visibility="visible"

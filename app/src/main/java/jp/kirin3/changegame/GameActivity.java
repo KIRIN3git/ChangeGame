@@ -77,6 +77,7 @@ public class GameActivity extends AppCompatActivity {
 	TextView sTextSeikaiGosenen;
 
     Button sButtonTop;
+    Button sButtonCheck;
 
     LinearLayout sLLSeikai;
 
@@ -97,6 +98,10 @@ public class GameActivity extends AppCompatActivity {
     static boolean sNowAnserFlg;
     // 正解フラグ
     static boolean sQuestionOkFlg;
+    // 不正解フラグ
+    static boolean sQuestionNgFlg;
+    // 解答チェックフラグ
+    static boolean sCheckFlg;
     // お釣り返却中フラグ
     static boolean sNowAmountFlg;
     // ゲームオーバーフラグ
@@ -165,7 +170,13 @@ public class GameActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+        sButtonCheck = (Button)findViewById(R.id.buttonCheck);
+        sButtonCheck.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                sCheckFlg = true;
+            }
+        });
 
         // Obtain the FirebaseAnalytics instance.
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
@@ -173,14 +184,12 @@ public class GameActivity extends AppCompatActivity {
         setAnalytics();
 	}
 
-
 	// 停止時
 	@Override
 	protected void onStop() {
 		super.onStop();
 		sTimer.cancel();
 		sHandler.removeCallbacksAndMessages(null);
-
 	}
 
     // 再度起動時
@@ -190,6 +199,7 @@ public class GameActivity extends AppCompatActivity {
 
         sTextSenter.setText("");
         sButtonTop.setVisibility(View.GONE);
+        sButtonCheck.setVisibility(View.GONE);
 
         // CoinMng
         sCoinMng = new CoinMng(this, sCoinLayout);
@@ -224,8 +234,6 @@ public class GameActivity extends AppCompatActivity {
         answer();
 
         mainGame();
-
-
     }
 
     private void setAnalytics(){
@@ -255,9 +263,6 @@ public class GameActivity extends AppCompatActivity {
 
 
 		if (QuestionMng.sAnswerCoinNum != null) {
-
-            sLLSeikai.setVisibility(View.VISIBLE);
-
 			sTextSeikaiIchien.setText(Integer.toString(QuestionMng.sAnswerCoinNum.get("1")));
 			if( QuestionMng.sAnswerCoinNum.get("1") > 0 ) sTextSeikaiIchien.setTextColor(getResources().getColor(R.color.orenge));
 			else  sTextSeikaiIchien.setTextColor(getResources().getColor(R.color.pGreen));
@@ -284,9 +289,6 @@ public class GameActivity extends AppCompatActivity {
 			else  sTextSeikaiGosenen.setTextColor(getResources().getColor(R.color.pGreen));
 		}
 		else{
-
-            sLLSeikai.setVisibility(View.GONE);
-
 			sTextSeikaiIchien.setTextColor(getResources().getColor(R.color.pGreen));
 			sTextSeikaiGoen.setTextColor(getResources().getColor(R.color.pGreen));
 			sTextSeikaiJyuen.setTextColor(getResources().getColor(R.color.pGreen));
@@ -309,7 +311,6 @@ public class GameActivity extends AppCompatActivity {
 
                 sNowThinkingFlg = false;
                 sNowAnserFlg = true;
-
 
                 HashMap<String,Integer> allCoinNum = CoinMng.GetCoinNum(CoinMng.ALL_POSITION);
                 HashMap<String,Integer> walletCoinNum = CoinMng.GetCoinNum(CoinMng.WALLET_POSITION);
@@ -335,13 +336,17 @@ public class GameActivity extends AppCompatActivity {
                     }
 				}
 				else{ // 不正解
-                    sMemTime = sLapTime + 2;
+                    //sMemTime = sLapTime + 2;
+                    sQuestionNgFlg = true;
+                    // 正解表示
+                    sLLSeikai.setVisibility(View.VISIBLE);
+                    // 正解チェック表示
+                    sButtonCheck.setVisibility(View.VISIBLE);
 					// 正解数プラス
 					QuestionMng.sHuSeikaiNum++;
 
 				}
 				// 正解コインを表示
-
             }
         });
     }
@@ -353,6 +358,8 @@ public class GameActivity extends AppCompatActivity {
         sNowThinkingFlg = false;
         sNowAnserFlg = false;
         sQuestionOkFlg = false;
+        sQuestionNgFlg = false;
+        sCheckFlg = false;
         sNowAmountFlg = false;
         sGameOverFlg = false;
 
@@ -369,7 +376,6 @@ public class GameActivity extends AppCompatActivity {
                 });
             }
         }, GAME_MILLI_SECOND, GAME_MILLI_SECOND); // 0.1秒間隔
-
     }
 
     void roop(){
@@ -384,7 +390,6 @@ public class GameActivity extends AppCompatActivity {
         //計算にゆらぎがあるので小数点第1位で丸める
         BigDecimal bi = new BigDecimal(sLapTimeReal);
         sLapTime = bi.setScale(1, BigDecimal.ROUND_HALF_UP).floatValue();
-
 
         //出題金額
         sTextOdai.setText(Integer.toString(QuestionMng.sOdai));
@@ -401,7 +406,12 @@ public class GameActivity extends AppCompatActivity {
 
             UpdateText();
 
-            if ((sLapTime - sMemTime) > 2.0) {
+            if ( ( sQuestionOkFlg && (sLapTime - sMemTime) > 2.0 ) // 正解時に２秒待つか
+                    || ( sQuestionNgFlg && sCheckFlg ) ) { // 不正解時にチェックボタンを押したら
+                sQuestionNgFlg = false;
+                sCheckFlg = false;
+                sButtonCheck.setVisibility(View.GONE);
+                sLLSeikai.setVisibility(View.GONE);
 
                 // クリア
                 if (QuestionMng.sSeikaiNum >= QuestionMng.sClearNum) {
@@ -476,7 +486,10 @@ public class GameActivity extends AppCompatActivity {
 
 					sLLSeikai.setVisibility(View.VISIBLE);
 
+                    sButtonCheck.setVisibility(View.VISIBLE);
+
                     sQuestionOkFlg = false;
+                    sQuestionNgFlg = true;
                     sNowThinkingFlg = false;
                     sNowAnserFlg = true;
                     sMemTime = sLapTime + 2;
@@ -498,7 +511,6 @@ public class GameActivity extends AppCompatActivity {
         sTextGameTime.setText(Float.toString(sGameTime));
     }
 
-
     // 0:clear 1:not clear
     void gameClear( int mode ){
         if( mode == 1 ){
@@ -513,7 +525,6 @@ public class GameActivity extends AppCompatActivity {
 
         }
 	}
-
 
     // 端末のサイズを取得(Pointクラス px)
     private Point geViewSize() {
@@ -541,7 +552,4 @@ public class GameActivity extends AppCompatActivity {
         Point real = new Point(x, y);
 
     }
-
-
-
 }

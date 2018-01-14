@@ -29,6 +29,7 @@
     <string name="sen">　千:</string>
     <string name="gosen">五千</string>
     <string name="go_to_top">トップに戻る</string>
+    <string name="check_seikai">確認</string>
     <string name="time2">タイム:</string>
     <string name="clear">CLEAR!</string>
     <string name="vest_time_update">ベストタイム更新！</string>
@@ -43,7 +44,8 @@
     ・支払いボタンをタップすると正解（〇）、不正解（×）の判定が出ます。\n\n
     ・正解数が目標数になるとゲームクリアになります。\n\n
     ・不正解数が一定数になるとゲームオーバーになります。\n\n
-    ・前回の正解のお金の枚数が右上に表示されるので、間違えたときは確認ができます。</string>
+    ・前回の正解のお金の枚数が右上に表示されるので、間違えたときは確認ができます。\n\n
+    ・ランキングの名前を変更したい場合は、トップ画面の上部にあるユーザー名をタップしてください。</string>
 
 
     <!--

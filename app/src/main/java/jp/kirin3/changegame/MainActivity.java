@@ -7,7 +7,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +14,7 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
@@ -22,7 +22,6 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.lang.reflect.Method;
 
-import com.crashlytics.android.Crashlytics;
 import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity {
@@ -84,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
 
         sButtonManual = (Button)findViewById(R.id.buttonManial);
 		sButtonRanking = (Button)findViewById(R.id.buttonRanking);
-
 
         // ・ボタン設定
         sButtonManual.setOnClickListener(new View.OnClickListener(){
@@ -306,7 +304,10 @@ public class MainActivity extends AppCompatActivity {
 						.setView(editView)
 						.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int whichButton) {
-								if (editView.getText().length() > 0 && editView.getText().length() < 9) {
+							    String name = editView.getText().toString();
+								if (name.length() > 0
+                                        && name.length() < 9
+                                        && !name.matches(".*\n.*")) { //改行禁止
 									String userName = editView.getText().toString();
 									sDataMng.WriteUserName(userName);
 									textUserName.setText(userName);
@@ -322,9 +323,6 @@ public class MainActivity extends AppCompatActivity {
 						.show();
 			}
 		});
-
-//		sDataMng.WriteUserName("test");
-//		Log.w( "AAAAA", "aaa" + sDataMng.ReadUserName());
 
 		if( sDataMng.ReadUserName() != "" )  textUserName.setText(sDataMng.ReadUserName());
 		else{
