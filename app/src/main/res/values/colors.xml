@@ -5,6 +5,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name="centerRed">#FF0C41</color>
 
+    <color name="red">#FF4400</color>
     <color name="blue">#0044ff</color>
     <color name="blue2">#0040FF</color>
     <color name="blue3">#0101DF</color>
@@ -21,6 +22,4 @@
     <color name="pPurple">#ffe8ff</color>
     <color name="pPurple2">#ffe8ff</color>
     <color name="pRed">#ffe8f8</color>
-
-
 </resources>

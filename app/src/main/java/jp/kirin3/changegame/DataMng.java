@@ -2,6 +2,7 @@ package jp.kirin3.changegame;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +40,7 @@ public class DataMng{
 	final String TARMINAL = "tarminal";
 
 	// ランキングの最大表示数
-	final int OUTPUT_RANKING_NUM = 100;
+	final int OUTPUT_RANKING_NUM = 1000;
     // 標準のユーザー名
 	final String DEFAULT_USER_NAME = "名無しさん";
 
@@ -234,16 +235,17 @@ public class DataMng{
 				rankNo++;
 				user.setRankingNo(rankNo);
 				/*
+                Log.w( "DEBUG_DATA", "rankNo " + rankNo);
 				Log.w( "DEBUG_DATA", "prevChildKey " + prevChildKey );
 				Log.w( "DEBUG_DATA", "dataSnapshot.getKey " + dataSnapshot.getKey() );
 				Log.w( "DEBUG_DATA", "user.name " + user.name);
 				Log.w( "DEBUG_DATA", "user.time " + user.time);
 				Log.w( "DEBUG_DATA", "user.date " + user.date);
                 Log.w( "DEBUG_DATA", "user.userid " + user.userId);
-                */
+				*/
 
                 // 終端データを受け取ったら、アダプターに送信
-				if( dataSnapshot.getKey().equals(TARMINAL)){
+				if( dataSnapshot.getKey().equals(TARMINAL) || rankNo == OUTPUT_RANKING_NUM + 1 ){
 					UserAdapter adapter = new UserAdapter(mContext, 0, Users,ReadUserId());
 					sListView.setAdapter(adapter);
 //					Tab1Fragment.setAdapter();
