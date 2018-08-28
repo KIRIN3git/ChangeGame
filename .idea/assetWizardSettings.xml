@@ -8,6 +8,17 @@
             <PersistentState>
               <option name="children">
                 <map>
+                  <entry key="confirmationStep">
+                    <value>
+                      <PersistentState>
+                        <option name="values">
+                          <map>
+                            <entry key="resourceDirectory" value="debug" />
+                          </map>
+                        </option>
+                      </PersistentState>
+                    </value>
+                  </entry>
                   <entry key="imageAssetPanel">
                     <value>
                       <PersistentState>
@@ -23,7 +34,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="scalingPercent" value="54" />
+                                                <entry key="scalingPercent" value="58" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -36,6 +47,7 @@
                                       <entry key="backgroundAssetType" value="COLOR" />
                                       <entry key="backgroundColor" value="ffffff" />
                                       <entry key="foregroundImage" value="D:\Android\javaProject\ChangeGame\app\src\main\res\drawable\icon_saihu.png" />
+                                      <entry key="previewDensity" value="XXHIGH" />
                                     </map>
                                   </option>
                                 </PersistentState>

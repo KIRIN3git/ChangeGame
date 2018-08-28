@@ -23,7 +23,7 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -35,9 +35,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-crash:10.0.1'
     implementation 'com.google.firebase:firebase-database:10.0.1'
 
-    testCompile 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.12'
 
-    compile('com.crashlytics.sdk.android:crashlytics:2.7.0-SNAPSHOT@aar') {
+    implementation('com.crashlytics.sdk.android:crashlytics:2.7.0-SNAPSHOT@aar') {
         transitive = true;
     }
 
