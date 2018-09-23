@@ -39,6 +39,8 @@
                   android:screenOrientation="portrait"
                   android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
         </activity>
+
+        <meta-data android:name="google_analytics_adid_collection_enabled" android:value="false" />
     </application>
 
 </manifest>
