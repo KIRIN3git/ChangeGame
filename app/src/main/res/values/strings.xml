@@ -9,6 +9,8 @@
     <string name="sec">sec</string>
     <string name="game_manual">ゲーム説明</string>
     <string name="game_ranking">ランキング</string>
+    <string name="privacy_poricy"><u>プライバシーポリシー</u></string>
+    <string name="privacy_poricy_url">https://sites.google.com/view/kirin3-privacy-policy/</string>
     <string name="zero">0</string>
     <string name="ryokin">料金</string>
     <string name="shiharai">支払</string>

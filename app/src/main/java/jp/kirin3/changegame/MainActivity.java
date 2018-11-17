@@ -51,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
 
     TextView textUserName;
 
+    TextView textPrivacyPoricy;
+
     Button sButtonManual;
     Button sButtonRanking;
 
@@ -81,6 +83,8 @@ public class MainActivity extends AppCompatActivity {
 
         textUserName = (TextView) findViewById(R.id.textUserName);
 
+        textPrivacyPoricy = (TextView) findViewById(R.id.textPrivacyPoricy);
+
         sButtonManual = (Button)findViewById(R.id.buttonManial);
 		sButtonRanking = (Button)findViewById(R.id.buttonRanking);
 
@@ -104,6 +108,21 @@ public class MainActivity extends AppCompatActivity {
 				startActivity(intent);
 			}
 		});
+
+        textPrivacyPoricy.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                // インテントのインスタンス生成
+                Intent intent = new Intent(MainActivity.this, WebViewActivity.class);
+
+                intent.putExtra(
+                        WebViewActivity.INTENT_INPUT_URL,
+                        getApplicationContext().getString(R.string.privacy_poricy_url));
+
+                // プライバシーポリシーの起動
+                startActivity(intent);
+            }
+        });
 
 		// ・テキスト設定
 		setUserInfo();

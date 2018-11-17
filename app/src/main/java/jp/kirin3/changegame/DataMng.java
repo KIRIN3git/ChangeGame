@@ -189,8 +189,8 @@ public class DataMng{
 			else date = _date;
 
 			userId = _userid;
-
 		}
+
 		public void setRankingNo( int _rankingNo ){
 			rankingNo = _rankingNo;
 		}
